@@ -140,7 +140,7 @@ in the Manager/setuid cache call sites.
 The official v3.4.2 Manager's `scan_driver_fd()` in
 `manager/app/src/main/cpp/ksu.cc` scans `/proc/self/fd` and uses ioctl; it does
 not need the reboot handshake when `ksu_handle_setresuid()` has already
-successfully installed its authenticated Manager FD. That is a source-level
+successfully installed the FD for the UID selected by the existing identity code. That is a source-level
 candidate communication path only: package/certificate identity, fd installation
 success, close-on-exec and the ROM's ioctl filter policy remain unverified.
 The official ksud also scans inherited descriptors, then falls back to
@@ -197,3 +197,37 @@ full-build output and verifies both the production recipe and olddefconfig.
 The WSL filesystem was checked with findmnt: ext4 on /dev/sdd, not /mnt/c.
 Windows checkout was only read with git status: gen_headers_arm.bp,
 gen_headers_arm64.bp and kernel_headers.py remain staged deletions.
+
+
+## Authoritative final full build
+
+After the tests/evidence tooling commit `d95947a721fc36e0626472c96c20b3683fcbadaa`,
+the complete command was rerun through `tests/m1/run.py` under label
+`complete-audited`. Direct make exit code: **2**. Log:
+`out/m1-round2/complete-audited.log`, SHA-256
+`567e620d355b91c26290af4de41f1d26f47c7308d37aeaf0e75c052ce4bdef6e`.
+The JSON record is preserved both in out and in this directory's
+`evidence/complete-audited.json`. The first actual diagnostic in this run is
+`selinux/sepolicy.c:180:16`: assigning to `struct avtab_node *` from
+`struct flex_array`. `rules.c:54` still fails on nonexistent `policy_mutex`.
+Parallel compile ordering can put either translation unit's error first;
+`evidence/diagnostics.json` preserves the exact line/order of all emitted
+errors. Error limits prevent this from being an exhaustive diagnosis list.
+
+`vmlinux`, `Image`, `System.map` and `Module.symvers` do not exist in this
+output directory. No final-artifact hash or link PASS is asserted. Native
+`llvm-nm -u` confirms `su_mount_ns.o` still references `path_mount` and
+`kernel_umount.o` still references `path_umount`; these pending link blockers
+were not hidden with no-op implementations.
+
+USB power configuration remains `CONFIG_USB_PD=y`, `CONFIG_USB_PD_POLICY=y`,
+`CONFIG_QPNP_USB_PDPHY=y`, `CONFIG_QPNP_SMB5=y`. The original SMB5 source still
+contains `POWER_SUPPLY_PD_PPS_ACTIVE` handling and was not changed. Note that
+`CONFIG_PPS=y` is the separate pulse-per-second subsystem, NOT proof of USB
+Power Delivery PPS. Neither actual charging negotiation nor any other device
+runtime has been tested.
+
+Compact source/config/compiler/object/log hash provenance is committed as
+`evidence/provenance.json`; full logs and compiled objects remain only in out.
+The metadata snapshot commit after the audited build does not change kernel,
+KSU patch queue, configuration or tests. No push/PR/merge was performed.
