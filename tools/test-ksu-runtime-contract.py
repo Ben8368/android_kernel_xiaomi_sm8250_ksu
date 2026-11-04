@@ -55,11 +55,18 @@ with tempfile.TemporaryDirectory(prefix='ksu-contract-') as temp:
     check(layouts[0]==layouts[1],'LP64 profile sizeof/offset match: '+layouts[0])
     harness=pre+'''
 #define pr_info(...) ((void)0)
+#define KSU_APP_PROFILE_PRESERVE_UID 9999
+#define rcu_read_lock() ((void)0)
+#define rcu_read_unlock() ((void)0)
+static int allowlist_seq;
+#define read_seqcount_begin(p) (*(p))
+#define read_seqcount_retry(p,s) (*(p)!=(s))
 struct list_head { struct list_head *next; };
 struct perm_data {struct list_head list; struct app_profile profile;};
 static struct list_head allow_list;
 #define list_for_each(pos,head) for(pos=(head)->next; pos!=(head); pos=pos->next)
 #define list_entry(pos,type,member) ((type*)((char*)(pos)-offsetof(type,member)))
+#define list_for_each_entry_rcu(p,head,member) for(struct list_head *cursor=(head)->next; cursor!=(head) && ((p)=list_entry(cursor,struct perm_data,member)); cursor=cursor->next)
 '''+function(allow,'profile_valid')+'\n'+function(allow,'ksu_get_allow_list')+'''
 int main(void) {
  struct app_profile p={.version=2,.current_uid=10001,.allow_su=true};
