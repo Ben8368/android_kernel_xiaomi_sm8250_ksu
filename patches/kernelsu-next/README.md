@@ -1,0 +1,19 @@
+# KernelSU Next compatibility patch queue
+
+Base: official KernelSU-Next v3.4.2 commit
+`4c706b5938665866ebe16944a481a7b91e3396af`.
+
+The parent repository tracks that exact commit as the `KernelSU-Next`
+submodule. Kernel-internal compatibility changes stay in this queue and are
+not committed into the upstream submodule history.
+
+From the kernel repository root, replay with:
+
+```sh
+test "$(git -C KernelSU-Next rev-parse HEAD)" = 4c706b5938665866ebe16944a481a7b91e3396af
+git -C KernelSU-Next apply --check ../patches/kernelsu-next/0001-linux-4.19-compat.patch
+git -C KernelSU-Next apply ../patches/kernelsu-next/0001-linux-4.19-compat.patch
+```
+
+The queue is compile compatibility work in progress. It does not claim a
+working Seccomp reboot handshake or a Linux 4.19 SELinux policy adapter.
