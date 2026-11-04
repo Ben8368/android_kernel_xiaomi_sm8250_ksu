@@ -16,7 +16,7 @@ command=[sys.executable,str(tool),'create',str(dtbo),'--page_size=4096',*[str(p)
 print('COMMAND:',*command,flush=True);subprocess.run(command,check=True)
 with dtbo.open('rb') as f:data=f.read()
 magic,total,header_size,entry_size,count,entries_offset,page_size,version=struct.unpack_from('>8I',data)
-assert magic==0xd7b7ab1e and total==len(data) and count==12 and page_size==4096
+assert magic==0xd7b7ab1e and total<=len(data) and len(data)==((total+4095)//4096)*4096 and not any(data[total:]) and count==12 and page_size==4096
 assert total<=33554432,'BOARD_DTBOIMG_PARTITION_SIZE exceeded'
 for i,p in enumerate(overlays):
  size,offset,*_=struct.unpack_from('>8I',data,entries_offset+i*entry_size)
