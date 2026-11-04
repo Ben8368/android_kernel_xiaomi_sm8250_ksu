@@ -1,0 +1,58 @@
+--- a/kernel/selinux/rules.c
++++ b/kernel/selinux/rules.c
+@@ -1,4 +1,5 @@
+ #include <linux/uaccess.h>
++#include <linux/kernel.h>
+ #include <linux/types.h>
+ #include <linux/version.h>
+ 
+@@ -8,6 +9,7 @@
+ #include "ss/services.h"
+ #include "linux/lsm_audit.h"
+ #include "xfrm.h"
++#include "avc_ss.h"
+ 
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0)
+ #define SELINUX_POLICY_INSTEAD_SELINUX_SS
+@@ -265,13 +267,13 @@
+ 			pr_err("sepol: copy sepol_data failed.\n");
+ 			return -1;
+ 		}
+-		sepol1 = data.field_sepol1;
+-		sepol2 = data.field_sepol2;
+-		sepol3 = data.field_sepol3;
+-		sepol4 = data.field_sepol4;
+-		sepol5 = data.field_sepol5;
+-		sepol6 = data.field_sepol6;
+-		sepol7 = data.field_sepol7;
++		sepol1 = u64_to_user_ptr(data.field_sepol1);
++		sepol2 = u64_to_user_ptr(data.field_sepol2);
++		sepol3 = u64_to_user_ptr(data.field_sepol3);
++		sepol4 = u64_to_user_ptr(data.field_sepol4);
++		sepol5 = u64_to_user_ptr(data.field_sepol5);
++		sepol6 = u64_to_user_ptr(data.field_sepol6);
++		sepol7 = u64_to_user_ptr(data.field_sepol7);
+ 		cmd = data.cmd;
+ 		subcmd = data.subcmd;
+ 	}
+@@ -282,13 +284,13 @@
+ 		pr_err("sepol: copy sepol_data failed.\n");
+ 		return -1;
+ 	}
+-	sepol1 = data.field_sepol1;
+-	sepol2 = data.field_sepol2;
+-	sepol3 = data.field_sepol3;
+-	sepol4 = data.field_sepol4;
+-	sepol5 = data.field_sepol5;
+-	sepol6 = data.field_sepol6;
+-	sepol7 = data.field_sepol7;
++	sepol1 = u64_to_user_ptr(data.field_sepol1);
++	sepol2 = u64_to_user_ptr(data.field_sepol2);
++	sepol3 = u64_to_user_ptr(data.field_sepol3);
++	sepol4 = u64_to_user_ptr(data.field_sepol4);
++	sepol5 = u64_to_user_ptr(data.field_sepol5);
++	sepol6 = u64_to_user_ptr(data.field_sepol6);
++	sepol7 = u64_to_user_ptr(data.field_sepol7);
+ 	cmd = data.cmd;
+ 	subcmd = data.subcmd;
+ #endif
