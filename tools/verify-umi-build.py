@@ -44,6 +44,16 @@ assert any(x['path'].endswith('umi-sm8250-overlay.dtbo') for x in artifacts),'um
 assert any(x['path'].endswith('.dtb') for x in artifacts),'base DTB'
 ksu=root/'KernelSU-Next'
 changed=subprocess.check_output(['git','-C',str(ksu),'diff','--name-only'],text=True).splitlines()
+core=(ksu/'kernel/core_hook.c').read_text()
+for forbidden in ['seccomp.mode = 0','seccomp.filter = NULL','disable_seccomp(', 'ext4_unregister_sysfs(']:
+ assert forbidden not in core,forbidden
+rules=(ksu/'kernel/selinux/rules.c').read_text()
+assert 'ksu_permissive(db, KERNEL_SU_DOMAIN)' not in rules,'su domain made permissive'
+for rel in changed:
+ object_path=out/'drivers/kernelsu'/str(pathlib.Path(rel).relative_to('kernel')).replace('.c','.o')
+ if rel.endswith('.c'):
+  assert object_path.exists() and object_path.stat().st_mtime_ns>=(ksu/rel).stat().st_mtime_ns,'object older than source: '+rel
+
 protected=['kernel/seccomp.c','include/linux/seccomp.h','fs/namespace.c','include/linux/mount.h','security/selinux']
 assert not subprocess.check_output(['git','-C',str(root),'diff','1708fc0888f13780183482dbeb31329202311889','--',*protected]),'protected native source changed'
 build_heads=re.findall(r'^([0-9a-f]{40})$',(out/'build.log').read_text(),re.MULTILINE)
