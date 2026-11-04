@@ -85,3 +85,115 @@ notify, fsnotify callback prototype/mark teardown, missing filter_count, and
 schema mismatch is the remaining hard compile blocker. Manager identity,
 multi-user/UID reuse, persistence atomicity, 32-bit/execveat, credential commit
 failure handling, and runtime CFI/SELinux/Seccomp remain M2 safety blockers.
+
+
+## Additional direct verification (2026-11-04)
+
+`tests/m1/run.py` captures the direct child return code without shell pipelines,
+refuses to overwrite evidence, and writes command, cwd, compiler SHA, source HEAD,
+submodule diff SHA, patch SHA, config SHA and log SHA to a JSON record in
+`out/m1-round2`. Earlier `targeted-final.exit` and `targeted-final2.exit`
+were discovered to have invalid shell captures (`0` despite make Error 2).
+They are retained as `.exit.invalid-shell-capture`, not counted as PASS.
+The earlier `olddefconfig` shell wrapper failed after make had returned; use
+`olddefconfig-final.exit` captured directly in Python instead.
+
+Verified records:
+
+- `clean-replay-v2.json`: exit 0, a fresh archive of the official commit plus
+  the complete queue was compared with the live submodule: 438 regular files
+  identical. First replay test failed because git apply inherited the parent
+  repository root; the test was fixed to initialize an isolated repository.
+  Both failed and successful logs remain preserved.
+- `objects-direct.json`: exit 0; 9 KSU translation units plus native seccomp
+  recompiled using preserved Kbuild command lines. Every command retains
+  `-flto=thin` and `-fsanitize=cfi`. Sources, commands, outputs and individual
+  return codes: `out/m1-round2/objects-direct-v1/results.json`.
+- `host-semantics.json`: exit 0; extracted actual clone/dedupe/copy callbacks,
+  4.19 cache branch and native seccomp detach helper compiled/run under host
+  GCC with AddressSanitizer and UBSan. Source/output hashes are logged.
+  These use mocked files/tasks and do not prove real FD lifetimes or races.
+
+Compiler executable SHA-256:
+`b50deb7c48633d03c02b15b6508d79768027e80422265d7a4a7f2f13d2f01d97`.
+
+The downstream helper is built-in-only validated (`CONFIG_KSU=y`); no KSU LKM
+loading, unloading or module export compatibility has been validated.
+The upstream 786f73e6 mark-free fix is adapted via native 4.19
+`fsnotify_destroy_group()`, which drains delayed mark free/SRCU itself.
+Native detach already drops its group-list reference, so no additional
+`freeing_mark` reference drop is installed. Queued task_work callback lifetime
+and all observer allocation/registration rollback paths still need kernel
+fault-injection tests. A failed task_work enqueue no longer scans inline while
+holding fsnotify/rename locks; it warns instead. Stale Manager identity handling
+on that failure is explicitly NOT established as fail-closed.
+
+## Seccomp communication boundary
+
+The native ARM64 `syscall_trace_enter()` in `arch/arm64/kernel/ptrace.c`
+calls `secure_computing(NULL)` before `trace_sys_enter`. A filter denial of
+`reboot` therefore prevents both the syscall trace dispatcher and the reboot
+kprobe handler from being reached. Returning `-EOPNOTSUPP` from the cache API
+does not fix that path and is not a communication PASS. No filter is removed
+in the Manager/setuid cache call sites.
+
+The official v3.4.2 Manager's `scan_driver_fd()` in
+`manager/app/src/main/cpp/ksu.cc` scans `/proc/self/fd` and uses ioctl; it does
+not need the reboot handshake when `ksu_handle_setresuid()` has already
+successfully installed its authenticated Manager FD. That is a source-level
+candidate communication path only: package/certificate identity, fd installation
+success, close-on-exec and the ROM's ioctl filter policy remain unverified.
+The official ksud also scans inherited descriptors, then falls back to
+`SYS_reboot` if none exists. A filtered App without a valid inherited/session
+FD still has a blocked path. Do not broaden filters for all Apps to solve it.
+The native Seccomp helper is only called after the existing authorized root
+profile credential commit; it cannot rescue the earlier denied handshake.
+No changes were made to userspace protocol headers or UAPI version constants.
+
+## Further link blockers already identified
+
+Both `path_mount` and `path_umount` are referenced by KSU but are not defined
+in the target kernel. The include correction in su_mount_ns only resolves a
+compile error, not these linkage/API semantics. The target has do_mount and
+ksys_umount with user-path lookup, security hooks, namespace ownership checks,
+and mount/path reference consumption; casting kernel strings to user pointers
+or omitting these checks is not an acceptable shim. These are mandatory future
+link/namespace tasks alongside SELinux, not silently disabled features.
+No vmlinux link has been reached, so further undefined symbols may follow.
+
+## Required M2 safety gates (not completed)
+
+1. Manager certificate and installation identity; fail closed on refresh failure.
+2. UID reuse, uninstall/reinstall and Android multi-user authorization separation.
+3. Concurrent authorization/profile query, mutation and revocation lifetime.
+4. Groups/SELinux setup errors must abort, not still commit root creds; current
+   upstream failure handling is NOT claimed safe by this compatibility work.
+5. Atomic persistent updates, short-write/error checks, rollback and revocation ACK.
+6. 32-bit compatibility and execveat dispatch, including CFI-correct signatures.
+7. Kernel/Manager/ksud UAPI 5 and profile ABI 4 integration tests using pinned builds.
+8. Actual ordinary-App and root-worker Seccomp behavior; negative reboot/ioctl
+   policy tests and TSYNC/fork/exec races; no global filter suppression.
+9. Real CFI and enforcing SELinux runtime tests, policy generation updates and AVC
+   invalidation using the native latest_granting sequence (dev 48501dad semantics).
+10. File reopen allocation failures, final fput/FD exhaustion, nested wrappers,
+    async I/O and mmap lifetimes; observer registration rollback and queued work
+    at shutdown. Host mocks are NOT replacements for these kernel tests.
+
+Dev b462d4c1 was reviewed as hot-path logging cleanup, not an API adapter;
+only new cache-unavailable messages are warn-once here. Full logging cleanup
+was not transplanted. Dev 48501dad's generation fix is deliberately not copied
+into a nonexistent modern policy container: native SS generation/publication
+must be implemented together in the next SELinux adapter.
+
+
+## Production configuration recreation
+
+`production-config-replay.json` records an exit-0 fresh production configuration
+build in a separate output directory. Recipe: vendor/kona-perf_defconfig,
+then merge vendor/debugfs.config, vendor/xiaomi/sm8250-common.config and
+vendor/xiaomi/umi.config, then olddefconfig. It reproduces the active build
+`.config` byte for byte (SHA-256 recorded above). This preserves the original
+full-build output and verifies both the production recipe and olddefconfig.
+The WSL filesystem was checked with findmnt: ext4 on /dev/sdd, not /mnt/c.
+Windows checkout was only read with git status: gen_headers_arm.bp,
+gen_headers_arm64.bp and kernel_headers.py remain staged deletions.
