@@ -1,0 +1,8 @@
+{
+  "android": "e4b71068f6ee045ff30e4865a8d82f4047eb78ea",
+  "android_vendor_lineage": "528681ef98b8dee25ff9d8ca76cd9e2c4f4ba4ec",
+  "android_build": "90d006387398ae6899145e6531a304500cfa0f70",
+  "android_build_soong": "a528a88bd553d2a449ad9338a3e944b89a164971",
+  "android_device_xiaomi_sm8250-common": "b84fe80a52e7407c53119d2dd6507285da8090d4",
+  "android_device_xiaomi_umi": "8e115b1ed63caa3ee5c3d52df0a7bce7c27512cd"
+}

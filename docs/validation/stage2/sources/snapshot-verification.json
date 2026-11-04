@@ -1,0 +1,42 @@
+[
+  {
+    "local": "lineage-default.xml",
+    "url": "https://raw.githubusercontent.com/LineageOS/android/e4b71068f6ee045ff30e4865a8d82f4047eb78ea/default.xml",
+    "sha256": "9774e8b6ea9dcfa0d128e0e1e89bf8356044796724fcbe4bca3a7f00f417a2ed"
+  },
+  {
+    "local": "BoardConfigKernel.mk",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_vendor_lineage/528681ef98b8dee25ff9d8ca76cd9e2c4f4ba4ec/config/BoardConfigKernel.mk",
+    "sha256": "f8e937dd90cf6d8586f36d8007ae285c284cfd6ebcfda234f6741eced5b0ec60"
+  },
+  {
+    "local": "kernel.mk",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_vendor_lineage/528681ef98b8dee25ff9d8ca76cd9e2c4f4ba4ec/build/tasks/kernel.mk",
+    "sha256": "ca438db6aec93cdd0db8cbc549daf05835c6c8f6f3af7e024f5486f78a187b73"
+  },
+  {
+    "local": "get_clang_version.py",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_vendor_lineage/528681ef98b8dee25ff9d8ca76cd9e2c4f4ba4ec/tools/get_clang_version.py",
+    "sha256": "824ec4a4338d0327e9b03fdae65babc1197e5a430a40ffaff643383a9d6e6b28"
+  },
+  {
+    "local": "aosp_target_release",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_vendor_lineage/528681ef98b8dee25ff9d8ca76cd9e2c4f4ba4ec/vars/aosp_target_release",
+    "sha256": "258eaaeb1fc743ee5fd3a0ade38905be3bbfe3d2624d7fd477dd966a68d67eb6"
+  },
+  {
+    "local": "RELEASE_BUILD_CLANG_VERSION.textproto",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_vendor_lineage/528681ef98b8dee25ff9d8ca76cd9e2c4f4ba4ec/release/flag_values/cp2a/RELEASE_BUILD_CLANG_VERSION.textproto",
+    "sha256": "ea70b0e341595520986c82965ae80a892ba47f5c432247ed2a2dfc91687c6e60"
+  },
+  {
+    "local": "sm8250-BoardConfigCommon.mk",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_device_xiaomi_sm8250-common/b84fe80a52e7407c53119d2dd6507285da8090d4/BoardConfigCommon.mk",
+    "sha256": "5c149dffd9e5c80a8fa415d84469037c93cde0cba6fca0172d3e68a6cf5d0e7d"
+  },
+  {
+    "local": "umi-BoardConfig.mk",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_device_xiaomi_umi/8e115b1ed63caa3ee5c3d52df0a7bce7c27512cd/BoardConfig.mk",
+    "sha256": "455738931f75b6ac229b38ec6f9ccca05e556dd664a9f7bdb149e8b7bf26af02"
+  }
+]

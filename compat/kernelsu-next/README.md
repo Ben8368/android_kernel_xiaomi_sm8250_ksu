@@ -41,3 +41,32 @@ kernel/compat/kernel_compat.c); LineageOS kernel
 6b34d24765327d746074c8e53b5ad0d24a51acc7 (kernel/seccomp.c,
 arch/arm64/kernel/ptrace.c, fs/namespace.c).
 Full source links and validation results are recorded in docs/BUILD.md.
+
+0003-check-signature-errors-as-integers.patch treats the integer return from
+ksu_sha256 as an integer, rather than passing it to IS_ERR. Short certificate
+reads are rejected. The host fault-injection harness extracts the real patched
+check_block function and verifies success, mismatch, crypto errors, short/error
+reads and oversized certificates. It is not a device authentication test.
+
+0004-fix-declarations-and-syscall-argument-types.patch includes existing
+apk_sign.h and linux/namei.h declarations, supplies a real int object to the
+execve callback, and marshals raw prctl argument addresses with the kernel's
+u64_to_user_ptr API. Access still goes through copy_to_user/copy_from_user.
+It removes the old ext4 sysfs unregister action instead of importing a hiding
+feature or declaring an unchecked external function.
+
+0005-fix-boot-hook-argument-contracts.patch supplies actual fd parameter
+objects, uses compat_ptr/u64_to_user_ptr for argv addresses, and corrects the
+read-count pointer declaration. This repairs caller/callee contracts; it does
+not suppress integer/pointer diagnostics or reinterpret seccomp structures.
+
+0006-use-native-selinux-avc-declaration.patch includes avc_ss.h, which declares
+the real two-argument avc_ss_reset implementation in this kernel, and decodes
+u64 user ABI address fields with u64_to_user_ptr. AVC invalidation and all
+user-copy checks remain active. SELinux core is untouched.
+
+0007-keep-su-selinux-domain-enforcing.patch removes upstream's automatic
+permissive marking for the su domain. Standard KSU explicit allow rules still
+change Android policy; neither their adequacy nor runtime confinement has been
+validated. This experiment does not silently exchange enforced domains for
+permissive ones to gain compatibility.

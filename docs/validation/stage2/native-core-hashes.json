@@ -1,0 +1,37 @@
+[
+  {
+    "path": "kernel/seccomp.c",
+    "sha256": "064f8bb31696afecd1c4e6b8e05b70caa7b8c127d09f6b24b5cac27ef037d4c6",
+    "unchanged_from": "1708fc0888f13780183482dbeb31329202311889"
+  },
+  {
+    "path": "include/linux/seccomp.h",
+    "sha256": "7f9031001934895e3c49549efc0a4e406b8292fba21476e2ac4b6b77d17ea63c",
+    "unchanged_from": "1708fc0888f13780183482dbeb31329202311889"
+  },
+  {
+    "path": "include/linux/mount.h",
+    "sha256": "ec9eeadd9d37a33034c0cf1b98e5700338ed88e8a71b4e00d31320d709ef1fd1",
+    "unchanged_from": "1708fc0888f13780183482dbeb31329202311889"
+  },
+  {
+    "path": "fs/namespace.c",
+    "sha256": "01de602754155960da624cadb71cb7d44dbbccc0003bf0f7aa3fecce69376482",
+    "unchanged_from": "1708fc0888f13780183482dbeb31329202311889"
+  },
+  {
+    "path": "security/selinux/include/objsec.h",
+    "sha256": "2b28dfe66c42c42c28b1f3f9c63502a38d1416471219d74191684b2b7bde0d67",
+    "unchanged_from": "1708fc0888f13780183482dbeb31329202311889"
+  },
+  {
+    "path": "security/selinux/include/avc_ss.h",
+    "sha256": "1b555d1e902103436376b00b580a1059fb6bf84ad78bf1f0422db16cca9cf1a6",
+    "unchanged_from": "1708fc0888f13780183482dbeb31329202311889"
+  },
+  {
+    "path": "security/selinux/Makefile",
+    "sha256": "28d614ab3e4416b941a94bd64961d8b89ad5c785939d8a9a3dc8c62dcbbf9cf5",
+    "unchanged_from": "1708fc0888f13780183482dbeb31329202311889"
+  }
+]

@@ -1,0 +1,5 @@
+b0c8a0aec72955154315ae85214f228083a332d68fafdad2b67b730727845dc2  /home/xiaoluo/umi-ksu-stage2/build-final/arch/arm64/boot/Image
+61883b4ff297f1c7568948f1125fe806022dc9cc4e548813331279d03963b939  /home/xiaoluo/umi-ksu-stage2/build-final/vmlinux
+8d96eb0568ae704e5f5e393590aaf4a5e82293ee734e572db3b2f5a501fe3156  /home/xiaoluo/umi-ksu-stage2/build-final/System.map
+dc0dabd0671edb7a5e5b5db494f2471e1ba547255323c9afd9f3599ebe9ba5fd  /home/xiaoluo/umi-ksu-stage2/build-final/arch/arm64/boot/dtb.img
+3e6b96d9fa252a987600313cf25581563880c0a9c345d8d3f52a0f9741a93488  /home/xiaoluo/umi-ksu-stage2/build-final/arch/arm64/boot/dtbo.img

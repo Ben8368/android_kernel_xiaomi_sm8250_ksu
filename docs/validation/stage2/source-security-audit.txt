@@ -1,0 +1,47 @@
+KernelSU hook/source audit for final candidate
+0d6bdc6364cbfc73517dcfdf7ab23b0ba8045553
+KernelSU-Next/kernel/arch.h:26:#define SYS_EXECVE_SYMBOL "__arm64_sys_execve"
+KernelSU-Next/kernel/arch.h:32:#define SYS_EXECVE_SYMBOL "sys_execve"
+KernelSU-Next/kernel/arch.h:55:#define SYS_EXECVE_SYMBOL "__x64_sys_execve"
+KernelSU-Next/kernel/arch.h:61:#define SYS_EXECVE_SYMBOL "sys_execve"
+KernelSU-Next/kernel/ksud.c:63:bool ksu_execveat_hook __read_mostly = true;
+KernelSU-Next/kernel/ksud.c:161:int ksu_handle_execveat_ksud(int *fd, struct filename **filename_ptr,
+KernelSU-Next/kernel/ksud.c:166:	if (!ksu_execveat_hook) {
+KernelSU-Next/kernel/ksud.c:492:	if (!ksu_execveat_hook) {
+KernelSU-Next/kernel/ksud.c:503:	// this is because ksu_handle_execveat_ksud calls it filename->name
+KernelSU-Next/kernel/ksud.c:508:	return ksu_handle_execveat_ksud(&dfd, &filename_p, &argv, NULL, NULL);
+KernelSU-Next/kernel/ksud.c:531:	return ksu_handle_execveat_ksud(fd, filename_ptr, &argv, NULL, NULL);
+KernelSU-Next/kernel/ksud.c:554:	return ksu_handle_execveat_ksud(&dfd, &filename_p, &argv, NULL,
+KernelSU-Next/kernel/ksud.c:591:	.symbol_name = SYS_EXECVE_SYMBOL,
+KernelSU-Next/kernel/ksud.c:597:	.symbol_name = "do_execveat_common",
+KernelSU-Next/kernel/ksud.c:599:	.symbol_name = "__do_execve_file",
+KernelSU-Next/kernel/ksud.c:601:	.symbol_name = "do_execveat_common",
+KernelSU-Next/kernel/ksud.c:680:	ksu_execveat_hook = false;
+KernelSU-Next/kernel/sucompat.c:130:int ksu_handle_execveat_sucompat(int *fd, struct filename **filename_ptr,
+KernelSU-Next/kernel/sucompat.c:158:	pr_info("do_execveat_common su found\n");
+KernelSU-Next/kernel/sucompat.c:320:	su_kps[0] = init_kprobe(SYS_EXECVE_SYMBOL, execve_handler_pre);
+KernelSU-Next/kernel/sucompat.c:326:	pr_info("ksu_sucompat_init: hooks enabled: execve/execveat_su, faccessat, stat, devpts\n");
+KernelSU-Next/kernel/sucompat.c:339:	pr_info("ksu_sucompat_exit: hooks disabled: execve/execveat_su, faccessat, stat, devpts\n");
+KernelSU-Next/kernel/embed_ksud.c:4:unsigned int ksud_size = 0;
+Effective security paths
+KernelSU-Next/kernel/core_hook.c:171:	/* Keep the caller's seccomp filters, including for an authorized su
+KernelSU-Next/kernel/core_hook.c:250:	void __user *user_arg3 = u64_to_user_ptr(addr3);
+KernelSU-Next/kernel/core_hook.c:251:	void __user *user_arg4 = u64_to_user_ptr(addr4);
+KernelSU-Next/kernel/core_hook.c:252:	void __user *result = u64_to_user_ptr(addr5);
+KernelSU-Next/kernel/core_hook.c:590:	return -EOPNOTSUPP;
+KernelSU-Next/kernel/selinux/rules.c:55:	/* Keep the su domain enforcing; do not relax SELinux for compatibility. */
+KernelSU-Next/kernel/selinux/rules.c:270:		sepol1 = u64_to_user_ptr(data.field_sepol1);
+KernelSU-Next/kernel/selinux/rules.c:271:		sepol2 = u64_to_user_ptr(data.field_sepol2);
+KernelSU-Next/kernel/selinux/rules.c:272:		sepol3 = u64_to_user_ptr(data.field_sepol3);
+KernelSU-Next/kernel/selinux/rules.c:273:		sepol4 = u64_to_user_ptr(data.field_sepol4);
+KernelSU-Next/kernel/selinux/rules.c:274:		sepol5 = u64_to_user_ptr(data.field_sepol5);
+KernelSU-Next/kernel/selinux/rules.c:275:		sepol6 = u64_to_user_ptr(data.field_sepol6);
+KernelSU-Next/kernel/selinux/rules.c:276:		sepol7 = u64_to_user_ptr(data.field_sepol7);
+KernelSU-Next/kernel/selinux/rules.c:287:	sepol1 = u64_to_user_ptr(data.field_sepol1);
+KernelSU-Next/kernel/selinux/rules.c:288:	sepol2 = u64_to_user_ptr(data.field_sepol2);
+KernelSU-Next/kernel/selinux/rules.c:289:	sepol3 = u64_to_user_ptr(data.field_sepol3);
+KernelSU-Next/kernel/selinux/rules.c:290:	sepol4 = u64_to_user_ptr(data.field_sepol4);
+KernelSU-Next/kernel/selinux/rules.c:291:	sepol5 = u64_to_user_ptr(data.field_sepol5);
+KernelSU-Next/kernel/selinux/rules.c:292:	sepol6 = u64_to_user_ptr(data.field_sepol6);
+KernelSU-Next/kernel/selinux/rules.c:293:	sepol7 = u64_to_user_ptr(data.field_sepol7);
+Native core source diff (must be empty)

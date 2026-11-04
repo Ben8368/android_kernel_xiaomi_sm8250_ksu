@@ -1,0 +1,402 @@
+Already applied: /home/xiaoluo/umi-ksu-work-20261104/compat/kernelsu-next/0001-deterministic-kbuild.patch
+Already applied: /home/xiaoluo/umi-ksu-work-20261104/compat/kernelsu-next/0002-preserve-seccomp-and-path-references.patch
+Already applied: /home/xiaoluo/umi-ksu-work-20261104/compat/kernelsu-next/0003-check-signature-errors-as-integers.patch
+START 2026-11-04T03:29:24Z
+f55b25a960974e1069294e7a695f6b1d30c64709
+ 0d6bdc6364cbfc73517dcfdf7ab23b0ba8045553 KernelSU-Next (v1.1.1)
+Android (15071444, +pgo, +bolt, +lto, +mlgo, based on r596125) clang version 22.0.2 (https://android.googlesource.com/toolchain/llvm-project de03d430485c884861198b25459851f429cbdbad)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/xiaoluo/umi-ksu-stage2/toolchains/clang-r596125/bin
+LLD 22.0.2 (/mnt/disks/build-disk/src/googleplex-android/llvm-r596125-release/out/llvm-project/llvm de03d430485c884861198b25459851f429cbdbad) (compatible with GNU linkers)
+b50deb7c48633d03c02b15b6508d79768027e80422265d7a4a7f2f13d2f01d97  /home/xiaoluo/umi-ksu-stage2/toolchains/clang-r596125/bin/clang
+28774967e08984bbe8a54a07a4b40af0160881a2f777fa780fe3afa33c0775c8  /home/xiaoluo/umi-ksu-stage2/toolchains/clang-r596125/bin/clang-real
+36eb18dc6acdd4eca1f63e9ac73708cfef84cdd1c1db47b3ca686a5d1fcdcd81  /home/xiaoluo/umi-ksu-stage2/toolchains/clang-r596125/bin/ld.lld
+COMMAND: make -C /home/xiaoluo/umi-ksu-work-20261104 O=/home/xiaoluo/umi-ksu-stage2/build-v111 ARCH=arm64 LLVM=1 LLVM_IAS=1 CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- vendor/kona-perf_defconfig
+make: Entering directory '/home/xiaoluo/umi-ksu-work-20261104'
+make[1]: Entering directory '/home/xiaoluo/umi-ksu-stage2/build-v111'
+  GEN     ./Makefile
+#
+# configuration written to .config
+#
+make[1]: Leaving directory '/home/xiaoluo/umi-ksu-stage2/build-v111'
+make: Leaving directory '/home/xiaoluo/umi-ksu-work-20261104'
+Using /home/xiaoluo/umi-ksu-stage2/build-v111/.config as base
+Merging /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/debugfs.config
+Value of CONFIG_MSM_IDLE_STATS is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/debugfs.config:
+Previous value: # CONFIG_MSM_IDLE_STATS is not set
+New value: CONFIG_MSM_IDLE_STATS=n
+
+Value of CONFIG_PAGE_EXTENSION is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/debugfs.config:
+Previous value: # CONFIG_PAGE_EXTENSION is not set
+New value: CONFIG_PAGE_EXTENSION=n
+
+Value of CONFIG_PAGE_OWNER is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/debugfs.config:
+Previous value: # CONFIG_PAGE_OWNER is not set
+New value: CONFIG_PAGE_OWNER=n
+
+Value of CONFIG_DEBUG_FS is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/debugfs.config:
+Previous value: # CONFIG_DEBUG_FS is not set
+New value: CONFIG_DEBUG_FS=n
+
+Merging /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config
+Value of CONFIG_QCA_CLD_WLAN is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_QCA_CLD_WLAN is not set
+New value: CONFIG_QCA_CLD_WLAN=y
+
+Value of CONFIG_EXFAT_FS is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_EXFAT_FS is not set
+New value: CONFIG_EXFAT_FS=y
+
+Value of CONFIG_PSTORE is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_PSTORE is not set
+New value: CONFIG_PSTORE=y
+
+Value of CONFIG_CMDLINE is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_CMDLINE="cgroup_disable=pressure"
+New value: CONFIG_CMDLINE="cgroup_disable=pressure ramoops_memreserve=4M"
+
+Value of CONFIG_BLK_WBT is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_BLK_WBT is not set
+New value: CONFIG_BLK_WBT=y
+
+Value of CONFIG_MTD is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_MTD is not set
+New value: CONFIG_MTD=y
+
+Value of CONFIG_BACKLIGHT_KTZ8866 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_BACKLIGHT_KTZ8866 is not set
+New value: CONFIG_BACKLIGHT_KTZ8866=y
+
+Value of CONFIG_BACKLIGHT_DUALKTZ8866 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_BACKLIGHT_DUALKTZ8866 is not set
+New value: CONFIG_BACKLIGHT_DUALKTZ8866=y
+
+Value of CONFIG_MOTOR_DRV8846 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_MOTOR_DRV8846 is not set
+New value: CONFIG_MOTOR_DRV8846=y
+
+Value of CONFIG_AIROHA_GPS is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_AIROHA_GPS is not set
+New value: CONFIG_AIROHA_GPS=y
+
+Value of CONFIG_HALL_AKM09970 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_HALL_AKM09970 is not set
+New value: CONFIG_HALL_AKM09970=y
+
+Value of CONFIG_ION_CAMERA_HEAP is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_ION_CAMERA_HEAP is not set
+New value: CONFIG_ION_CAMERA_HEAP=y
+
+Value of CONFIG_RC_CORE is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_RC_CORE is not set
+New value: CONFIG_RC_CORE=y
+
+Value of CONFIG_INPUT_XIAOMI_KEYBOARD is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_INPUT_XIAOMI_KEYBOARD is not set
+New value: CONFIG_INPUT_XIAOMI_KEYBOARD=y
+
+Value of CONFIG_KEYBOARD_NANO_8030 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_KEYBOARD_NANO_8030 is not set
+New value: CONFIG_KEYBOARD_NANO_8030=y
+
+Value of CONFIG_LEDS_AW2015 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_LEDS_AW2015 is not set
+New value: CONFIG_LEDS_AW2015=y
+
+Value of CONFIG_FRAME_WARN is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_FRAME_WARN=2048
+New value: CONFIG_FRAME_WARN=4096
+
+Value of CONFIG_SMB1355_SLAVE_CHARGER is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_SMB1355_SLAVE_CHARGER=y
+New value: CONFIG_SMB1355_SLAVE_CHARGER=n
+
+Value of CONFIG_SMB1390_CHARGE_PUMP_PSY is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_SMB1390_CHARGE_PUMP_PSY=y
+New value: CONFIG_SMB1390_CHARGE_PUMP_PSY=n
+
+Value of CONFIG_SMB1398_CHARGER is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_SMB1398_CHARGER is not set
+New value: CONFIG_SMB1398_CHARGER=n
+
+Value of CONFIG_I2C_RETRY is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_I2C_RETRY is not set
+New value: CONFIG_I2C_RETRY=y
+
+Value of CONFIG_REGULATOR_PM8008 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_REGULATOR_PM8008 is not set
+New value: CONFIG_REGULATOR_PM8008=y
+
+Value of CONFIG_REGULATOR_QCOM_RPMH is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_REGULATOR_QCOM_RPMH is not set
+New value: CONFIG_REGULATOR_QCOM_RPMH=y
+
+Value of CONFIG_TOUCHSCREEN_FTS is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_TOUCHSCREEN_FTS=y
+New value: CONFIG_TOUCHSCREEN_FTS=n
+
+Value of CONFIG_TOUCHSCREEN_SYNAPTICS_DSX is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_TOUCHSCREEN_SYNAPTICS_DSX=y
+New value: CONFIG_TOUCHSCREEN_SYNAPTICS_DSX=n
+
+Value of CONFIG_TOUCHSCREEN_SYNAPTICS_TCM is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_TOUCHSCREEN_SYNAPTICS_TCM=y
+New value: CONFIG_TOUCHSCREEN_SYNAPTICS_TCM=n
+
+Value of CONFIG_TOUCHSCREEN_ST is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_TOUCHSCREEN_ST=y
+New value: CONFIG_TOUCHSCREEN_ST=n
+
+Value of CONFIG_PS5169 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_PS5169 is not set
+New value: CONFIG_PS5169=y
+
+Value of CONFIG_INPUT_QTI_HAPTICS is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_INPUT_QTI_HAPTICS=y
+New value: CONFIG_INPUT_QTI_HAPTICS=n
+
+Merging /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config
+Value of CONFIG_MACH_XIAOMI_UMI is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_MACH_XIAOMI_UMI is not set
+New value: CONFIG_MACH_XIAOMI_UMI=y
+
+Value of CONFIG_TOUCHSCREEN_ST_FTS_V521 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_TOUCHSCREEN_ST_FTS_V521 is not set
+New value: CONFIG_TOUCHSCREEN_ST_FTS_V521=y
+
+Value of CONFIG_TOUCHSCREEN_GOODIX_GTX8 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_TOUCHSCREEN_GOODIX_GTX8 is not set
+New value: CONFIG_TOUCHSCREEN_GOODIX_GTX8=y
+
+Value of CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE is not set
+New value: CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE=y
+
+Value of CONFIG_INPUT_FINGERPRINT is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_INPUT_FINGERPRINT is not set
+New value: CONFIG_INPUT_FINGERPRINT=y
+
+Value of CONFIG_LN8282 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_LN8282 is not set
+New value: CONFIG_LN8282=y
+
+Value of CONFIG_IDT_P9415 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_IDT_P9415 is not set
+New value: CONFIG_IDT_P9415=y
+
+Value of CONFIG_RX1619 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_RX1619 is not set
+New value: CONFIG_RX1619=y
+
+Value of CONFIG_RX1619_TRIM is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_RX1619_TRIM is not set
+New value: CONFIG_RX1619_TRIM=y
+
+Value of CONFIG_BQ_PUMP_WIRELESS_CHARGE is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_BQ_PUMP_WIRELESS_CHARGE is not set
+New value: CONFIG_BQ_PUMP_WIRELESS_CHARGE=y
+
+Value of CONFIG_BQ2597X_CHARGE_PUMP is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_BQ2597X_CHARGE_PUMP is not set
+New value: CONFIG_BQ2597X_CHARGE_PUMP=y
+
+Value of CONFIG_ONEWIRE_GPIO is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_ONEWIRE_GPIO is not set
+New value: CONFIG_ONEWIRE_GPIO=y
+
+Value of CONFIG_BATT_VERIFY_BY_DS28E16 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_BATT_VERIFY_BY_DS28E16 is not set
+New value: CONFIG_BATT_VERIFY_BY_DS28E16=y
+
+Value of CONFIG_INPUT_AW8697_HAPTIC is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_INPUT_AW8697_HAPTIC is not set
+New value: CONFIG_INPUT_AW8697_HAPTIC=y
+
+Value of CONFIG_TECHPACK_CAMERA_XIAOMI_CAS is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_TECHPACK_CAMERA_XIAOMI_CAS is not set
+New value: CONFIG_TECHPACK_CAMERA_XIAOMI_CAS=y
+
+Value of CONFIG_KPROBES is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_KPROBES is not set
+New value: CONFIG_KPROBES=y
+
+#
+# merged configuration written to /home/xiaoluo/umi-ksu-stage2/build-v111/.config (needs make)
+#
+COMMAND: make -C /home/xiaoluo/umi-ksu-work-20261104 O=/home/xiaoluo/umi-ksu-stage2/build-v111 ARCH=arm64 LLVM=1 LLVM_IAS=1 CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- olddefconfig
+make: Entering directory '/home/xiaoluo/umi-ksu-work-20261104'
+make[1]: Entering directory '/home/xiaoluo/umi-ksu-stage2/build-v111'
+  GEN     ./Makefile
+scripts/kconfig/conf  --olddefconfig Kconfig
+#
+# configuration written to .config
+#
+make[1]: Leaving directory '/home/xiaoluo/umi-ksu-stage2/build-v111'
+make: Leaving directory '/home/xiaoluo/umi-ksu-work-20261104'
+COMMAND: make -C /home/xiaoluo/umi-ksu-work-20261104 O=/home/xiaoluo/umi-ksu-stage2/build-v111 ARCH=arm64 LLVM=1 LLVM_IAS=1 CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- -j6 Image modules dtbs
+make: Entering directory '/home/xiaoluo/umi-ksu-work-20261104'
+make[1]: Entering directory '/home/xiaoluo/umi-ksu-stage2/build-v111'
+  GEN     ./Makefile
+scripts/kconfig/conf  --syncconfig Kconfig
+  GEN     ./Makefile
+  UPD     include/config/kernel.release
+-- KernelSU-Next Manager signature size: 0x3e6
+-- KernelSU-Next Manager signature hash: 79e590113c4c4c0c222978e413a5faa801666957b1212a328e46c00c69821bf7
+  Using /home/xiaoluo/umi-ksu-work-20261104 as source for kernel
+  UPD     include/generated/utsrelease.h
+  CALL    /home/xiaoluo/umi-ksu-work-20261104/scripts/checksyscalls.sh
+  CHK     include/generated/compile.h
+  CC      init/version.o
+  CC      kernel/sys.o
+  AR      init/built-in.a
+  CC      drivers/base/firmware_loader/fallback_table.o
+  CC      drivers/base/firmware_loader/main.o
+  CC      drivers/base/firmware_loader/fallback.o
+  AR      drivers/base/firmware_loader/built-in.a
+  AR      drivers/base/built-in.a
+  CC      kernel/trace/trace.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/kona.dtb
+  DTC     arch/arm64/boot/dts/vendor/qcom/kona-v2.dtb
+  AR      kernel/trace/built-in.a
+  CC      kernel/module.o
+-- KernelSU-Next Manager signature size: 0x3e6
+-- KernelSU-Next Manager signature hash: 79e590113c4c4c0c222978e413a5faa801666957b1212a328e46c00c69821bf7
+  CC      drivers/kernelsu/apk_sign.o
+  CC      drivers/kernelsu/sucompat.o
+  CC      drivers/kernelsu/throne_tracker.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/kona-v2.1.dtb
+  CC      drivers/kernelsu/core_hook.o
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/throne_tracker.c:195:22: error: implicit declaration of function 'is_manager_apk' [-Werror,-Wimplicit-function-declaration]
+  195 |                         bool is_manager = is_manager_apk(dirpath);
+      |                                           ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/throne_tracker.c:231:6: error: implicit declaration of function 'kern_path' [-Werror,-Wimplicit-function-declaration]
+  231 |         if (kern_path(path, 0, &kpath))
+      |             ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/throne_tracker.c:231:6: note: did you mean 'kernfs_path'?
+/home/xiaoluo/umi-ksu-work-20261104/include/linux/kernfs.h:529:19: note: 'kernfs_path' declared here
+  529 | static inline int kernfs_path(struct kernfs_node *kn, char *buf, size_t buflen)
+      |                   ^
+  CC      drivers/leds/trigger/ledtrig-timer.o
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/sucompat.c:265:36: error: incompatible integer to pointer conversion passing 'int' to parameter of type 'int *' [-Wint-conversion]
+  265 |         return ksu_handle_execve_sucompat(AT_FDCWD, filename_user, NULL, NULL,
+      |                                           ^~~~~~~~
+/home/xiaoluo/umi-ksu-work-20261104/include/uapi/linux/fcntl.h:79:19: note: expanded from macro 'AT_FDCWD'
+   79 | #define AT_FDCWD                -100    /* Special value used to indicate
+      |                                 ^~~~
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/sucompat.c:166:37: note: passing argument to parameter 'fd' here
+  166 | int ksu_handle_execve_sucompat(int *fd, const char __user **filename_user,
+      |                                     ^
+1 error generated.
+make[3]: *** [/home/xiaoluo/umi-ksu-work-20261104/scripts/Makefile.build:338: drivers/kernelsu/sucompat.o] Error 1
+make[3]: *** Waiting for unfinished jobs....
+  CC      drivers/leds/led-core.o
+2 errors generated.
+make[3]: *** [/home/xiaoluo/umi-ksu-work-20261104/scripts/Makefile.build:338: drivers/kernelsu/throne_tracker.o] Error 1
+  CC      drivers/leds/led-class.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/alioth-sm8250-overlay.dtbo
+  GZIP    kernel/config_data.gz
+  CHK     kernel/kheaders_data.tar.xz
+  AR      drivers/leds/trigger/built-in.a
+  CC      drivers/leds/led-triggers.o
+  GEN     kernel/kheaders_data.tar.xz
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/core_hook.c:233:2: error: implicit declaration of function 'ext4_unregister_sysfs' [-Werror,-Wimplicit-function-declaration]
+  233 |         ext4_unregister_sysfs(sb);
+      |         ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/core_hook.c:233:2: note: did you mean 'ipx_unregister_sysctl'?
+/home/xiaoluo/umi-ksu-work-20261104/include/net/net_namespace.h:228:6: note: 'ipx_unregister_sysctl' declared here
+  228 | void ipx_unregister_sysctl(void);
+      |      ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/core_hook.c:328:20: error: incompatible integer to pointer conversion passing 'unsigned long' to parameter of type 'void *' [-Wint-conversion]
+  328 |                 if (copy_to_user(arg3, &version, sizeof(version))) {
+      |                                  ^~~~
+/home/xiaoluo/umi-ksu-work-20261104/include/linux/uaccess.h:152:27: note: passing argument to parameter 'to' here
+  152 | copy_to_user(void __user *to, const void *from, unsigned long n)
+      |                           ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/core_hook.c:336:20: error: incompatible integer to pointer conversion passing 'unsigned long' to parameter of type 'void *' [-Wint-conversion]
+  336 |                     copy_to_user(arg4, &version_flags, sizeof(version_flags))) {
+      |                                  ^~~~
+/home/xiaoluo/umi-ksu-work-20261104/include/linux/uaccess.h:152:27: note: passing argument to parameter 'to' here
+  152 | copy_to_user(void __user *to, const void *from, unsigned long n)
+      |                           ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/core_hook.c:344:20: error: incompatible integer to pointer conversion passing 'unsigned long' to parameter of type 'void *' [-Wint-conversion]
+  344 |                 if (copy_to_user(arg3, &manager_uid, sizeof(manager_uid))) {
+      |                                  ^~~~
+/home/xiaoluo/umi-ksu-work-20261104/include/linux/uaccess.h:152:27: note: passing argument to parameter 'to' here
+  152 | copy_to_user(void __user *to, const void *from, unsigned long n)
+      |                           ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/core_hook.c:403:30: error: incompatible integer to pointer conversion passing 'unsigned long' to parameter of type 'void *' [-Wint-conversion]
+  403 |                 if (!handle_sepolicy(arg3, arg4)) {
+      |                                            ^~~~
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/core_hook.c:51:61: note: passing argument to parameter 'arg4' here
+   51 | extern int handle_sepolicy(unsigned long arg3, void __user *arg4);
+      |                                                             ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/core_hook.c:428:22: error: incompatible integer to pointer conversion passing 'unsigned long' to parameter of type 'void *' [-Wint-conversion]
+  428 |                         if (!copy_to_user(arg4, &array_length,
+      |                                           ^~~~
+/home/xiaoluo/umi-ksu-work-20261104/include/linux/uaccess.h:152:27: note: passing argument to parameter 'to' here
+  152 | copy_to_user(void __user *to, const void *from, unsigned long n)
+      |                           ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/core_hook.c:430:22: error: incompatible integer to pointer conversion passing 'unsigned long' to parameter of type 'void *' [-Wint-conversion]
+  430 |                             !copy_to_user(arg3, array,
+      |                                           ^~~~
+/home/xiaoluo/umi-ksu-work-20261104/include/linux/uaccess.h:152:27: note: passing argument to parameter 'to' here
+  152 | copy_to_user(void __user *to, const void *from, unsigned long n)
+      |                           ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/core_hook.c:454:21: error: incompatible integer to pointer conversion passing 'unsigned long' to parameter of type 'void *' [-Wint-conversion]
+  454 |                 if (!copy_to_user(arg4, &allow, sizeof(allow))) {
+      |                                   ^~~~
+/home/xiaoluo/umi-ksu-work-20261104/include/linux/uaccess.h:152:27: note: passing argument to parameter 'to' here
+  152 | copy_to_user(void __user *to, const void *from, unsigned long n)
+      |                           ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/core_hook.c:498:32: error: incompatible integer to pointer conversion passing 'unsigned long' to parameter of type 'const void *' [-Wint-conversion]
+  498 |                 if (copy_from_user(&profile, arg3, sizeof(profile))) {
+      |                                              ^~~~
+/home/xiaoluo/umi-ksu-work-20261104/include/linux/uaccess.h:144:45: note: passing argument to parameter 'from' here
+  144 | copy_from_user(void *to, const void __user *from, unsigned long n)
+      |                                             ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/core_hook.c:505:21: error: incompatible integer to pointer conversion passing 'unsigned long' to parameter of type 'void *' [-Wint-conversion]
+  505 |                         if (copy_to_user(arg3, &profile, sizeof(profile))) {
+      |                                          ^~~~
+/home/xiaoluo/umi-ksu-work-20261104/include/linux/uaccess.h:152:27: note: passing argument to parameter 'to' here
+  152 | copy_to_user(void __user *to, const void *from, unsigned long n)
+      |                           ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/core_hook.c:518:32: error: incompatible integer to pointer conversion passing 'unsigned long' to parameter of type 'const void *' [-Wint-conversion]
+  518 |                 if (copy_from_user(&profile, arg3, sizeof(profile))) {
+      |                                              ^~~~
+/home/xiaoluo/umi-ksu-work-20261104/include/linux/uaccess.h:144:45: note: passing argument to parameter 'from' here
+  144 | copy_from_user(void *to, const void __user *from, unsigned long n)
+      |                                             ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/core_hook.c:533:20: error: incompatible integer to pointer conversion passing 'unsigned long' to parameter of type 'void *' [-Wint-conversion]
+  533 |                 if (copy_to_user(arg3, &ksu_su_compat_enabled,
+      |                                  ^~~~
+/home/xiaoluo/umi-ksu-work-20261104/include/linux/uaccess.h:152:27: note: passing argument to parameter 'to' here
+  152 | copy_to_user(void __user *to, const void *from, unsigned long n)
+      |                           ^
+12 errors generated.
+make[3]: *** [/home/xiaoluo/umi-ksu-work-20261104/scripts/Makefile.build:338: drivers/kernelsu/core_hook.o] Error 1
+make[2]: *** [/home/xiaoluo/umi-ksu-work-20261104/scripts/Makefile.build:642: drivers/kernelsu] Error 2
+make[2]: *** Waiting for unfinished jobs....
+  CC      drivers/leds/leds-qti-tri-led.o
+  CC      drivers/leds/leds-qpnp-flash-v2.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/apollo-sm8250-overlay.dtbo
+  DTC     arch/arm64/boot/dts/vendor/qcom/cas-sm8250-overlay.dtbo
+  DTC     arch/arm64/boot/dts/vendor/qcom/cmi-sm8250-overlay.dtbo
+  CC      drivers/leds/leds-qpnp-flash-common.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/dagu-sm8250-overlay.dtbo
+  CC      drivers/leds/leds-aw2015.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/elish-sm8250-overlay.dtbo
+  DTC     arch/arm64/boot/dts/vendor/qcom/enuma-sm8250-overlay.dtbo
+  DTC     arch/arm64/boot/dts/vendor/qcom/lmi-sm8250-overlay.dtbo
+  DTC     arch/arm64/boot/dts/vendor/qcom/munch-sm8250-overlay.dtbo
+  AR      drivers/leds/built-in.a
+make[1]: *** [/home/xiaoluo/umi-ksu-work-20261104/Makefile:1225: drivers] Error 2
+make[1]: *** Waiting for unfinished jobs....
+  DTC     arch/arm64/boot/dts/vendor/qcom/psyche-sm8250-overlay.dtbo
+  DTC     arch/arm64/boot/dts/vendor/qcom/thyme-sm8250-overlay.dtbo
+  DTC     arch/arm64/boot/dts/vendor/qcom/umi-sm8250-overlay.dtbo
+  CC      kernel/kheaders.o
+  AR      kernel/built-in.a
+make[1]: Leaving directory '/home/xiaoluo/umi-ksu-stage2/build-v111'
+make: *** [Makefile:153: sub-make] Error 2
+make: Leaving directory '/home/xiaoluo/umi-ksu-work-20261104'

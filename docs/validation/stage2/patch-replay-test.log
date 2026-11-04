@@ -1,0 +1,9 @@
+PASS clean replay: 0001-deterministic-kbuild.patch
+PASS clean replay: 0002-preserve-seccomp-and-path-references.patch
+PASS clean replay: 0003-check-signature-errors-as-integers.patch
+PASS clean replay: 0004-fix-declarations-and-syscall-argument-types.patch
+PASS clean replay: 0005-fix-boot-hook-argument-contracts.patch
+PASS clean replay: 0006-use-native-selinux-avc-declaration.patch
+PASS clean replay: 0007-keep-su-selinux-domain-enforcing.patch
+PASS effective source matches clean replay: 7 files
+PASS effective source whitespace check
