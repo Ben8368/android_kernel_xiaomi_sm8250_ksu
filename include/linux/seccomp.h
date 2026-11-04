@@ -82,6 +82,10 @@ static inline int seccomp_mode(struct seccomp *s)
 #ifdef CONFIG_SECCOMP_FILTER
 extern void put_seccomp_filter(struct task_struct *tsk);
 extern void get_seccomp_filter(struct task_struct *tsk);
+#ifdef CONFIG_KSU
+/* Authorized KSU root transition only; preserves every other task filter. */
+void ksu_seccomp_disable_current(void);
+#endif
 #else  /* CONFIG_SECCOMP_FILTER */
 static inline void put_seccomp_filter(struct task_struct *tsk)
 {

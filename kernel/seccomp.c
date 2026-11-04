@@ -526,6 +526,27 @@ void put_seccomp_filter(struct task_struct *tsk)
 	__put_seccomp_filter(tsk->seccomp.filter);
 }
 
+#ifdef CONFIG_KSU
+/* Called only after KSU's authorized root credentials have been committed.
+ * Detach under the same lock used by filter installation and TSYNC. Drop only
+ * current's leaf reference outside the spinlock; shared chains remain alive.
+ */
+void ksu_seccomp_disable_current(void)
+{
+	struct seccomp_filter *filter;
+	unsigned long flags;
+
+	spin_lock_irqsave(&current->sighand->siglock, flags);
+	filter = current->seccomp.filter;
+	clear_thread_flag(TIF_SECCOMP);
+	current->seccomp.mode = SECCOMP_MODE_DISABLED;
+	current->seccomp.filter = NULL;
+	spin_unlock_irqrestore(&current->sighand->siglock, flags);
+
+	__put_seccomp_filter(filter);
+}
+#endif
+
 static void seccomp_init_siginfo(siginfo_t *info, int syscall, int reason)
 {
 	clear_siginfo(info);
