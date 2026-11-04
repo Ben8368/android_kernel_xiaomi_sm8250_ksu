@@ -1,0 +1,80 @@
+{
+  "lineage_upstream_sha": "6b34d24765327d746074c8e53b5ad0d24a51acc7",
+  "custom_branch_sha": "bd877bc5bed63a2a182b43e320cd2a606850ce81",
+  "custom_tree": "4c75b2eb147b33dcc921f5188b5a43bac27aca7c",
+  "ksu_official_base_sha": "0d6bdc6364cbfc73517dcfdf7ab23b0ba8045553",
+  "patch_queue_sha256": "19a3ea41b2fd7e20a025a57564cdfaf5e080cebf94a5ef6397a239431ae89c1e",
+  "patch_queue_hash_format": "sorted filename UTF-8 + NUL + raw patch bytes, concatenated",
+  "patches": [
+    {
+      "name": "0001-deterministic-kbuild.patch",
+      "sha256": "98b4d8e047e27be53f20e312afd9142b389c20f9bc6a97f81de06a963c0ec0a7"
+    },
+    {
+      "name": "0002-preserve-seccomp-and-path-references.patch",
+      "sha256": "68cb950953a1c3ba000d4cb2d31e729e8112ef8bfd3765d292765ee307553d30"
+    },
+    {
+      "name": "0003-check-signature-errors-as-integers.patch",
+      "sha256": "0a85a0641e46db27420404a6a733e604a22af9158dcee824a1974efc631813a0"
+    },
+    {
+      "name": "0004-fix-declarations-and-syscall-argument-types.patch",
+      "sha256": "2c2e9c031c7a3fc9c9d2827493a2a71ed796a5e67712886fbfeb5c25abe2af69"
+    },
+    {
+      "name": "0005-fix-boot-hook-argument-contracts.patch",
+      "sha256": "b299437ae587a1c0b13e52977ce166b4a7b28b97ae5d822c4e7816b2fc1aa1ef"
+    },
+    {
+      "name": "0006-use-native-selinux-avc-declaration.patch",
+      "sha256": "70223ef544d9d62de501f3e0e346ff583d19243069f0dec777dd0abb28dfc27b"
+    },
+    {
+      "name": "0007-keep-su-selinux-domain-enforcing.patch",
+      "sha256": "a2d023b63be6f9ee2bd38f9f329b1ec8c4f5caba05f06c7fb68c535ed8094261"
+    },
+    {
+      "name": "0008-bound-authorization-inputs.patch",
+      "sha256": "4a273fa20e5f02bd67ba554a57277ccd2e65ba45e646c3e0642446a5c717ab14"
+    }
+  ],
+  "effective_ksu_kernel_sha256": {
+    "kernel/.clang-format": "da17ae445853aaf70a1799c431baeb41d00aa2a66aad3618168b041ed29b6563",
+    "kernel/.clangd": "e7e589217df70a10e573da1e664d3198ff5d1157a4f15204a4ce23e7da3a790d",
+    "kernel/Kconfig": "afaa3aea7c9525c7234c0998cdb1d343ff95a1629f725bc17c04707b2b9d1cb6",
+    "kernel/LICENSE": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+    "kernel/Makefile": "f6149e22d02a8e6846acb4ad3b150770aa613aee571b9869668ce64a97c0afcc",
+    "kernel/allowlist.c": "d9fb761eb8b179964ce5f921fbb6f5992e061cad93e6aea3799e3a608a71a04f",
+    "kernel/allowlist.h": "0d9b5176212335acc5df12edca77ab2ad9ad762c17c61602b82407e8c127b1b9",
+    "kernel/apk_sign.c": "219c613c26b078bc68f7c00e52bbed56c2e194aff9a180c05e02b5a517298cb0",
+    "kernel/apk_sign.h": "0f0c16b2b8003210825f42f82afe6e9911acc0e1e2d77b11ce7cf5ba21dae742",
+    "kernel/arch.h": "59cb436f7c8dda892d23bf08086ddfc0e961762ccdba128f1433ca7a02bab2bb",
+    "kernel/core_hook.c": "ea7fc9e634a8617579652575b2ef2d1ef34bc6c8ad9ec1946873288d58485148",
+    "kernel/core_hook.h": "92b05caca77831a0dc6c87af11331561c8a17de248ede0727cf155dc82e727e9",
+    "kernel/embed_ksud.c": "866982f59250c89193e7264325fb0d8905cd431d312d2e642cc1b59d488ace72",
+    "kernel/export_symbol.txt": "0f5f2c3a0e6d4e5224fc23328a39f38c701348f0bf7ba1026b6cc54d339e30ab",
+    "kernel/include/ksu_hook.h": "7ef27c437fadf5781c0b6b3644264f264330468c3e3067074d5005ebb49020de",
+    "kernel/kernel_compat.c": "8110d4c68dbb98752c5ac36d9a1acabc9567cd22abf7ddc297066959206b9568",
+    "kernel/kernel_compat.h": "d8caa413d986d703ce33a10212ff69ae0e5edb341e70486ccf1f0700d24da4f0",
+    "kernel/klog.h": "032b31b94edbb66a133846611378a09d0f3aa2b01cab2671dd2b00198883807c",
+    "kernel/ksu.c": "641c69b6aa6a23e5c1b17b9930fd2bd251586f06f474283b68f5f3a93ffade88",
+    "kernel/ksu.h": "97f5a6aba42ebcbaac7e4ce4682103ffdef31d6a281f1e79027e08ced1185e45",
+    "kernel/ksud.c": "2d5f57147e5881609d90293439ba62e12408d96f07c9f71f6d8afa42b8cd76e5",
+    "kernel/ksud.h": "19c60a942e4a9863a503506a8a4a9a96df2ca8f8adc2c802c975947f4d34efe9",
+    "kernel/manager.h": "fd8f6fd1b33560a7e880b53f069658a161fd9cf6035523a43c1a65c1b4a6c453",
+    "kernel/selinux/Makefile": "b732dd51e2e36a5789ead36a189d9ceb9056a3d98b5741e551275b4fea9f116c",
+    "kernel/selinux/rules.c": "481045d89b38c3758b78a8c794de47ab20c0cd4316fca9082afb984688d61228",
+    "kernel/selinux/selinux.c": "e33b46ac31734646d91b0cb90f7ce110e50ebee3769c8bc70bbc1bd83f95f670",
+    "kernel/selinux/selinux.h": "7b86b9e64a5cb3bcb7a39b3ddc7c69fe6180ecfea1d5bff87afe6a199032304d",
+    "kernel/selinux/sepolicy.c": "6c57a7ee92ae784d851125d5375474181374d1b00e2d4f0e1e893bdb3977fb05",
+    "kernel/selinux/sepolicy.h": "6ae525d957623af8410f0bf51b6546e30297090a02c5412cfe2eb40a317f49a8",
+    "kernel/setup.sh": "d6469d3b37345b7c32da1b7d66f7047d6537b92ee89c1d9e9a893233ebbc3100",
+    "kernel/sucompat.c": "d70f04fdba5e066c7b518ed358aaec2964e15a453a58b9f7d30ce535b7a7eede",
+    "kernel/throne_tracker.c": "a51b0210a37aa4eca7893556a0b9c2fdec3849e0617d54d5bdf4dfe4b37b2f5c",
+    "kernel/throne_tracker.h": "6665dcd7fd55fc0b7bfd630283cbb8ba5b517d90a8f6b0612e43c61e8f2d1af8"
+  },
+  "parent_status": "",
+  "expected_patch_dirty": true,
+  "unexplained_dirty": false
+}

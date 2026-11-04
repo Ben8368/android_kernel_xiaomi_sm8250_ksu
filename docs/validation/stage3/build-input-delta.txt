@@ -1,0 +1,12 @@
+Built source: bd877bc5bed63a2a182b43e320cd2a606850ce81
+Offline suite source: f99a8405eb0e89ec200630c02ec2e945c00452cc
+Post-build delivery differences are limited to docs/evidence, host tests,
+read-only Boot inspector diagnostics and a separate artifact-verification tool.
+The .gitattributes addition affects only whitespace lint for raw evidence logs.
+No kernel source, KSU gitlink/patch bytes, config fragments, Kbuild inputs,
+or tools/build-umi.sh / prepare-ksu.py / ksu_audit.py / record-umi-provenance.py /
+verify-umi-build.py differs from the built source.
+Verification: git diff --cached --name-only bd877bc5bed63a2a182b43e320cd2a606850ce81,
+with every changed path required to match the documented non-build allowlist.
+An empty build-input delta is not a claim that the later documentation HEAD
+was itself used to compile this Image. The actual SHA remains in provenance.

@@ -13,7 +13,7 @@ KSU_ASSETS=/absolute/path/to/assets bash tools/test-ksu-stage3.sh
 python3 tools/check-ksu-readiness.py
 ```
 
-测试执行日志将保存在 docs/validation/stage3/；实际结果以日志为准。host mock/ASan/fixture 不应描述为设备 Root。
+测试执行日志已保存在 docs/validation/stage3/；实际结果以日志为准。host mock/ASan/fixture 不应描述为设备 Root。
 
 ## 干净 checkout 和 -dirty
 
@@ -48,7 +48,7 @@ CLANG_DIR=/absolute/path/to/clang-r596125 OUT_DIR=/absolute/path/to/new-output J
 
 | 验收类别 | 判定方式 |
 |---|---|
-| 编译验证 | 历史第二阶段通过；第三阶段新补丁需单独新构建并保存 provenance |
+| 编译验证 | 第三阶段干净 checkout 完整 Image/modules/dtbs/ThinLTO/CFI/最终链接通过，exit 0；见 build-console.log/provenance.json |
 | 用户态协议 | 固定 tag 的常量、LP64 ABI 与真实 Manager wrapper 的 host mock；官方资产密码学校验；不含设备调用 |
 | 静态安全回归 | 身份门禁、Seccomp/CFI/Enforcing 不回退、边界测试；不等于整体安全通过 |
 | 安全审计 | BLOCKED：wildcard SELinux、allowlist 并发、官方 su 与 app Seccomp 冲突 |
@@ -57,3 +57,27 @@ CLANG_DIR=/absolute/path/to/clang-r596125 OUT_DIR=/absolute/path/to/new-output J
 | 测试 Boot | 仅合成格式 fixture 通过，无适配真实目标 ROM 的镜像 |
 
 用户态详情见 KERNELSU-USERLAND.md，Root 风险见 ROOT-SECURITY.md，Boot 输入门禁见 BOOT-FORMAT.md，未来人工流程见 DEVICE-TEST-PLAN.md。
+
+## 本轮实际执行结果
+
+- 构建 commit：bd877bc5bed63a2a182b43e320cd2a606850ce81。WSL 中从 Git 对象库重新 clone（不复制已修改 working tree），子模块另行 checkout 官方 SHA，初始 git status 为空；完整队列首次应用及重复调用均成功。
+- 构建时间：2026-11-04 04:31:25–04:39:35 UTC（上海 12:31:25–12:39:35）；exit=0。不是 Android ROM 构建。
+- 实际 release：4.19.325-cip136-st20-perf-gbd877bc5bed6-dirty。记录证明 expected_patch_dirty=true、unexplained_dirty=false；没有抹去 -dirty。
+- Clang：Android r596125 / 22.0.2；Image SHA-256：3deece0ccb0754151b0ff44b1aa949f6293f94e24295d6f7ca5851fd871fbbba。
+- vmlinux SHA-256：4a5366b43146ea020c33c868df0360d5e0dd7fe31889d07e3aa1bc1cda3bb382；0 未解析强符号，3 个 DTB / 12 个 DTBO / 3 个模块。
+- 队列 SHA-256：19a3ea41b2fd7e20a025a57564cdfaf5e080cebf94a5ef6397a239431ae89c1e。
+- 最终离线 suite 在 f99a8405eb0e89ec200630c02ec2e945c00452cc 执行，exit=0，80 条 PASS 输出；其中含“正确报告 BLOCKED”，不应解读为 80 项真机功能通过。边界 harness 内实际覆盖 201 种列表长度，ASan/UBSan 通过。
+- 输入污染负向测试：未解释 tracked 修改、extra kernel 文件、staged 子模块修改、未提交父仓库源码均被拒绝，全部只在临时 clone 中执行。
+- APK 资产：Release hash、v2 RSA 签名/内容摘要/证书/Manifest 通过，4 个 arm64 daemon ELF 检查通过；内容篡改/错误证书/截断均拒绝。
+- Boot：独立官方 mkbootimg 的合成 header-v2 fixture 通过，8 种坏输入拒绝；真实 ROM 镜像未提供，未构建真实测试 Boot。
+- 编译参数后验检查：真实 apk_sign.o 命令仍使用官方证书 998 bytes/锁定指纹，同时有 ThinLTO/CFI 参数，实际 linked KSU 权限路径符号存在；见 build-contract.json 和 ksu-compile-commands.txt。
+
+构建后 f99a8405e 只改了额外测试、只读 Boot inspector 的说明/错误文本与 Boot 文档；最终记录提交只增证据/文档及独立的编译产物审计工具。build-input-delta.txt 证明内核、补丁队列及构建输入与 bd877bc5b 没有差异。**provenance 中保留真正构建 SHA，不把后来的文档 HEAD 冒充已构建。**
+
+完整产物保留于 WSL /home/xiaoluo/umi-ksu-stage3/build-clean；官方资产在 /home/xiaoluo/umi-ksu-stage3/assets；干净重建源码在 /home/xiaoluo/umi-ksu-stage3/clean-checkout。用户维护分支工作区为 /home/xiaoluo/umi-ksu-work-20261104。Windows C:\android_kernel_xiaomi_sm8250_ksu 原本为无效 HEAD/未完成 checkout，现恢复成文档/工具 sparse checkout；内核树有 Windows 保留文件名和大小写冲突，**不要在 Windows sparse 目录编译，完整验证使用 WSL 原生目录**。
+
+追加核验入口：
+
+```bash
+python3 tools/verify-ksu-build-contract.py --out /home/xiaoluo/umi-ksu-stage3/build-clean
+```

@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-04",
+  "built_source_commit": "bd877bc5bed63a2a182b43e320cd2a606850ce81",
+  "offline_suite_source_commit": "f99a8405eb0e89ec200630c02ec2e945c00452cc",
+  "compile_link": "PASS",
+  "userland_protocol": "PASS_OFFLINE_ONLY",
+  "release_signature_and_hashes": "PASS_OFFLINE_ONLY",
+  "static_security_regressions": "PASS",
+  "overall_security_audit": "BLOCKED",
+  "device_boot": "NOT_TESTED",
+  "device_root": "NOT_TESTED",
+  "ordinary_app_su_with_official_daemon_and_preserved_seccomp": "UNSUPPORTED",
+  "target_rom_boot_image": "NOT_BUILT",
+  "synthetic_boot_format_fixture": "PASS_NOT_A_DEVICE_IMAGE",
+  "manual_device_test_ready": false,
+  "image_sha256": "3deece0ccb0754151b0ff44b1aa949f6293f94e24295d6f7ca5851fd871fbbba",
+  "patch_queue_sha256": "19a3ea41b2fd7e20a025a57564cdfaf5e080cebf94a5ef6397a239431ae89c1e"
+}

@@ -1,0 +1,7 @@
+PASS exact queue accepted in isolated clean parent checkout
+PASS source proof rejects extra tracked source edit
+PASS source proof rejects extra untracked kernel file
+PASS source proof rejects staged submodule changes
+PASS source proof rejects uncommitted parent source
+PASS source proof restored after all negative cases
+SCOPE: disposable host Git clones only; no phone access

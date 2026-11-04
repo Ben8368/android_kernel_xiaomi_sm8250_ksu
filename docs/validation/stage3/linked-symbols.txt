@@ -1,0 +1,11 @@
+ffffff8010508f8c T __arm64_sys_execve
+ffffff8010508fec T __arm64_sys_execveat
+ffffff8010090000 T __cfi_check
+ffffff80103bdf64 T __secure_computing
+ffffff8011447ffc T escape_to_root
+ffffff801306833c T kernelsu_init
+ffffff8011446a58 T ksu_handle_execve_sucompat
+ffffff80114483e0 T ksu_handle_prctl
+ffffff801144a49c T ksu_ksud_init
+ffffff8011445180 T ksu_set_app_profile
+ffffff8011449850 t ksu_task_prctl
