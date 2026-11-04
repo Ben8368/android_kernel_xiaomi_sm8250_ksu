@@ -82,3 +82,17 @@ Preparation now validates the entire final tree, so overlapping patches do
 not break repeat invocation. Only pristine base or complete verified queue
 are accepted; partial/unknown changes are refused without a reset. Expected
 -dirty is retained and explained in provenance, not suppressed.
+
+## Stage 4 hardening (NO-GO for general Root)
+
+0009 publishes immutable RCU authorization records, returns caller-owned profile
+snapshots, removes divergent UID caches, and bounds allocation/publication. Host
+liburcu/ASan/UBSan regressions cover concurrent replacement/prune/read/save/free.
+Package/Manager identity generations, durable revocation and credential-hook
+context remain blockers; this is not a complete lifecycle security claim.
+
+0010 removes 25 wildcard bootstrap calls (including four all-ioctl xperms),
+retains 22 source-reviewed finite kernel metadata/store grants, explicitly
+enforces su even when the ROM debug policy made it permissive, and quarantines
+runtime policy injection. No working su/init/PTY/module policy is claimed.
+See docs/SELINUX-MATRIX.md and docs/SECCOMP-FEASIBILITY.md.

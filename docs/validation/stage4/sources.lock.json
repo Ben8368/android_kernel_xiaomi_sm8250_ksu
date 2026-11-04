@@ -1,0 +1,98 @@
+[
+  {
+    "repository": "LineageOS/android_frameworks_base",
+    "commit": "1f46fb30f571cf79cd79ee041b4ff192e95240af",
+    "path": "core/jni/com_android_internal_os_Zygote.cpp",
+    "file": "zygote.cpp",
+    "git_blob": "15a7ee4a0a39240aa72475d8ec15798c32b81df6",
+    "sha256": "006e4c3a51fd32eef1d41b3c2553a907e9b7b33b2bf605706921852ba8854a9a"
+  },
+  {
+    "repository": "LineageOS/android_bionic",
+    "commit": "ff3bb041547924ac1a7504e4b3bd3ea18169ca2f",
+    "path": "libc/tools/gensyscalls.py",
+    "file": "gensyscalls.py",
+    "git_blob": "fc1ac8b35104b4e1ac2640a182645257bc3761c3",
+    "sha256": "6fd52651be8638c2b5079d654d631282bc7a482220d590e5428803a85494e187"
+  },
+  {
+    "repository": "LineageOS/android_bionic",
+    "commit": "ff3bb041547924ac1a7504e4b3bd3ea18169ca2f",
+    "path": "libc/Android.bp",
+    "file": "bionic-Android.bp",
+    "git_blob": "73cda9a61fa2ea398f34790e2c0a6e580c7de2d2",
+    "sha256": "12bef6c4a8da7159e6e03e542e0067093101712e35f212aef04f897ab8f3effb"
+  },
+  {
+    "repository": "LineageOS/android_system_sepolicy",
+    "commit": "d61fd80832f558d52de026097d30d695634e8b0f",
+    "path": "private/su.te",
+    "file": "sepolicy-private-su.te",
+    "git_blob": "69c68fc36c717c208ac5a9f8c36c8f25c3f03699",
+    "sha256": "d85c7002685b51fa978cff435ad563b048890353e7898a2536289943cd9953ac"
+  },
+  {
+    "repository": "LineageOS/android_system_sepolicy",
+    "commit": "d61fd80832f558d52de026097d30d695634e8b0f",
+    "path": "public/su.te",
+    "file": "sepolicy-public-su.te",
+    "git_blob": "6936f67a5f9247d152392dc84ca24c3b30acf998",
+    "sha256": "679ce6e9157a96910efcc706d99c9cf0f132785cd8ba21da8a8fe93f290493ff"
+  },
+  {
+    "repository": "LineageOS/android_system_sepolicy",
+    "commit": "d61fd80832f558d52de026097d30d695634e8b0f",
+    "path": "private/domain.te",
+    "file": "sepolicy-private-domain.te",
+    "git_blob": "7d5869e163a20568d45033b659f520d7ed9aa0fd",
+    "sha256": "192bf132866d2db46c8686d982f9cb8e358b27fa633cd1186c23363268499c3f"
+  },
+  {
+    "repository": "LineageOS/android_system_sepolicy",
+    "commit": "d61fd80832f558d52de026097d30d695634e8b0f",
+    "path": "private/kernel.te",
+    "file": "sepolicy-private-kernel.te",
+    "git_blob": "45de04f000f5ec387cecc07a788c37a190ed5dc3",
+    "sha256": "da9ffd11f1068f715499b06587e8374c2e29644c1a4370e5bf84210a176a3f91"
+  },
+  {
+    "repository": "LineageOS/android_system_sepolicy",
+    "commit": "d61fd80832f558d52de026097d30d695634e8b0f",
+    "path": "private/file_contexts",
+    "file": "sepolicy-private-file_contexts",
+    "git_blob": "56977a1e95e16c84e711aca17ad9685f2b8ef665",
+    "sha256": "2288d333f5a7a4c8ff20f348c2ab78626c4b819b8d547ce118ef5f0dbec9b77a"
+  },
+  {
+    "repository": "LineageOS/android_system_sepolicy",
+    "commit": "d61fd80832f558d52de026097d30d695634e8b0f",
+    "path": "public/attributes",
+    "file": "sepolicy-public-attributes",
+    "git_blob": "68b7792dcce7bc822c9d279acdf51a7090509fd4",
+    "sha256": "f0b0a13a415d3a907a8e9692d6d400f2c87843b4a8158336bf6a239b4e4deb0f"
+  },
+  {
+    "repository": "topjohnwu/Magisk",
+    "commit": "33bfff7ce750c27f157ddb4580e36bf842d6d95b",
+    "path": "native/src/core/su/daemon.rs",
+    "file": "magisk-su-daemon.rs",
+    "git_blob": "7e9d85930235f354b86d307b1ff1a79ee62e4c99",
+    "sha256": "040a23f94b14265fb710d7b26f4c0835db5c11ff448f6183ec6b001c6ef4740d"
+  },
+  {
+    "repository": "topjohnwu/Magisk",
+    "commit": "33bfff7ce750c27f157ddb4580e36bf842d6d95b",
+    "path": "native/src/core/su/connect.rs",
+    "file": "magisk-su-connect.rs",
+    "git_blob": "0ccd3fc7ba3eb4932e53e1c31cc3f66ddd9cbd61",
+    "sha256": "f5e5c9c82f6acb9eca95ba4a8f37a27e541555fc67858836db7c4cce5bd0c7e3"
+  },
+  {
+    "repository": "topjohnwu/Magisk",
+    "commit": "33bfff7ce750c27f157ddb4580e36bf842d6d95b",
+    "path": "native/src/core/su/db.rs",
+    "file": "magisk-su-db.rs",
+    "git_blob": "dc40afb326fe0252c990b0824a954fcde1287b9b",
+    "sha256": "7a66f0ec915cbda53763f67c2bd0268f25bc940bed2b666c0d1333b0959b620f"
+  }
+]

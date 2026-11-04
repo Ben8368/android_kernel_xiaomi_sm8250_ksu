@@ -6,3 +6,4 @@
 compat/kernelsu-next/*.patch -whitespace
 # Preserve raw build/test evidence, including make progress whitespace.
 docs/validation/stage3/*.log -whitespace
+docs/validation/stage4/*.log -whitespace
