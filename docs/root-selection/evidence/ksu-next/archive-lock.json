@@ -1,0 +1,29 @@
+[
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "v342",
+      "sha": "4c706b5938665866ebe16944a481a7b91e3396af",
+      "size": 4794491,
+      "sha256": "13753906069b3350b18f473cb14f028b658abfd41aa71e5c08f9f5bf1b597c13"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "dev",
+      "sha": "a6c81fa4a8b7341d0bc5c3e4507531459df871ae",
+      "size": 4953116,
+      "sha256": "25f826317ac044517b8f7a383c6a8554aca240ba0022b94b4a113b9de7a460b4"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "v111",
+      "sha": "0d6bdc6364cbfc73517dcfdf7ab23b0ba8045553",
+      "size": 8652032,
+      "sha256": "2fd513ecf4f0884cde2c1b85398083e5a3f0d0941a91db1424f81eebbbb94566"
+    }
+  }
+]

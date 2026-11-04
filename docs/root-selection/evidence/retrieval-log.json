@@ -1,0 +1,148 @@
+[
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "magisk-release",
+      "url": "https://api.github.com/repos/topjohnwu/Magisk/releases/latest",
+      "sha256": "2a15bb1e98d4e8110702c6be033e568eb508b0469a9c06efc9efa5a46a6136a4",
+      "fetched_at": "2026-11-04T07:07:16.174Z",
+      "summary": "v31.1"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "apatch-release",
+      "url": "https://api.github.com/repos/bmax121/APatch/releases/latest",
+      "sha256": "c3cce3e52034226c2388f3e340da1b9806008e56caba9eaeda19ef166f5d9d84",
+      "fetched_at": "2026-11-04T07:07:16.174Z",
+      "summary": "11282"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "kernelpatch-release",
+      "url": "https://api.github.com/repos/bmax121/KernelPatch/releases/latest",
+      "sha256": "87b67e9fc6df770a82bc13b0f54a0425a55a51cc73420875d3a5cfdbe54304c3",
+      "fetched_at": "2026-11-04T07:07:16.250Z",
+      "summary": "0.13.9"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "magisk-master",
+      "url": "https://api.github.com/repos/topjohnwu/Magisk/commits/master",
+      "sha256": "fa4e9f52765d2076226b4429561e35eb77829ad2457273f0fa8a9a198c301d0f",
+      "fetched_at": "2026-11-04T07:07:16.196Z",
+      "summary": "33bfff7ce750c27f157ddb4580e36bf842d6d95b"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "kernelpatch-main",
+      "url": "https://api.github.com/repos/bmax121/KernelPatch/commits/main",
+      "sha256": "ac67d3d05a3d05f4082f6b59dd080983984faf9b99ca9fd77d0529017c8a8c20",
+      "fetched_at": "2026-11-04T07:07:16.174Z",
+      "summary": "d4c88d6672687456b299e4b5153c24dc979d789b"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "magisk-tag",
+      "url": "https://api.github.com/repos/topjohnwu/Magisk/commits/v31.1",
+      "sha256": "7ae21153ff5ccae3f929af6953b4768e40c785b72d989b657a30b700ab873723",
+      "fetched_at": "2026-11-04T07:07:16.226Z",
+      "summary": "0972f67d97f9b6302b67c5171283330c74114b4a"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "apatch-tag",
+      "url": "https://api.github.com/repos/bmax121/APatch/commits/11282",
+      "sha256": "3584153bfb731c01c4e41ac660ce5b7fec1eb55b2691d2a43829ce7198c703b7",
+      "fetched_at": "2026-11-04T07:07:16.171Z",
+      "summary": "e8e4651c16fb5075882a25813c8732285fdb3505"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "kernelpatch-tag",
+      "url": "https://api.github.com/repos/bmax121/KernelPatch/commits/0.13.9",
+      "sha256": "0d91bdb410f1655bc396648bce2ebba1fb542834e2b14043a674eefac96873a2",
+      "fetched_at": "2026-11-04T07:07:16.206Z",
+      "summary": "b51197aaba8f2272dd8a3e30c85698a29aa928c9"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "magisk-auth-issues",
+      "url": "https://api.github.com/search/issues?q=repo%3Atopjohnwu%2FMagisk+%22uid%22+%22reuse%22&per_page=10",
+      "sha256": "856a0c3ed620d3ea573b9f79c30a10769e17f671bbb33f180d5eaec055133b97",
+      "fetched_at": "2026-11-04T07:07:16.552Z",
+      "summary": 3,
+      "issues": [
+        {
+          "number": 7796,
+          "title": "Add multiplexing feature support into MagiskSU",
+          "state": "closed",
+          "url": "https://github.com/topjohnwu/Magisk/pull/7796"
+        },
+        {
+          "number": 8071,
+          "title": "Hwa Rename changes.md to changes.md",
+          "state": "closed",
+          "url": "https://github.com/topjohnwu/Magisk/pull/8071"
+        },
+        {
+          "number": 8009,
+          "title": "Can`t remount system on K70 PRO",
+          "state": "closed",
+          "url": "https://github.com/topjohnwu/Magisk/issues/8009"
+        }
+      ]
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "magisk-revoke-issues",
+      "url": "https://api.github.com/search/issues?q=repo%3Atopjohnwu%2FMagisk+revoke+cache&per_page=10",
+      "sha256": "44bbcbe44ea5c0b5501278ac420ce48d47408b5be96bbc57295a06d78d0ff9f0",
+      "fetched_at": "2026-11-04T07:07:16.407Z",
+      "summary": 4,
+      "issues": [
+        {
+          "number": 8071,
+          "title": "Hwa Rename changes.md to changes.md",
+          "state": "closed",
+          "url": "https://github.com/topjohnwu/Magisk/pull/8071"
+        },
+        {
+          "number": 4372,
+          "title": "SafteyNet API Error on v23 install",
+          "state": "closed",
+          "url": "https://github.com/topjohnwu/Magisk/issues/4372"
+        },
+        {
+          "number": 1152,
+          "title": "Do Not Submit MagiskHide Requests",
+          "state": "closed",
+          "url": "https://github.com/topjohnwu/Magisk/issues/1152"
+        },
+        {
+          "number": 2680,
+          "title": "Patched boot image file from Nokia 5.1 Plus Android 10 internal failed to boot",
+          "state": "closed",
+          "url": "https://github.com/topjohnwu/Magisk/issues/2680"
+        }
+      ]
+    }
+  }
+]

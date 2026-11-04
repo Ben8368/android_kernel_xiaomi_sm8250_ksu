@@ -1,0 +1,9 @@
+{
+  "no_control_characters": true,
+  "unresolved_evidence_ids": [],
+  "broken_local_links": [],
+  "source_hashes_verified": 40,
+  "source_hash_failures": [],
+  "document_sha256": "6c41baf83ce22a58482aa78913225fad2f2bb8536d5386f0a10912d6b5e53d4e",
+  "scope": "Documentation structure and evidence integrity only; no Android execution, Root tests, APK signature verification or device validation"
+}

@@ -1,0 +1,263 @@
+[
+  {
+    "id": "M-SU",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "native/src/core/su/daemon.rs",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/native/src/core/su/daemon.rs",
+    "snapshot": "sources/M-SU.rs.txt",
+    "sha256": "040a23f94b14265fb710d7b26f4c0835db5c11ff448f6183ec6b001c6ef4740d"
+  },
+  {
+    "id": "M-DB",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "native/src/core/su/db.rs",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/native/src/core/su/db.rs",
+    "snapshot": "sources/M-DB.rs.txt",
+    "sha256": "7a66f0ec915cbda53763f67c2bd0268f25bc940bed2b666c0d1333b0959b620f"
+  },
+  {
+    "id": "M-IPC",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "native/src/core/daemon.rs",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/native/src/core/daemon.rs",
+    "snapshot": "sources/M-IPC.rs.txt",
+    "sha256": "f7cdde57db630bd97578ae3ae980180492856c1945b6672881c403bcd8949cd2"
+  },
+  {
+    "id": "M-MANAGER",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "native/src/core/package.rs",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/native/src/core/package.rs",
+    "snapshot": "sources/M-MANAGER.rs.txt",
+    "sha256": "ea3aa07b745e9c9dbc822fd56793f364567628523ec55cb54c782036ba696431"
+  },
+  {
+    "id": "M-POLICY",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "native/src/sepolicy/rules.rs",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/native/src/sepolicy/rules.rs",
+    "snapshot": "sources/M-POLICY.rs.txt",
+    "sha256": "0f0fa70d8c0fbd8839dd4345702f1d67cdfcb5505b76e17d88f080d9ead94bf8"
+  },
+  {
+    "id": "M-FEATURES",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "native/src/core/Cargo.toml",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/native/src/core/Cargo.toml",
+    "snapshot": "sources/M-FEATURES.toml.txt",
+    "sha256": "9f8069de419b44f6521971fdde616cddaf25442be164c923f27701884b44af5d"
+  },
+  {
+    "id": "M-RECEIVER",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "app/core/src/main/java/com/topjohnwu/magisk/core/Receiver.kt",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/app/core/src/main/java/com/topjohnwu/magisk/core/Receiver.kt",
+    "snapshot": "sources/M-RECEIVER.kt.txt",
+    "sha256": "608298517a67ca811196fd78d084aa360aaf420662dd33a258c3b5d64233ff73"
+  },
+  {
+    "id": "M-GRANT",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "app/apk/src/main/java/com/topjohnwu/magisk/ui/superuser/SuperuserGrantViewModel.kt",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/app/apk/src/main/java/com/topjohnwu/magisk/ui/superuser/SuperuserGrantViewModel.kt",
+    "snapshot": "sources/M-GRANT.kt.txt",
+    "sha256": "fe5445da304ddccc6f148d084706caad59b6ee1695e8f05bfa0fdf57d5e17ed5"
+  },
+  {
+    "id": "M-EVENT",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "app/core/src/main/java/com/topjohnwu/magisk/core/su/SuEvents.kt",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/app/core/src/main/java/com/topjohnwu/magisk/core/su/SuEvents.kt",
+    "snapshot": "sources/M-EVENT.kt.txt",
+    "sha256": "efe7f7a048a2ced333600934d47571ace12812c98bc141f75a4e243aa07bfa1f"
+  },
+  {
+    "id": "M-CHANGES",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "docs/changes.md",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/docs/changes.md",
+    "snapshot": "sources/M-CHANGES.md.txt",
+    "sha256": "f0c33aae0b1da8132d0bd6002db7c6258104c059a1ce119833710881fbc1c98f"
+  },
+  {
+    "id": "M-INSTALL",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "docs/install.md",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/docs/install.md",
+    "snapshot": "sources/M-INSTALL.md.txt",
+    "sha256": "693aab3c571959712ada6e24d84551d6276a8fcdb7c144db040d257ecf948fa2"
+  },
+  {
+    "id": "M-OTA",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "docs/ota.md",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/docs/ota.md",
+    "snapshot": "sources/M-OTA.md.txt",
+    "sha256": "accb645fbbbf7f3b9fa0f48bc6e38adde62795711bcdf29b07b0727734ff6de0"
+  },
+  {
+    "id": "M-ADDON",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "scripts/addon.d.sh",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/scripts/addon.d.sh",
+    "snapshot": "sources/M-ADDON.sh.txt",
+    "sha256": "ab56d64e7d846defb99342be68be063c9471fc88b9245b51ce6f7ea24ff47024"
+  },
+  {
+    "id": "M-PATCH",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "scripts/boot_patch.sh",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/scripts/boot_patch.sh",
+    "snapshot": "sources/M-PATCH.sh.txt",
+    "sha256": "721e879b9ebdda200796d95dbe6f8e9776cfff89b7550fdb5ca77ac87dcede17"
+  },
+  {
+    "id": "M-BUILD",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "build.py",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/build.py",
+    "snapshot": "sources/M-BUILD.py.txt",
+    "sha256": "e586b9adff824f0c1c5cdab9b23902c43b71aee46c6df4315e551d5208b209aa"
+  },
+  {
+    "id": "M-MASTER-SU",
+    "repository": "topjohnwu/Magisk",
+    "commit": "33bfff7ce750c27f157ddb4580e36bf842d6d95b",
+    "path": "native/src/core/su/daemon.rs",
+    "url": "https://github.com/topjohnwu/Magisk/blob/33bfff7ce750c27f157ddb4580e36bf842d6d95b/native/src/core/su/daemon.rs",
+    "snapshot": "sources/M-MASTER-SU.rs.txt",
+    "sha256": "040a23f94b14265fb710d7b26f4c0835db5c11ff448f6183ec6b001c6ef4740d"
+  },
+  {
+    "id": "KP-AUTH-TAG",
+    "repository": "bmax121/KernelPatch",
+    "commit": "b51197aaba8f2272dd8a3e30c85698a29aa928c9",
+    "path": "kernel/patch/common/supercall.c",
+    "url": "https://github.com/bmax121/KernelPatch/blob/b51197aaba8f2272dd8a3e30c85698a29aa928c9/kernel/patch/common/supercall.c",
+    "snapshot": "sources/KP-AUTH-TAG.c.txt",
+    "sha256": "84936fff58296a4d5ebfd15aa3bd815c1921e8308e76042b7aee3b6b9c280aec"
+  },
+  {
+    "id": "KP-AUTH-MAIN",
+    "repository": "bmax121/KernelPatch",
+    "commit": "d4c88d6672687456b299e4b5153c24dc979d789b",
+    "path": "kernel/patch/common/supercall.c",
+    "url": "https://github.com/bmax121/KernelPatch/blob/d4c88d6672687456b299e4b5153c24dc979d789b/kernel/patch/common/supercall.c",
+    "snapshot": "sources/KP-AUTH-MAIN.c.txt",
+    "sha256": "c942df4e635e70753419e17377f4da843b645f2416acc19454507fa1017731c4"
+  },
+  {
+    "id": "KP-MANAGER-TAG",
+    "repository": "bmax121/KernelPatch",
+    "commit": "b51197aaba8f2272dd8a3e30c85698a29aa928c9",
+    "path": "kernel/patch/android/userd.c",
+    "url": "https://github.com/bmax121/KernelPatch/blob/b51197aaba8f2272dd8a3e30c85698a29aa928c9/kernel/patch/android/userd.c",
+    "snapshot": "sources/KP-MANAGER-TAG.c.txt",
+    "sha256": "610a47a0a6e8a0b5b5c9c2ea201ec16488f701f07203d0e68fd23eb06c0ed519"
+  },
+  {
+    "id": "KP-MANAGER-MAIN",
+    "repository": "bmax121/KernelPatch",
+    "commit": "d4c88d6672687456b299e4b5153c24dc979d789b",
+    "path": "kernel/patch/android/userd.c",
+    "url": "https://github.com/bmax121/KernelPatch/blob/d4c88d6672687456b299e4b5153c24dc979d789b/kernel/patch/android/userd.c",
+    "snapshot": "sources/KP-MANAGER-MAIN.c.txt",
+    "sha256": "6a43554a80e91d076ebbb318c3f8ec7182a1df66026a68a690adfed3c130ef59"
+  },
+  {
+    "id": "KP-CFI",
+    "repository": "bmax121/KernelPatch",
+    "commit": "b51197aaba8f2272dd8a3e30c85698a29aa928c9",
+    "path": "kernel/patch/common/secpass.c",
+    "url": "https://github.com/bmax121/KernelPatch/blob/b51197aaba8f2272dd8a3e30c85698a29aa928c9/kernel/patch/common/secpass.c",
+    "snapshot": "sources/KP-CFI.c.txt",
+    "sha256": "5b33f7cade2a25f4f9613e04513c8cd73619f40d8e714a904620cf3fccf699b5"
+  },
+  {
+    "id": "LOS-UMI",
+    "repository": "LineageOS/android_device_xiaomi_umi",
+    "commit": "8e115b1ed63caa3ee5c3d52df0a7bce7c27512cd",
+    "path": "BoardConfig.mk",
+    "url": "https://github.com/LineageOS/android_device_xiaomi_umi/blob/8e115b1ed63caa3ee5c3d52df0a7bce7c27512cd/BoardConfig.mk",
+    "snapshot": "sources/LOS-UMI.mk.txt",
+    "sha256": "455738931f75b6ac229b38ec6f9ccca05e556dd664a9f7bdb149e8b7bf26af02"
+  },
+  {
+    "id": "LOS-COMMON",
+    "repository": "LineageOS/android_device_xiaomi_sm8250-common",
+    "commit": "b84fe80a52e7407c53119d2dd6507285da8090d4",
+    "path": "BoardConfigCommon.mk",
+    "url": "https://github.com/LineageOS/android_device_xiaomi_sm8250-common/blob/b84fe80a52e7407c53119d2dd6507285da8090d4/BoardConfigCommon.mk",
+    "snapshot": "sources/LOS-COMMON.mk.txt",
+    "sha256": "5c149dffd9e5c80a8fa415d84469037c93cde0cba6fca0172d3e68a6cf5d0e7d"
+  },
+  {
+    "id": "M-POLICY-DAO",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "app/core/src/main/java/com/topjohnwu/magisk/core/data/magiskdb/PolicyDao.kt",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/app/core/src/main/java/com/topjohnwu/magisk/core/data/magiskdb/PolicyDao.kt",
+    "snapshot": "sources/M-POLICY-DAO.kt.txt",
+    "sha256": "bea0a5492ef60bfbcb88981609afa14eeca85e8daa1b473fe1bfb3e1281e73fc"
+  },
+  {
+    "id": "M-SQL",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "app/core/src/main/java/com/topjohnwu/magisk/core/data/magiskdb/MagiskDB.kt",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/app/core/src/main/java/com/topjohnwu/magisk/core/data/magiskdb/MagiskDB.kt",
+    "snapshot": "sources/M-SQL.kt.txt",
+    "sha256": "62a9e387700eed4ec6b822fa7f6905b23e6374282d5205d64e6aa7f5bb2c7dc2"
+  },
+  {
+    "id": "M-NATIVE-DB",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "native/src/core/db.rs",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/native/src/core/db.rs",
+    "snapshot": "sources/M-NATIVE-DB.rs.txt",
+    "sha256": "f7f3ca873bea3dd8a84a58aa38b778d61ce34a13dd4b79f5ee68fe927e0b435f"
+  },
+  {
+    "id": "M-DENY",
+    "repository": "topjohnwu/Magisk",
+    "commit": "0972f67d97f9b6302b67c5171283330c74114b4a",
+    "path": "native/src/core/deny/utils.cpp",
+    "url": "https://github.com/topjohnwu/Magisk/blob/0972f67d97f9b6302b67c5171283330c74114b4a/native/src/core/deny/utils.cpp",
+    "snapshot": "sources/M-DENY.cpp.txt",
+    "sha256": "fb7176b8dd9b3e1697701747ad05c9c9cc7384d28f7e542ff5be9701b716bee0"
+  },
+  {
+    "id": "KP-KEYFIX",
+    "repository": "bmax121/KernelPatch",
+    "commit": "0961c53457c7ad6c47924fbe87e7f93abb999de0",
+    "path": "kernel/base/predata.c",
+    "url": "https://github.com/bmax121/KernelPatch/blob/0961c53457c7ad6c47924fbe87e7f93abb999de0/kernel/base/predata.c",
+    "snapshot": "sources/KP-KEYFIX.c.txt",
+    "sha256": "2be6da123c7b0642005029cc906cc0193743292eb6f54163f2e6c3c3a87fe8f1"
+  },
+  {
+    "id": "KP-AUTHFIX",
+    "repository": "bmax121/KernelPatch",
+    "commit": "53c43f3ce650e94a46523f7ad17b30ce2bf0e3c9",
+    "path": "kernel/patch/common/supercall.c",
+    "url": "https://github.com/bmax121/KernelPatch/blob/53c43f3ce650e94a46523f7ad17b30ce2bf0e3c9/kernel/patch/common/supercall.c",
+    "snapshot": "sources/KP-AUTHFIX.c.txt",
+    "sha256": "c942df4e635e70753419e17377f4da843b645f2416acc19454507fa1017731c4"
+  }
+]
