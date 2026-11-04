@@ -1,0 +1,7 @@
+PASS valid signature
+PASS wrong signature
+PASS crypto ENOMEM
+PASS crypto EINVAL
+PASS short certificate read
+PASS certificate read EIO
+PASS oversized certificate

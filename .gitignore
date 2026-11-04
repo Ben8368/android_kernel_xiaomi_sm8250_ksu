@@ -134,3 +134,10 @@ all.config
 
 # fetched Android config fragments
 kernel/configs/android-*.cfg
+
+# Audited KernelSU patch queue
+!/compat/kernelsu-next/*.patch
+
+# Local Python test caches and out-of-tree build output
+__pycache__/
+/out/

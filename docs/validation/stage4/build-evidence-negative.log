@@ -1,0 +1,7 @@
+PASS actual complete build evidence matches current kernel, queue and native inputs
+PASS rejects rehashed stale patch queue with matched pre/post source records
+PASS rejects rehashed disabled Seccomp despite updated config hash
+PASS rejects rehashed incomplete module inventory
+PASS rejects rehashed nonzero build exit
+PASS rejects rehashed missing build completion marker
+SCOPE: archived build evidence only; no target policy/device claim

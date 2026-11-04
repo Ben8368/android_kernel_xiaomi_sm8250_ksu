@@ -1,0 +1,68 @@
+[
+  {
+    "path": "docs/ROOT-ARCHITECTURE-DECISION.md",
+    "source_head": "7ed4c8426759601636d108679b6df3e60c1db94f",
+    "snapshot": "prior/docs__ROOT-ARCHITECTURE-DECISION.md",
+    "sha256": "0b697106976552ab3b7e7976ffb48f0f2b331efca9ef8fe6ad9f7a59c04941a0"
+  },
+  {
+    "path": "docs/APATCH-FEASIBILITY.md",
+    "source_head": "7ed4c8426759601636d108679b6df3e60c1db94f",
+    "snapshot": "prior/docs__APATCH-FEASIBILITY.md",
+    "sha256": "773b0c28f28dec38d109bc940b512f6dc5457492130d187fc29fe19ed13e7181"
+  },
+  {
+    "path": "docs/ROOT-SECURITY.md",
+    "source_head": "7ed4c8426759601636d108679b6df3e60c1db94f",
+    "snapshot": "prior/docs__ROOT-SECURITY.md",
+    "sha256": "fb616eb2c4003667b1115d57072dd926cd6c132e2ddc364224502f1f638deaca"
+  },
+  {
+    "path": "docs/BOOT-FORMAT.md",
+    "source_head": "7ed4c8426759601636d108679b6df3e60c1db94f",
+    "snapshot": "prior/docs__BOOT-FORMAT.md",
+    "sha256": "d09a3132d4d2428dafe09c33540f1fb04ac6a277822c6ebbab472d82418ae9be"
+  },
+  {
+    "path": "docs/SECCOMP-FEASIBILITY.md",
+    "source_head": "7ed4c8426759601636d108679b6df3e60c1db94f",
+    "snapshot": "prior/docs__SECCOMP-FEASIBILITY.md",
+    "sha256": "4d25a5dc0e847954302456e8b28b1ae90489a2ef63357cbdf5eb7fded393d653"
+  },
+  {
+    "path": "docs/SELINUX-MATRIX.md",
+    "source_head": "7ed4c8426759601636d108679b6df3e60c1db94f",
+    "snapshot": "prior/docs__SELINUX-MATRIX.md",
+    "sha256": "8c526a74fefe2838b9c23a1adb1eda170fedbc61412e4500b3e6b193e2d9a1bb"
+  },
+  {
+    "path": "docs/DEVICE-TEST-PLAN.md",
+    "source_head": "7ed4c8426759601636d108679b6df3e60c1db94f",
+    "snapshot": "prior/docs__DEVICE-TEST-PLAN.md",
+    "sha256": "d195b39e6db2e67879b1b6c5522b6e2f92874ffab71cfd127680ab7b7c1e7b83"
+  },
+  {
+    "path": "docs/MAINTENANCE.md",
+    "source_head": "7ed4c8426759601636d108679b6df3e60c1db94f",
+    "snapshot": "prior/docs__MAINTENANCE.md",
+    "sha256": "325e14fb3344b627b45f8c782e5f37509d4c7eedd584404bc30407b696924a08"
+  },
+  {
+    "path": "docs/validation/stage4/readiness-result.json",
+    "source_head": "7ed4c8426759601636d108679b6df3e60c1db94f",
+    "snapshot": "prior/docs__validation__stage4__readiness-result.json",
+    "sha256": "9f2b6cf076989089c87caf0bb1d68a811150b22f14dfd7983000d0c53077735e"
+  },
+  {
+    "path": "docs/validation/stage3/sources.lock.json",
+    "source_head": "7ed4c8426759601636d108679b6df3e60c1db94f",
+    "snapshot": "prior/docs__validation__stage3__sources.lock.json",
+    "sha256": "8253110a540123e0062bca78b88610d6837ecd0f4e25e55ed63f4e4ee25faf3f"
+  },
+  {
+    "path": "tools/ksu-userland.lock.json",
+    "source_head": "7ed4c8426759601636d108679b6df3e60c1db94f",
+    "snapshot": "prior/tools__ksu-userland.lock.json",
+    "sha256": "4f4ee3274acf8c655fcd75a80dace25ea1da23c8d6c57c03e0eb6a18355a398a"
+  }
+]

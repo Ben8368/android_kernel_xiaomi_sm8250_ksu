@@ -1,0 +1,14 @@
+{
+  "name": "Magisk-v31.1.apk",
+  "url": "https://github.com/topjohnwu/Magisk/releases/download/v31.1/Magisk-v31.1.apk",
+  "asset_id": 673844395,
+  "size": 10679283,
+  "sha256": "89cefac0a318afa39fb3880c45c87b036c05bc1ebf02a7a715b7f8d7c26ac6e7",
+  "release_digest_matches": true,
+  "apk_signature_verified": false,
+  "embedded_daemon_trusted_certificate_verified": false,
+  "source_build_attestation_verified": false,
+  "installed": false,
+  "executed": false,
+  "downloaded_at": "2026-11-04T07:09:43.025Z"
+}

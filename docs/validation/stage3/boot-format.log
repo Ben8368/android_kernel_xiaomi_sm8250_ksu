@@ -1,0 +1,10 @@
+PASS independent AOSP mkbootimg header-v2 synthetic fixture, section ranges and SHA-1 ID
+PASS reject short header
+PASS reject truncated DTB
+PASS reject v3 header
+PASS reject wrong page size
+PASS reject bad ARM64 magic
+PASS reject wrong AOSP boot ID
+PASS reject unknown trailer
+PASS reject missing DTB
+SCOPE: temporary synthetic fixture deleted; no matching ROM boot image was built

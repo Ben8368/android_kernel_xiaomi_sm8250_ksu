@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "verifier_sha256": "50349119975caf4cfc30fa452878defb8c919ca39c10fbe779bd4ab84f5ee308",
+  "userland_lock_sha256": "4ee25ee7018b30c92513dcf8711a2d516a647bb7d3d1c99cf74930b17a023206",
+  "built_source_commit": "bd877bc5bed63a2a182b43e320cd2a606850ce81",
+  "image_sha256": "3deece0ccb0754151b0ff44b1aa949f6293f94e24295d6f7ca5851fd871fbbba",
+  "compiled_certificate_sha256": "79e590113c4c4c0c222978e413a5faa801666957b1212a328e46c00c69821bf7",
+  "compiled_cfi": true,
+  "linked_ksu_paths_present": true,
+  "scope": "artifact/static verification only, NOT runtime Root"
+}

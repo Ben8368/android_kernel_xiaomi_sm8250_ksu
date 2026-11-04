@@ -1,0 +1,25 @@
+# Source-derived finite KernelSU kernel metadata/store permissions only.
+# This is NOT a complete ROM policy and has NOT passed target neverallow checks.
+# su must be enforcing in the actual compiled target policy.
+allow kernel adb_data_file:dir open;
+allow kernel adb_data_file:dir read;
+allow kernel adb_data_file:dir search;
+allow kernel adb_data_file:dir write;
+allow kernel adb_data_file:dir add_name;
+allow kernel adb_data_file:file open;
+allow kernel adb_data_file:file read;
+allow kernel adb_data_file:file write;
+allow kernel adb_data_file:file create;
+allow kernel adb_data_file:file getattr;
+allow kernel adb_data_file:file setattr;
+allow kernel apk_data_file:dir open;
+allow kernel apk_data_file:dir read;
+allow kernel apk_data_file:dir search;
+allow kernel apk_data_file:file open;
+allow kernel apk_data_file:file read;
+allow kernel apk_data_file:file getattr;
+allow kernel packages_list_file:file open;
+allow kernel packages_list_file:file read;
+allow kernel packages_list_file:file getattr;
+allow kernel system_data_file:dir search;
+allow kernel kernel:capability dac_override;

@@ -1,0 +1,3 @@
+PASS complete native tree and build input blobs match stage-3 HEAD: 7f9c153e61fd2c8e970a9c63a421500a274f8470
+PASS charging/touch/fingerprint/Wi-Fi drivers and original LTO/ThinLTO/CFI/Seccomp/SELinux source/config inputs unchanged
+SCOPE: Git source equality; hardware operation still untested

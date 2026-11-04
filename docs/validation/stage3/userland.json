@@ -1,0 +1,97 @@
+{
+  "source_commit": "0d6bdc6364cbfc73517dcfdf7ab23b0ba8045553",
+  "version": "v1.1.1",
+  "version_code": 12851,
+  "assets": {
+    "KernelSU_Next_v1.1.1_12851-release.apk": {
+      "sha256": "988dae93c17b5477b8b97952cc5bca6809a386bbbba55940ce45aecc90cacb80",
+      "size": 17738311,
+      "release_digest_matched": true,
+      "certificate_sha256": "79e590113c4c4c0c222978e413a5faa801666957b1212a328e46c00c69821bf7",
+      "certificate_size": 998,
+      "signing_ids": [
+        "0x7109871a",
+        "0x42726577"
+      ],
+      "algorithm": "0x103",
+      "v2_signature_verified": true,
+      "content_digest_verified": true,
+      "manifest": {
+        "package": "com.rifsxd.ksunext",
+        "versionCode": 12851,
+        "versionName": "v1.1.1",
+        "minSdkVersion": 26,
+        "targetSdkVersion": 36
+      },
+      "executables": {
+        "lib/arm64-v8a/libksud_magic.so": {
+          "sha256": "59e2fdcbc2de760f7d92aaf73adb4c37881b836e21a6866ba019e603dd711e31",
+          "size": 3392192,
+          "machine": "AArch64",
+          "type": "PIE",
+          "interpreter": "/system/bin/linker64",
+          "load_alignments": [
+            4096,
+            4096,
+            4096,
+            4096
+          ]
+        },
+        "lib/arm64-v8a/libksud_overlayfs.so": {
+          "sha256": "ee2ffc95b569b667dd7abba2f49ee4c5fb906c6652df0ded74af66df17db2d09",
+          "size": 3452480,
+          "machine": "AArch64",
+          "type": "PIE",
+          "interpreter": "/system/bin/linker64",
+          "load_alignments": [
+            4096,
+            4096,
+            4096,
+            4096
+          ]
+        }
+      }
+    },
+    "ksud_magic-aarch64-linux-android.zip": {
+      "sha256": "aa095727822d1e11b46853a489c9fe52da02c267508b0ca505c7ca46d786fb96",
+      "size": 2653682,
+      "release_digest_matched": true,
+      "executables": {
+        "aarch64-linux-android/release/ksud": {
+          "sha256": "188a467039e32bac20bc1ceea0b5541c4c5c71afd5f2ddcf2e0d2fedd49fbef9",
+          "size": 3392200,
+          "machine": "AArch64",
+          "type": "PIE",
+          "interpreter": "/system/bin/linker64",
+          "load_alignments": [
+            4096,
+            4096,
+            4096,
+            4096
+          ]
+        }
+      }
+    },
+    "ksud_overlayfs-aarch64-linux-android.zip": {
+      "sha256": "702313ff36932f834399ff8d96f45f6dfbebcde33fb47371f3fd015c5cc63065",
+      "size": 2686370,
+      "release_digest_matched": true,
+      "executables": {
+        "aarch64-linux-android/release/ksud": {
+          "sha256": "6220f7da643f44ea78e67bce7efc3ac5678c8d345c7b3c27773e8b3714c33dca",
+          "size": 3452488,
+          "machine": "AArch64",
+          "type": "PIE",
+          "interpreter": "/system/bin/linker64",
+          "load_alignments": [
+            4096,
+            4096,
+            4096,
+            4096
+          ]
+        }
+      }
+    }
+  },
+  "scope": "OFFLINE ONLY; no Android execution or device authentication"
+}

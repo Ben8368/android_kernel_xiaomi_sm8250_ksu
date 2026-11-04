@@ -1,0 +1,47 @@
+COMMAND: /usr/bin/python3 /home/xiaoluo/umi-ksu-work-20261104/tools/third_party/mkdtboimg.py create /home/xiaoluo/umi-ksu-stage2/build-v111/arch/arm64/boot/dtbo.img --page_size=4096 /home/xiaoluo/umi-ksu-stage2/build-v111/arch/arm64/boot/dts/vendor/qcom/alioth-sm8250-overlay.dtbo /home/xiaoluo/umi-ksu-stage2/build-v111/arch/arm64/boot/dts/vendor/qcom/apollo-sm8250-overlay.dtbo /home/xiaoluo/umi-ksu-stage2/build-v111/arch/arm64/boot/dts/vendor/qcom/cas-sm8250-overlay.dtbo /home/xiaoluo/umi-ksu-stage2/build-v111/arch/arm64/boot/dts/vendor/qcom/cmi-sm8250-overlay.dtbo /home/xiaoluo/umi-ksu-stage2/build-v111/arch/arm64/boot/dts/vendor/qcom/dagu-sm8250-overlay.dtbo /home/xiaoluo/umi-ksu-stage2/build-v111/arch/arm64/boot/dts/vendor/qcom/elish-sm8250-overlay.dtbo /home/xiaoluo/umi-ksu-stage2/build-v111/arch/arm64/boot/dts/vendor/qcom/enuma-sm8250-overlay.dtbo /home/xiaoluo/umi-ksu-stage2/build-v111/arch/arm64/boot/dts/vendor/qcom/lmi-sm8250-overlay.dtbo /home/xiaoluo/umi-ksu-stage2/build-v111/arch/arm64/boot/dts/vendor/qcom/munch-sm8250-overlay.dtbo /home/xiaoluo/umi-ksu-stage2/build-v111/arch/arm64/boot/dts/vendor/qcom/psyche-sm8250-overlay.dtbo /home/xiaoluo/umi-ksu-stage2/build-v111/arch/arm64/boot/dts/vendor/qcom/thyme-sm8250-overlay.dtbo /home/xiaoluo/umi-ksu-stage2/build-v111/arch/arm64/boot/dts/vendor/qcom/umi-sm8250-overlay.dtbo
+{
+  "rule": "LineageOS 24.0 kernel.mk sorted DTBs and mkdtboimg create --page_size=4096",
+  "tool_source": {
+    "url": "https://android.googlesource.com/platform/system/libufdt/+/60546233f51d5eaceb9ca8837d1192539ccea1a1/utils/src/mkdtboimg.py?format=TEXT",
+    "commit": "60546233f51d5eaceb9ca8837d1192539ccea1a1",
+    "sha256": "81656c0e344ad2c9e7bdc6775015b38dec2bc2965d482e903fdb4dbd293110a6",
+    "manifest_tag": "android-17.0.0_r1"
+  },
+  "dtb_inputs": [
+    "arch/arm64/boot/dts/vendor/qcom/kona-v2.1.dtb",
+    "arch/arm64/boot/dts/vendor/qcom/kona-v2.dtb",
+    "arch/arm64/boot/dts/vendor/qcom/kona.dtb"
+  ],
+  "dtbo_inputs": [
+    "arch/arm64/boot/dts/vendor/qcom/alioth-sm8250-overlay.dtbo",
+    "arch/arm64/boot/dts/vendor/qcom/apollo-sm8250-overlay.dtbo",
+    "arch/arm64/boot/dts/vendor/qcom/cas-sm8250-overlay.dtbo",
+    "arch/arm64/boot/dts/vendor/qcom/cmi-sm8250-overlay.dtbo",
+    "arch/arm64/boot/dts/vendor/qcom/dagu-sm8250-overlay.dtbo",
+    "arch/arm64/boot/dts/vendor/qcom/elish-sm8250-overlay.dtbo",
+    "arch/arm64/boot/dts/vendor/qcom/enuma-sm8250-overlay.dtbo",
+    "arch/arm64/boot/dts/vendor/qcom/lmi-sm8250-overlay.dtbo",
+    "arch/arm64/boot/dts/vendor/qcom/munch-sm8250-overlay.dtbo",
+    "arch/arm64/boot/dts/vendor/qcom/psyche-sm8250-overlay.dtbo",
+    "arch/arm64/boot/dts/vendor/qcom/thyme-sm8250-overlay.dtbo",
+    "arch/arm64/boot/dts/vendor/qcom/umi-sm8250-overlay.dtbo"
+  ],
+  "dtbo_header": {
+    "version": 0,
+    "entry_count": 12,
+    "page_size": 4096,
+    "total_size": 5704404
+  },
+  "artifacts": [
+    {
+      "path": "arch/arm64/boot/dtb.img",
+      "size": 1424944,
+      "sha256": "dc0dabd0671edb7a5e5b5db494f2471e1ba547255323c9afd9f3599ebe9ba5fd"
+    },
+    {
+      "path": "arch/arm64/boot/dtbo.img",
+      "size": 5705728,
+      "sha256": "3e6b96d9fa252a987600313cf25581563880c0a9c345d8d3f52a0f9741a93488"
+    }
+  ]
+}

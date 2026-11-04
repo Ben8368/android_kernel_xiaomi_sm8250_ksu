@@ -1,0 +1,626 @@
+Already applied: /home/xiaoluo/umi-ksu-work-20261104/compat/kernelsu-next/0001-deterministic-kbuild.patch
+Already applied: /home/xiaoluo/umi-ksu-work-20261104/compat/kernelsu-next/0002-preserve-seccomp-and-path-references.patch
+Already applied: /home/xiaoluo/umi-ksu-work-20261104/compat/kernelsu-next/0003-check-signature-errors-as-integers.patch
+Already applied: /home/xiaoluo/umi-ksu-work-20261104/compat/kernelsu-next/0004-fix-declarations-and-syscall-argument-types.patch
+START 2026-11-04T03:30:56Z
+ff1fec1e81e7c84ecd9809d241756ffffb314596
+ 0d6bdc6364cbfc73517dcfdf7ab23b0ba8045553 KernelSU-Next (v1.1.1)
+Android (15071444, +pgo, +bolt, +lto, +mlgo, based on r596125) clang version 22.0.2 (https://android.googlesource.com/toolchain/llvm-project de03d430485c884861198b25459851f429cbdbad)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/xiaoluo/umi-ksu-stage2/toolchains/clang-r596125/bin
+LLD 22.0.2 (/mnt/disks/build-disk/src/googleplex-android/llvm-r596125-release/out/llvm-project/llvm de03d430485c884861198b25459851f429cbdbad) (compatible with GNU linkers)
+b50deb7c48633d03c02b15b6508d79768027e80422265d7a4a7f2f13d2f01d97  /home/xiaoluo/umi-ksu-stage2/toolchains/clang-r596125/bin/clang
+28774967e08984bbe8a54a07a4b40af0160881a2f777fa780fe3afa33c0775c8  /home/xiaoluo/umi-ksu-stage2/toolchains/clang-r596125/bin/clang-real
+36eb18dc6acdd4eca1f63e9ac73708cfef84cdd1c1db47b3ca686a5d1fcdcd81  /home/xiaoluo/umi-ksu-stage2/toolchains/clang-r596125/bin/ld.lld
+COMMAND: make -C /home/xiaoluo/umi-ksu-work-20261104 O=/home/xiaoluo/umi-ksu-stage2/build-v111 ARCH=arm64 LLVM=1 LLVM_IAS=1 CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- vendor/kona-perf_defconfig
+make: Entering directory '/home/xiaoluo/umi-ksu-work-20261104'
+make[1]: Entering directory '/home/xiaoluo/umi-ksu-stage2/build-v111'
+  GEN     ./Makefile
+#
+# configuration written to .config
+#
+make[1]: Leaving directory '/home/xiaoluo/umi-ksu-stage2/build-v111'
+make: Leaving directory '/home/xiaoluo/umi-ksu-work-20261104'
+Using /home/xiaoluo/umi-ksu-stage2/build-v111/.config as base
+Merging /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/debugfs.config
+Value of CONFIG_MSM_IDLE_STATS is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/debugfs.config:
+Previous value: # CONFIG_MSM_IDLE_STATS is not set
+New value: CONFIG_MSM_IDLE_STATS=n
+
+Value of CONFIG_PAGE_EXTENSION is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/debugfs.config:
+Previous value: # CONFIG_PAGE_EXTENSION is not set
+New value: CONFIG_PAGE_EXTENSION=n
+
+Value of CONFIG_PAGE_OWNER is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/debugfs.config:
+Previous value: # CONFIG_PAGE_OWNER is not set
+New value: CONFIG_PAGE_OWNER=n
+
+Value of CONFIG_DEBUG_FS is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/debugfs.config:
+Previous value: # CONFIG_DEBUG_FS is not set
+New value: CONFIG_DEBUG_FS=n
+
+Merging /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config
+Value of CONFIG_QCA_CLD_WLAN is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_QCA_CLD_WLAN is not set
+New value: CONFIG_QCA_CLD_WLAN=y
+
+Value of CONFIG_EXFAT_FS is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_EXFAT_FS is not set
+New value: CONFIG_EXFAT_FS=y
+
+Value of CONFIG_PSTORE is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_PSTORE is not set
+New value: CONFIG_PSTORE=y
+
+Value of CONFIG_CMDLINE is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_CMDLINE="cgroup_disable=pressure"
+New value: CONFIG_CMDLINE="cgroup_disable=pressure ramoops_memreserve=4M"
+
+Value of CONFIG_BLK_WBT is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_BLK_WBT is not set
+New value: CONFIG_BLK_WBT=y
+
+Value of CONFIG_MTD is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_MTD is not set
+New value: CONFIG_MTD=y
+
+Value of CONFIG_BACKLIGHT_KTZ8866 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_BACKLIGHT_KTZ8866 is not set
+New value: CONFIG_BACKLIGHT_KTZ8866=y
+
+Value of CONFIG_BACKLIGHT_DUALKTZ8866 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_BACKLIGHT_DUALKTZ8866 is not set
+New value: CONFIG_BACKLIGHT_DUALKTZ8866=y
+
+Value of CONFIG_MOTOR_DRV8846 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_MOTOR_DRV8846 is not set
+New value: CONFIG_MOTOR_DRV8846=y
+
+Value of CONFIG_AIROHA_GPS is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_AIROHA_GPS is not set
+New value: CONFIG_AIROHA_GPS=y
+
+Value of CONFIG_HALL_AKM09970 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_HALL_AKM09970 is not set
+New value: CONFIG_HALL_AKM09970=y
+
+Value of CONFIG_ION_CAMERA_HEAP is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_ION_CAMERA_HEAP is not set
+New value: CONFIG_ION_CAMERA_HEAP=y
+
+Value of CONFIG_RC_CORE is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_RC_CORE is not set
+New value: CONFIG_RC_CORE=y
+
+Value of CONFIG_INPUT_XIAOMI_KEYBOARD is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_INPUT_XIAOMI_KEYBOARD is not set
+New value: CONFIG_INPUT_XIAOMI_KEYBOARD=y
+
+Value of CONFIG_KEYBOARD_NANO_8030 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_KEYBOARD_NANO_8030 is not set
+New value: CONFIG_KEYBOARD_NANO_8030=y
+
+Value of CONFIG_LEDS_AW2015 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_LEDS_AW2015 is not set
+New value: CONFIG_LEDS_AW2015=y
+
+Value of CONFIG_FRAME_WARN is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_FRAME_WARN=2048
+New value: CONFIG_FRAME_WARN=4096
+
+Value of CONFIG_SMB1355_SLAVE_CHARGER is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_SMB1355_SLAVE_CHARGER=y
+New value: CONFIG_SMB1355_SLAVE_CHARGER=n
+
+Value of CONFIG_SMB1390_CHARGE_PUMP_PSY is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_SMB1390_CHARGE_PUMP_PSY=y
+New value: CONFIG_SMB1390_CHARGE_PUMP_PSY=n
+
+Value of CONFIG_SMB1398_CHARGER is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_SMB1398_CHARGER is not set
+New value: CONFIG_SMB1398_CHARGER=n
+
+Value of CONFIG_I2C_RETRY is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_I2C_RETRY is not set
+New value: CONFIG_I2C_RETRY=y
+
+Value of CONFIG_REGULATOR_PM8008 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_REGULATOR_PM8008 is not set
+New value: CONFIG_REGULATOR_PM8008=y
+
+Value of CONFIG_REGULATOR_QCOM_RPMH is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_REGULATOR_QCOM_RPMH is not set
+New value: CONFIG_REGULATOR_QCOM_RPMH=y
+
+Value of CONFIG_TOUCHSCREEN_FTS is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_TOUCHSCREEN_FTS=y
+New value: CONFIG_TOUCHSCREEN_FTS=n
+
+Value of CONFIG_TOUCHSCREEN_SYNAPTICS_DSX is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_TOUCHSCREEN_SYNAPTICS_DSX=y
+New value: CONFIG_TOUCHSCREEN_SYNAPTICS_DSX=n
+
+Value of CONFIG_TOUCHSCREEN_SYNAPTICS_TCM is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_TOUCHSCREEN_SYNAPTICS_TCM=y
+New value: CONFIG_TOUCHSCREEN_SYNAPTICS_TCM=n
+
+Value of CONFIG_TOUCHSCREEN_ST is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_TOUCHSCREEN_ST=y
+New value: CONFIG_TOUCHSCREEN_ST=n
+
+Value of CONFIG_PS5169 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: # CONFIG_PS5169 is not set
+New value: CONFIG_PS5169=y
+
+Value of CONFIG_INPUT_QTI_HAPTICS is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/sm8250-common.config:
+Previous value: CONFIG_INPUT_QTI_HAPTICS=y
+New value: CONFIG_INPUT_QTI_HAPTICS=n
+
+Merging /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config
+Value of CONFIG_MACH_XIAOMI_UMI is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_MACH_XIAOMI_UMI is not set
+New value: CONFIG_MACH_XIAOMI_UMI=y
+
+Value of CONFIG_TOUCHSCREEN_ST_FTS_V521 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_TOUCHSCREEN_ST_FTS_V521 is not set
+New value: CONFIG_TOUCHSCREEN_ST_FTS_V521=y
+
+Value of CONFIG_TOUCHSCREEN_GOODIX_GTX8 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_TOUCHSCREEN_GOODIX_GTX8 is not set
+New value: CONFIG_TOUCHSCREEN_GOODIX_GTX8=y
+
+Value of CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE is not set
+New value: CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE=y
+
+Value of CONFIG_INPUT_FINGERPRINT is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_INPUT_FINGERPRINT is not set
+New value: CONFIG_INPUT_FINGERPRINT=y
+
+Value of CONFIG_LN8282 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_LN8282 is not set
+New value: CONFIG_LN8282=y
+
+Value of CONFIG_IDT_P9415 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_IDT_P9415 is not set
+New value: CONFIG_IDT_P9415=y
+
+Value of CONFIG_RX1619 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_RX1619 is not set
+New value: CONFIG_RX1619=y
+
+Value of CONFIG_RX1619_TRIM is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_RX1619_TRIM is not set
+New value: CONFIG_RX1619_TRIM=y
+
+Value of CONFIG_BQ_PUMP_WIRELESS_CHARGE is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_BQ_PUMP_WIRELESS_CHARGE is not set
+New value: CONFIG_BQ_PUMP_WIRELESS_CHARGE=y
+
+Value of CONFIG_BQ2597X_CHARGE_PUMP is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_BQ2597X_CHARGE_PUMP is not set
+New value: CONFIG_BQ2597X_CHARGE_PUMP=y
+
+Value of CONFIG_ONEWIRE_GPIO is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_ONEWIRE_GPIO is not set
+New value: CONFIG_ONEWIRE_GPIO=y
+
+Value of CONFIG_BATT_VERIFY_BY_DS28E16 is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_BATT_VERIFY_BY_DS28E16 is not set
+New value: CONFIG_BATT_VERIFY_BY_DS28E16=y
+
+Value of CONFIG_INPUT_AW8697_HAPTIC is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_INPUT_AW8697_HAPTIC is not set
+New value: CONFIG_INPUT_AW8697_HAPTIC=y
+
+Value of CONFIG_TECHPACK_CAMERA_XIAOMI_CAS is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_TECHPACK_CAMERA_XIAOMI_CAS is not set
+New value: CONFIG_TECHPACK_CAMERA_XIAOMI_CAS=y
+
+Value of CONFIG_KPROBES is redefined by fragment /home/xiaoluo/umi-ksu-work-20261104/arch/arm64/configs/vendor/xiaomi/umi.config:
+Previous value: # CONFIG_KPROBES is not set
+New value: CONFIG_KPROBES=y
+
+#
+# merged configuration written to /home/xiaoluo/umi-ksu-stage2/build-v111/.config (needs make)
+#
+COMMAND: make -C /home/xiaoluo/umi-ksu-work-20261104 O=/home/xiaoluo/umi-ksu-stage2/build-v111 ARCH=arm64 LLVM=1 LLVM_IAS=1 CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- olddefconfig
+make: Entering directory '/home/xiaoluo/umi-ksu-work-20261104'
+make[1]: Entering directory '/home/xiaoluo/umi-ksu-stage2/build-v111'
+  GEN     ./Makefile
+scripts/kconfig/conf  --olddefconfig Kconfig
+#
+# configuration written to .config
+#
+make[1]: Leaving directory '/home/xiaoluo/umi-ksu-stage2/build-v111'
+make: Leaving directory '/home/xiaoluo/umi-ksu-work-20261104'
+COMMAND: make -C /home/xiaoluo/umi-ksu-work-20261104 O=/home/xiaoluo/umi-ksu-stage2/build-v111 ARCH=arm64 LLVM=1 LLVM_IAS=1 CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- -j6 Image modules dtbs
+make: Entering directory '/home/xiaoluo/umi-ksu-work-20261104'
+make[1]: Entering directory '/home/xiaoluo/umi-ksu-stage2/build-v111'
+  GEN     ./Makefile
+scripts/kconfig/conf  --syncconfig Kconfig
+  GEN     ./Makefile
+  UPD     include/config/kernel.release
+  Using /home/xiaoluo/umi-ksu-work-20261104 as source for kernel
+-- KernelSU-Next Manager signature size: 0x3e6
+-- KernelSU-Next Manager signature hash: 79e590113c4c4c0c222978e413a5faa801666957b1212a328e46c00c69821bf7
+  UPD     include/generated/utsrelease.h
+  CALL    /home/xiaoluo/umi-ksu-work-20261104/scripts/checksyscalls.sh
+  CHK     include/generated/compile.h
+  CC      init/version.o
+  CC      kernel/sys.o
+  AR      init/built-in.a
+  CC      drivers/base/firmware_loader/fallback_table.o
+  CC      drivers/base/firmware_loader/main.o
+  CC      drivers/base/firmware_loader/fallback.o
+  AR      drivers/base/firmware_loader/built-in.a
+  AR      drivers/base/built-in.a
+  CC      kernel/trace/trace.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/kona.dtb
+  DTC     arch/arm64/boot/dts/vendor/qcom/kona-v2.dtb
+  DTC     arch/arm64/boot/dts/vendor/qcom/kona-v2.1.dtb
+  AR      kernel/trace/built-in.a
+  CC      kernel/module.o
+-- KernelSU-Next Manager signature size: 0x3e6
+-- KernelSU-Next Manager signature hash: 79e590113c4c4c0c222978e413a5faa801666957b1212a328e46c00c69821bf7
+  AR      drivers/macintosh/built-in.a
+  CC      drivers/kernelsu/sucompat.o
+  CC      drivers/kernelsu/throne_tracker.o
+  CC      drivers/mailbox/mailbox.o
+  CC      drivers/mailbox/qcom-apcs-ipc-mailbox.o
+  CC      drivers/md/dm-uevent.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/alioth-sm8250-overlay.dtbo
+  CC      drivers/mailbox/msm_qmp.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/apollo-sm8250-overlay.dtbo
+  CC      drivers/kernelsu/core_hook.o
+  AR      drivers/mailbox/built-in.a
+  DTC     arch/arm64/boot/dts/vendor/qcom/cas-sm8250-overlay.dtbo
+  CC      drivers/md/dm.o
+  GZIP    kernel/config_data.gz
+  CHK     kernel/kheaders_data.tar.xz
+  AR      drivers/media/common/b2c2/built-in.a
+  AR      drivers/media/common/saa7146/built-in.a
+  AR      drivers/media/common/siano/built-in.a
+  AR      drivers/media/common/v4l2-tpg/built-in.a
+  CC      drivers/media/common/videobuf2/videobuf2-core.o
+  GEN     kernel/kheaders_data.tar.xz
+  CC      drivers/media/dvb-core/dvbdev.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/cmi-sm8250-overlay.dtbo
+  CC      drivers/kernelsu/ksud.o
+  CC      drivers/md/dm-table.o
+  CC      drivers/media/dvb-core/dmxdev.o
+  CC      drivers/media/common/videobuf2/vb2-trace.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/dagu-sm8250-overlay.dtbo
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/ksud.c:507:34: error: incompatible integer to pointer conversion passing 'int' to parameter of type 'int *' [-Wint-conversion]
+  507 |         return ksu_handle_execveat_ksud(AT_FDCWD, &filename_p, &argv, NULL, NULL);
+      |                                         ^~~~~~~~
+/home/xiaoluo/umi-ksu-work-20261104/include/uapi/linux/fcntl.h:79:19: note: expanded from macro 'AT_FDCWD'
+   79 | #define AT_FDCWD                -100    /* Special value used to indicate
+      |                                 ^~~~
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/ksud.c:161:35: note: passing argument to parameter 'fd' here
+  161 | int ksu_handle_execveat_ksud(int *fd, struct filename **filename_ptr,
+      |                                   ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/ksud.c:522:19: error: incompatible integer to pointer conversion assigning to 'const compat_uptr_t *' (aka 'const unsigned int *') from 'u64' (aka 'unsigned long long') [-Wint-conversion]
+  522 |                 argv.ptr.compat = PT_REGS_CCALL_PARM4(regs);
+      |                                 ^ ~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/ksud.c:524:19: error: incompatible integer to pointer conversion assigning to 'const char *const *' from 'u64' (aka 'unsigned long long') [-Wint-conversion]
+  524 |                 argv.ptr.native = PT_REGS_CCALL_PARM4(regs);
+      |                                 ^ ~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/ksud.c:552:34: error: incompatible integer to pointer conversion passing 'int' to parameter of type 'int *' [-Wint-conversion]
+  552 |         return ksu_handle_execveat_ksud(AT_FDCWD, &filename_p, &argv, NULL,
+      |                                         ^~~~~~~~
+/home/xiaoluo/umi-ksu-work-20261104/include/uapi/linux/fcntl.h:79:19: note: expanded from macro 'AT_FDCWD'
+   79 | #define AT_FDCWD                -100    /* Special value used to indicate
+      |                                 ^~~~
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/ksud.c:161:35: note: passing argument to parameter 'fd' here
+  161 | int ksu_handle_execveat_ksud(int *fd, struct filename **filename_ptr,
+      |                                   ^
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/ksud.c:573:9: error: incompatible pointer to integer conversion initializing 'size_t' (aka 'unsigned long') with an expression of type 'size_t *' (aka 'unsigned long *'); dereference with * [-Wint-conversion]
+  573 |         size_t count_ptr = (size_t *)&PT_REGS_PARM3(real_regs);
+      |                ^           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            *
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/ksud.c:575:42: error: incompatible integer to pointer conversion passing 'size_t' (aka 'unsigned long') to parameter of type 'size_t *' (aka 'unsigned long *'); take the address with & [-Wint-conversion]
+  575 |         return ksu_handle_sys_read(fd, buf_ptr, count_ptr);
+      |                                                 ^~~~~~~~~
+      |                                                 &
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/ksud.c:415:12: note: passing argument to parameter 'count_ptr' here
+  415 |                         size_t *count_ptr)
+      |                                 ^
+6 errors generated.
+make[3]: *** [/home/xiaoluo/umi-ksu-work-20261104/scripts/Makefile.build:338: drivers/kernelsu/ksud.o] Error 1
+make[2]: *** [/home/xiaoluo/umi-ksu-work-20261104/scripts/Makefile.build:642: drivers/kernelsu] Error 2
+make[2]: *** Waiting for unfinished jobs....
+  DTC     arch/arm64/boot/dts/vendor/qcom/elish-sm8250-overlay.dtbo
+  AR      drivers/media/dvb-frontends/built-in.a
+  CC      drivers/media/dvb-core/dvb_demux.o
+  CC      drivers/media/common/videobuf2/videobuf2-v4l2.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/enuma-sm8250-overlay.dtbo
+  CC      drivers/md/dm-target.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/lmi-sm8250-overlay.dtbo
+  CC      drivers/media/dvb-core/dvb_ca_en50221.o
+  CC      drivers/media/common/videobuf2/videobuf2-memops.o
+  CC      drivers/media/dvb-core/dvb_frontend.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/munch-sm8250-overlay.dtbo
+  CC      drivers/md/dm-linear.o
+  CC      drivers/media/common/videobuf2/videobuf2-vmalloc.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/psyche-sm8250-overlay.dtbo
+  DTC     arch/arm64/boot/dts/vendor/qcom/thyme-sm8250-overlay.dtbo
+  CC      drivers/media/dvb-core/dvb_net.o
+  CC      drivers/md/dm-stripe.o
+  AR      drivers/media/common/videobuf2/built-in.a
+  AR      drivers/media/common/built-in.a
+  CC      drivers/media/dvb-core/dvb_ringbuffer.o
+  CC      drivers/media/dvb-core/dvb_math.o
+  DTC     arch/arm64/boot/dts/vendor/qcom/umi-sm8250-overlay.dtbo
+  CC      drivers/md/dm-ioctl.o
+  CC      drivers/md/dm-io.o
+  CC      drivers/md/dm-kcopyd.o
+  CC      drivers/md/dm-sysfs.o
+  AR      drivers/media/dvb-core/built-in.a
+  AR      drivers/media/firewire/built-in.a
+  AR      drivers/media/i2c/soc_camera/built-in.a
+  CC      drivers/media/i2c/ir-kbd-i2c.o
+  AR      drivers/media/mmc/siano/built-in.a
+  AR      drivers/media/mmc/built-in.a
+  CC      drivers/md/dm-stats.o
+  AR      drivers/media/i2c/built-in.a
+  AR      drivers/media/pci/b2c2/built-in.a
+  AR      drivers/media/pci/ddbridge/built-in.a
+  AR      drivers/media/platform/cros-ec-cec/built-in.a
+  AR      drivers/media/platform/davinci/built-in.a
+  AR      drivers/media/pci/dm1105/built-in.a
+  AR      drivers/media/platform/meson/built-in.a
+  AR      drivers/media/pci/intel/ipu3/built-in.a
+  CC      drivers/md/dm-rq.o
+  AR      drivers/media/pci/intel/built-in.a
+  CC      drivers/media/platform/msm/cvp/msm_v4l2_cvp.o
+  AR      drivers/media/pci/mantis/built-in.a
+  AR      drivers/media/pci/netup_unidvb/built-in.a
+  AR      drivers/media/pci/ngene/built-in.a
+  AR      drivers/media/pci/pluto2/built-in.a
+  AR      drivers/media/platform/omap/built-in.a
+  AR      drivers/media/pci/pt1/built-in.a
+  AR      drivers/media/pci/pt3/built-in.a
+  AR      drivers/media/platform/stm32/built-in.a
+  AR      drivers/media/pci/saa7146/built-in.a
+  AR      drivers/media/pci/smipcie/built-in.a
+  CC      drivers/md/dm-builtin.o
+  AR      drivers/media/pci/ttpci/built-in.a
+  AR      drivers/media/pci/built-in.a
+  CC      drivers/media/platform/msm/npu/npu_dbg.o
+  CC      drivers/media/platform/msm/cvp/msm_v4l2_private.o
+  CC      drivers/media/platform/msm/npu/npu_dev.o
+  CC      drivers/media/platform/msm/npu/npu_debugfs.o
+  CC      drivers/media/platform/msm/cvp/msm_cvp_platform.o
+  CC      drivers/md/dm-bufio.o
+  AR      drivers/media/platform/msm/sde/built-in.a
+  CC      drivers/md/dm-crypt.o
+  CC      drivers/media/platform/msm/npu/npu_host_ipc.o
+  CC      drivers/media/platform/msm/npu/npu_hw_access.o
+  CC      drivers/media/platform/msm/cvp/msm_cvp_common.o
+  CC      drivers/media/platform/msm/cvp/msm_cvp_core.o
+  CC      drivers/media/radio/rtc6226/radio-rtc6226-i2c.o
+  CC      drivers/media/platform/msm/npu/npu_mgr.o
+  CC      drivers/media/radio/rtc6226/radio-rtc6226-common.o
+  CC      drivers/md/dm-default-key.o
+  CC      drivers/media/rc/keymaps/rc-adstech-dvb-t-pci.o
+  CC      drivers/media/platform/msm/cvp/msm_cvp.o
+  AR      drivers/media/platform/msm/npu/built-in.a
+  CC      drivers/media/rc/rc-main.o
+  CC      drivers/media/rc/keymaps/rc-alink-dtu-m.o
+  CC      drivers/md/dm-snap.o
+  AR      drivers/media/radio/rtc6226/built-in.a
+  AR      drivers/media/radio/built-in.a
+  CC      drivers/media/rc/keymaps/rc-anysee.o
+  CC      drivers/media/platform/msm/synx/synx.o
+  CC      drivers/media/platform/msm/cvp/msm_smem.o
+  CC      drivers/media/rc/keymaps/rc-apac-viewcomp.o
+  CC      drivers/md/dm-exception-store.o
+  CC      drivers/media/rc/keymaps/rc-astrometa-t2hybrid.o
+  CC      drivers/media/platform/msm/synx/synx_util.o
+  CC      drivers/media/platform/msm/cvp/msm_cvp_debug.o
+  AR      drivers/media/spi/built-in.a
+  CC      drivers/media/rc/rc-ir-raw.o
+  CC      drivers/media/rc/keymaps/rc-asus-pc39.o
+  CC      drivers/media/platform/msm/synx/synx_debugfs.o
+  CC      drivers/md/dm-snap-transient.o
+  CC      drivers/media/rc/keymaps/rc-asus-ps3-100.o
+  CC      drivers/md/dm-snap-persistent.o
+  AR      drivers/media/platform/msm/synx/built-in.a
+  CC      drivers/media/tuners/tuner-xc2028.o
+  CC      drivers/media/rc/keymaps/rc-ati-tv-wonder-hd-600.o
+  CC      drivers/media/rc/keymaps/rc-ati-x10.o
+  CC      drivers/media/platform/msm/cvp/msm_cvp_res_parse.o
+  CC      drivers/media/platform/msm/cvp/cvp_hfi.o
+  CC      drivers/media/rc/keymaps/rc-avermedia-a16d.o
+  CC      drivers/md/dm-verity-fec.o
+  CC      drivers/media/tuners/tuner-simple.o
+  CC      drivers/media/rc/keymaps/rc-avermedia.o
+  CC      drivers/media/rc/keymaps/rc-avermedia-cardbus.o
+  CC      drivers/media/platform/msm/cvp/hfi_response_handler.o
+  CC      drivers/md/dm-verity-target.o
+  CC      drivers/media/rc/keymaps/rc-avermedia-dvbt.o
+  CC      drivers/media/tuners/tuner-types.o
+  CC      drivers/media/tuners/mt20xx.o
+  CC      drivers/media/platform/msm/cvp/hfi_packetization.o
+  CC      drivers/media/rc/keymaps/rc-avermedia-m135a.o
+  AR      drivers/media/usb/b2c2/built-in.a
+  AR      drivers/media/usb/dvb-usb/built-in.a
+  CC      drivers/md/dm-bow.o
+  AR      drivers/media/usb/dvb-usb-v2/built-in.a
+  CC [M]  drivers/media/usb/gspca/gspca.o
+  CC      drivers/media/rc/keymaps/rc-avermedia-m733a-rm-k6.o
+  CC      drivers/media/tuners/tda8290.o
+  CC      drivers/media/platform/msm/cvp/cvp_core_hfi.o
+  CC      drivers/media/rc/keymaps/rc-avermedia-rm-ks.o
+  CC      drivers/media/platform/msm/cvp/msm_cvp_clocks.o
+  CC      drivers/media/rc/keymaps/rc-avertv-303.o
+  CC      drivers/md/dm-user.o
+  CC      drivers/media/tuners/tea5767.o
+  CC [M]  drivers/media/usb/gspca/autogain_functions.o
+  CC      drivers/media/rc/keymaps/rc-azurewave-ad-tu700.o
+  CC      drivers/media/platform/msm/cvp/msm_cvp_dsp.o
+  CC      drivers/media/rc/keymaps/rc-behold.o
+  CC      drivers/media/tuners/tea5761.o
+  AR      drivers/md/built-in.a
+  AR      drivers/media/usb/s2255/built-in.a
+  CC      drivers/media/v4l2-core/v4l2-dev.o
+  LD [M]  drivers/media/usb/gspca/gspca_main.o
+  AR      drivers/media/usb/siano/built-in.a
+  AR      drivers/media/usb/stkwebcam/built-in.a
+  AR      drivers/media/usb/ttusb-budget/built-in.a
+  AR      drivers/media/usb/ttusb-dec/built-in.a
+  CC      drivers/media/rc/keymaps/rc-behold-columbus.o
+  CC      drivers/media/usb/uvc/uvc_driver.o
+  AR      drivers/media/platform/msm/cvp/built-in.a
+  AR      drivers/media/platform/msm/built-in.a
+  AR      drivers/media/platform/built-in.a
+  CC      drivers/media/usb/uvc/uvc_queue.o
+  CC      drivers/media/tuners/tda9887.o
+  CC      drivers/media/rc/keymaps/rc-budget-ci-old.o
+  CC      drivers/media/v4l2-core/v4l2-ioctl.o
+  CC      drivers/media/rc/keymaps/rc-cec.o
+  CC      drivers/media/rc/keymaps/rc-cinergy-1400.o
+  CC      drivers/media/usb/uvc/uvc_v4l2.o
+  CC      drivers/media/tuners/tda827x.o
+  CC      drivers/media/usb/uvc/uvc_video.o
+  CC      drivers/media/rc/keymaps/rc-cinergy.o
+  CC      drivers/media/rc/keymaps/rc-d680-dmb.o
+  CC      drivers/media/tuners/tda18271-maps.o
+  CC      drivers/media/tuners/tda18271-common.o
+  CC      drivers/media/v4l2-core/v4l2-device.o
+  CC      drivers/media/rc/keymaps/rc-delock-61959.o
+  CC      drivers/media/usb/uvc/uvc_ctrl.o
+  CC      drivers/media/rc/keymaps/rc-dib0700-nec.o
+  CC      drivers/media/rc/keymaps/rc-dib0700-rc5.o
+  CC      drivers/media/tuners/tda18271-fe.o
+  CC      drivers/media/v4l2-core/v4l2-fh.o
+  CC      drivers/media/tuners/xc5000.o
+  CC      drivers/media/rc/keymaps/rc-digitalnow-tinytwin.o
+  CC      drivers/media/usb/uvc/uvc_status.o
+  CC      drivers/media/rc/keymaps/rc-digittrade.o
+  CC      drivers/media/rc/keymaps/rc-dm1105-nec.o
+  CC      drivers/media/v4l2-core/v4l2-event.o
+  CC      drivers/media/usb/uvc/uvc_isight.o
+  CC      drivers/media/tuners/xc4000.o
+  CC      drivers/media/rc/lirc_dev.o
+  CC      drivers/media/rc/keymaps/rc-dntv-live-dvb-t.o
+  CC      drivers/media/rc/keymaps/rc-dntv-live-dvbt-pro.o
+  CC      drivers/media/usb/uvc/uvc_debugfs.o
+  CC      drivers/media/v4l2-core/v4l2-ctrls.o
+  CC      drivers/media/usb/uvc/uvc_metadata.o
+  CC      drivers/media/tuners/mc44s803.o
+  CC      drivers/media/rc/keymaps/rc-dtt200u.o
+  CC      drivers/media/rc/ir-spi.o
+  CC      drivers/media/rc/keymaps/rc-dvbsky.o
+  CC      drivers/media/usb/uvc/uvc_entity.o
+  AR      drivers/media/tuners/built-in.a
+  AR      drivers/media/usb/zr364xx/built-in.a
+  CC      drivers/media/media-device.o
+  CC      drivers/media/media-devnode.o
+  CC      drivers/media/rc/keymaps/rc-dvico-mce.o
+  CC      drivers/media/v4l2-core/v4l2-subdev.o
+  AR      drivers/media/usb/uvc/built-in.a
+  CC      drivers/media/rc/keymaps/rc-dvico-portable.o
+  AR      drivers/media/usb/built-in.a
+  CC      drivers/media/rc/keymaps/rc-em-terratec.o
+  CC      drivers/media/rc/keymaps/rc-encore-enltv2.o
+  CC      drivers/media/v4l2-core/v4l2-clk.o
+  CC      drivers/media/v4l2-core/v4l2-async.o
+  CC      drivers/media/v4l2-core/v4l2-compat-ioctl32.o
+  CC      drivers/media/rc/keymaps/rc-encore-enltv.o
+  CC      drivers/media/rc/keymaps/rc-encore-enltv-fm53.o
+  CC      drivers/media/v4l2-core/v4l2-trace.o
+  CC      drivers/media/rc/keymaps/rc-evga-indtube.o
+  CC      drivers/media/media-entity.o
+  CC      drivers/media/rc/keymaps/rc-eztv.o
+  CC      drivers/media/rc/keymaps/rc-flydvb.o
+  CC      drivers/media/v4l2-core/v4l2-mc.o
+  CC      drivers/media/rc/keymaps/rc-flyvideo.o
+  CC      drivers/media/rc/keymaps/rc-fusionhdtv-mce.o
+  CC      drivers/media/rc/keymaps/rc-gadmei-rm008z.o
+  CC      drivers/media/v4l2-core/v4l2-common.o
+  CC      drivers/media/v4l2-core/v4l2-dv-timings.o
+  CC      drivers/media/rc/keymaps/rc-geekbox.o
+  CC      drivers/media/v4l2-core/v4l2-mem2mem.o
+  CC      drivers/media/rc/keymaps/rc-genius-tvgo-a11mce.o
+  CC      drivers/media/rc/keymaps/rc-gotview7135.o
+  CC      drivers/media/rc/keymaps/rc-hisi-poplar.o
+  CC      drivers/media/rc/keymaps/rc-hisi-tv-demo.o
+  CC      drivers/media/rc/keymaps/rc-imon-mce.o
+  CC      drivers/media/rc/keymaps/rc-imon-pad.o
+  AR      drivers/media/v4l2-core/built-in.a
+  CC      drivers/media/rc/keymaps/rc-imon-rsc.o
+  CC      drivers/media/rc/keymaps/rc-iodata-bctv7e.o
+  CC      drivers/media/rc/keymaps/rc-it913x-v1.o
+  CC      drivers/media/rc/keymaps/rc-it913x-v2.o
+  CC      drivers/media/rc/keymaps/rc-kaiomy.o
+  CC      drivers/media/rc/keymaps/rc-kworld-315u.o
+  CC      drivers/media/rc/keymaps/rc-kworld-pc150u.o
+  CC      drivers/media/rc/keymaps/rc-kworld-plus-tv-analog.o
+  CC      drivers/media/rc/keymaps/rc-leadtek-y04g0051.o
+  CC      drivers/media/rc/keymaps/rc-lme2510.o
+  CC      drivers/media/rc/keymaps/rc-manli.o
+  CC      drivers/media/rc/keymaps/rc-medion-x10.o
+  CC      drivers/media/rc/keymaps/rc-medion-x10-digitainer.o
+  CC      drivers/media/rc/keymaps/rc-medion-x10-or2x.o
+  CC      drivers/media/rc/keymaps/rc-msi-digivox-ii.o
+  CC      drivers/media/rc/keymaps/rc-msi-digivox-iii.o
+  CC      drivers/media/rc/keymaps/rc-msi-tvanywhere.o
+  CC      drivers/media/rc/keymaps/rc-msi-tvanywhere-plus.o
+  CC      drivers/media/rc/keymaps/rc-nebula.o
+  CC      drivers/media/rc/keymaps/rc-nec-terratec-cinergy-xs.o
+  CC      drivers/media/rc/keymaps/rc-norwood.o
+  CC      drivers/media/rc/keymaps/rc-npgtech.o
+  CC      drivers/media/rc/keymaps/rc-pctv-sedna.o
+  CC      drivers/media/rc/keymaps/rc-pinnacle-color.o
+  CC      drivers/media/rc/keymaps/rc-pinnacle-grey.o
+  CC      drivers/media/rc/keymaps/rc-pinnacle-pctv-hd.o
+  CC      drivers/media/rc/keymaps/rc-pixelview.o
+  CC      drivers/media/rc/keymaps/rc-pixelview-mk12.o
+  CC      drivers/media/rc/keymaps/rc-pixelview-002t.o
+  CC      drivers/media/rc/keymaps/rc-pixelview-new.o
+  CC      drivers/media/rc/keymaps/rc-powercolor-real-angel.o
+  CC      drivers/media/rc/keymaps/rc-proteus-2309.o
+  CC      drivers/media/rc/keymaps/rc-purpletv.o
+  CC      drivers/media/rc/keymaps/rc-pv951.o
+  CC      drivers/media/rc/keymaps/rc-hauppauge.o
+  CC      drivers/media/rc/keymaps/rc-rc6-mce.o
+  CC      drivers/media/rc/keymaps/rc-real-audio-220-32-keys.o
+  CC      drivers/media/rc/keymaps/rc-reddo.o
+  CC      drivers/media/rc/keymaps/rc-snapstream-firefly.o
+  CC      drivers/media/rc/keymaps/rc-streamzap.o
+  CC      drivers/media/rc/keymaps/rc-tango.o
+  CC      drivers/media/rc/keymaps/rc-tbs-nec.o
+  CC      drivers/media/rc/keymaps/rc-technisat-ts35.o
+  CC      drivers/media/rc/keymaps/rc-technisat-usb2.o
+  CC      drivers/media/rc/keymaps/rc-terratec-cinergy-c-pci.o
+  CC      drivers/media/rc/keymaps/rc-terratec-cinergy-s2-hd.o
+  CC      drivers/media/rc/keymaps/rc-terratec-cinergy-xs.o
+  CC      drivers/media/rc/keymaps/rc-terratec-slim.o
+  CC      kernel/kheaders.o
+  CC      drivers/media/rc/keymaps/rc-terratec-slim-2.o
+  CC      drivers/media/rc/keymaps/rc-tevii-nec.o
+  CC      drivers/media/rc/keymaps/rc-tivo.o
+  AR      kernel/built-in.a
+  CC      drivers/media/rc/keymaps/rc-total-media-in-hand.o
+  CC      drivers/media/rc/keymaps/rc-total-media-in-hand-02.o
+  CC      drivers/media/rc/keymaps/rc-trekstor.o
+  CC      drivers/media/rc/keymaps/rc-tt-1500.o
+  CC      drivers/media/rc/keymaps/rc-twinhan-dtv-cab-ci.o
+  CC      drivers/media/rc/keymaps/rc-twinhan1027.o
+  CC      drivers/media/rc/keymaps/rc-videomate-m1f.o
+  CC      drivers/media/rc/keymaps/rc-videomate-s350.o
+  CC      drivers/media/rc/keymaps/rc-videomate-tv-pvr.o
+  CC      drivers/media/rc/keymaps/rc-winfast.o
+  CC      drivers/media/rc/keymaps/rc-winfast-usbii-deluxe.o
+  CC      drivers/media/rc/keymaps/rc-su3000.o
+  CC      drivers/media/rc/keymaps/rc-zx-irdec.o
+  AR      drivers/media/rc/keymaps/built-in.a
+  AR      drivers/media/rc/built-in.a
+  AR      drivers/media/built-in.a
+make[1]: *** [/home/xiaoluo/umi-ksu-work-20261104/Makefile:1225: drivers] Error 2
+make[1]: Leaving directory '/home/xiaoluo/umi-ksu-stage2/build-v111'
+make: *** [Makefile:153: sub-make] Error 2
+make: Leaving directory '/home/xiaoluo/umi-ksu-work-20261104'

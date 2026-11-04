@@ -1,0 +1,144 @@
+{
+  "build_invocation_head": "1a8fe03c7a70e9d559a14aaebbc8acde615a4ea2",
+  "source_head_at_verification": "c1c47a26c4ac8a45c45c65e7948024cc5a70fb17",
+  "kernel_release": "4.19.325-cip136-st20-perf-g1a8fe03c7a70-dirty",
+  "ksu_base": "0d6bdc6364cbfc73517dcfdf7ab23b0ba8045553",
+  "effective_ksu_sha256": {
+    "kernel/Makefile": "f6149e22d02a8e6846acb4ad3b150770aa613aee571b9869668ce64a97c0afcc",
+    "kernel/allowlist.c": "9c90f93e96fbc120962540c98b028711a108682407594b0dd5096a7ad2b1f8cb",
+    "kernel/allowlist.h": "21e07588c94c80145a3096fde740a5201b1491e4084eff8e9bb2e0e0528236de",
+    "kernel/apk_sign.c": "219c613c26b078bc68f7c00e52bbed56c2e194aff9a180c05e02b5a517298cb0",
+    "kernel/core_hook.c": "e771641a73e15c100241d7f2a532bfb9741672312c9a955148671d162d64583b",
+    "kernel/ksud.c": "2d5f57147e5881609d90293439ba62e12408d96f07c9f71f6d8afa42b8cd76e5",
+    "kernel/manager.h": "1e07e1002df7cb3c8e893d5ffa6b40b5bece53ade9c7b02a5c69594627316bb1",
+    "kernel/selinux/rules.c": "33a8901bcc3551c0f7163ca7b3b048f12ec7eedd6b51b4fddb440e77cbda31b2",
+    "kernel/sucompat.c": "d70f04fdba5e066c7b518ed358aaec2964e15a453a58b9f7d30ce535b7a7eede",
+    "kernel/throne_tracker.c": "a51b0210a37aa4eca7893556a0b9c2fdec3849e0617d54d5bdf4dfe4b37b2f5c"
+  },
+  "config_sha256": "cd083b1ff199fa679236ba82edd9ce9b270e2a1d39ce5379da5ce44b9e00889c",
+  "required_configs": [
+    "MACH_XIAOMI_UMI",
+    "KSU",
+    "KSU_KPROBES_HOOK",
+    "KSU_LSM_SECURITY_HOOKS",
+    "KPROBES",
+    "EXT4_FS",
+    "LTO",
+    "LTO_CLANG",
+    "THINLTO",
+    "CFI",
+    "CFI_CLANG",
+    "SECCOMP",
+    "SECCOMP_FILTER",
+    "SECURITY_SELINUX",
+    "STACKPROTECTOR_STRONG"
+  ],
+  "cfi_flags_verified": true,
+  "elf": "ELF64 AArch64 DYN (relocatable kernel)",
+  "unresolved_strong_symbols": 0,
+  "vmlinux_size": 685555464,
+  "vmlinux_sha256": "494f0eb87804685afc0fefa32e5687c62b221842ebb83ae6e314d0f0852b7a5c",
+  "dtb_count": 3,
+  "dtbo_count": 12,
+  "dtbo_img_exists": true,
+  "module_count": 3,
+  "artifacts": [
+    {
+      "path": "arch/arm64/boot/Image",
+      "size": 55560216,
+      "sha256": "f2b60e45ca862ef001e9afcc78b8c7e6b568f65852feea36c6cbbf1a2946872d"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/kona-v2.1.dtb",
+      "size": 477290,
+      "sha256": "3cfa0f247930cd437d9c17be6832a4cdf14bd0f88bdb6a706333da8b62ea7473"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/kona-v2.dtb",
+      "size": 477286,
+      "sha256": "97a8deb0ab8c844bc6ebcba30c9e0878293bce0a979a65683ced4fe84e74c651"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/kona.dtb",
+      "size": 470368,
+      "sha256": "1dcb217af664befc5da8c5ced373f2ece32c2c6bb4023c1f0bc2efa90b40db48"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/alioth-sm8250-overlay.dtbo",
+      "size": 474251,
+      "sha256": "7705753b48883f7c06aa764a2bcdd369ec59e58abe48ce231f135827d59a292b"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/apollo-sm8250-overlay.dtbo",
+      "size": 476360,
+      "sha256": "afa965e5aafd446ac9593d4a9083be2f6cb7a4fba6885b521910d0f6a950a31c"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/cas-sm8250-overlay.dtbo",
+      "size": 483536,
+      "sha256": "9592ad8a84632190e21376f785f8e7d5659c8cf9f0076146ce74e742c750f916"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/cmi-sm8250-overlay.dtbo",
+      "size": 474653,
+      "sha256": "05ae83422313259ebfbaaa42568522eeb7ffc223863beaaa835e48d40e337bc5"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/dagu-sm8250-overlay.dtbo",
+      "size": 470869,
+      "sha256": "38b569457ff76ce207ea6dc77a0be4f0387b15fb87e3dc114fca0c166cf9dd53"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/elish-sm8250-overlay.dtbo",
+      "size": 480138,
+      "sha256": "493b25ae0901804a45a19e92b2c7bca1be43e41f5ad762159c52dc763017dbee"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/enuma-sm8250-overlay.dtbo",
+      "size": 478466,
+      "sha256": "0179adc7f8625268f4bcec76239174af2cbd241e63b3940a6e60b4d9f33bb19e"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/lmi-sm8250-overlay.dtbo",
+      "size": 466713,
+      "sha256": "c432876c7f32b3daa8c4158135bc711548d1279744bafcb633f09a771dec96d2"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/munch-sm8250-overlay.dtbo",
+      "size": 478559,
+      "sha256": "da6c4c9ff8461c70df556b8580428ca59e72d63c4f4ec7fd7e3453655d684ecc"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/psyche-sm8250-overlay.dtbo",
+      "size": 471813,
+      "sha256": "37616bdb2c7db77c7e5905aee7be9b011c9c6b4bf6cbdc5e0dc10401a04faab5"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/thyme-sm8250-overlay.dtbo",
+      "size": 473322,
+      "sha256": "85f493c5ccfd560d15f72f795e5581a2a3c4e24ff57a9c4e9a57161b5dfe4b1c"
+    },
+    {
+      "path": "arch/arm64/boot/dts/vendor/qcom/umi-sm8250-overlay.dtbo",
+      "size": 475308,
+      "sha256": "917e091a7e8a3dc5a17d914ef52faf2a8ddb45c4c9e54514960aa06bb9deab65"
+    },
+    {
+      "path": "arch/arm64/boot/dtb.img",
+      "size": 1424944,
+      "sha256": "dc0dabd0671edb7a5e5b5db494f2471e1ba547255323c9afd9f3599ebe9ba5fd"
+    },
+    {
+      "path": "arch/arm64/boot/dtbo.img",
+      "size": 5705728,
+      "sha256": "3e6b96d9fa252a987600313cf25581563880c0a9c345d8d3f52a0f9741a93488"
+    }
+  ],
+  "limitations": [
+    "No device boot or runtime security verification",
+    "Official ordinary-app su remains incompatible with retained App Seccomp; no general Root claim",
+    "Modern namespace profile and optional old path_umount features unavailable",
+    "Matching official v1.1.1 assets are pinned and verified offline, NOT installed or executed",
+    "RCU memory regressions do not certify package identity, durable revocation or hook context; target policy compile/neverallow remains BLOCKED"
+  ]
+}

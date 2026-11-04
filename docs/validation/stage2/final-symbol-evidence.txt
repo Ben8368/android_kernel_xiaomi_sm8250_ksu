@@ -1,0 +1,10 @@
+KernelSU symbols:
+ffffff801306833c T kernelsu_init
+ffffff801144830c T ksu_handle_prctl
+ffffff801144b3e4 T ksu_permissive
+
+CFI / security symbols:
+ffffff8010090000 T __cfi_check
+ffffff80103bdf64 T __secure_computing
+ffffff801071dd88 T avc_ss_reset
+ffffff801071d900 T selinux_avc_init

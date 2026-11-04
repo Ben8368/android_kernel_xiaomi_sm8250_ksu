@@ -1,0 +1,5 @@
+PASS pinned LOS generator merge: arm64 identity and privileged operations excluded; prctl/setresuid retained
+PASS pinned LOS generator merge: arm identity and privileged operations excluded; prctl/setresuid retained
+PASS Zygote sets groups/GID before filtering and UID after; official su repeats blocked identity syscalls; Manager bootstrap differs
+PASS disposable host children receive SIGSYS before/after execve; .ok() cannot turn TRAP into a normal syscall error
+SCOPE: source generator merge and host inheritance only; exact-ROM generated filters and Android execution remain BLOCKED

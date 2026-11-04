@@ -1,0 +1,21 @@
+{
+  "files": {
+    "build-console.log": "954acbbd18b312f0396ea669ceaa0c8a89db934fe2148e276d7226df969355bd",
+    "build.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "provenance.json": "33a337f762d31bca2d1763bd69b9bac9586963bf33e68ba9d892c017aff0ab4b",
+    "source-before.json": "4d56b7d40dce254317d670402ec508eb07b13d60d994c5519abee9656af2fdbe",
+    "linked-verification.json": "606122b438b84e5e25752b6fa5753409955145e104b9ec6fcf3db7f5ab616123",
+    "build.config": "cd083b1ff199fa679236ba82edd9ce9b270e2a1d39ce5379da5ce44b9e00889c",
+    "build-contract.json": "549f5bf2348188bd835754396e4767b4a8c6ccf8420c45aad90635840fa5802a",
+    "artifacts.sha256": "12082db1bf9dce9535bce09ad8b63be58c7e5bde32875d2a2297fc3bc664084a",
+    "dt-package-verification.json": "13edf836abb006b9511c57d6728669108927c5ca294b6a64f1bd3ad7ed8575ea",
+    "linked-reverification.log": "cfa32f764833d1015e7b7732d332291c97f171ffa023187282fc69908b2ac68e",
+    "first-build-console.log": "321a559083d1ae6168e15dafa4911ae833fc10c9751a5533748a6319b7e36f17",
+    "first-provenance.json": "5e045b63495bacea8a22c065b334dac1f400a4d4042e6d2a78295768f2d26269",
+    "modules.sha256.json": "6752f083c7c17baeb0d5059ed5ce8331bb763c622e5af7600023abc36b8addab",
+    "launcher-note.txt": "f889115e700f7d6646c550eb46fdbaf5b054c98cbfcc4292814530ef23094302"
+  },
+  "source_commit": "c1c47a26c4ac8a45c45c65e7948024cc5a70fb17",
+  "verifier_sha256": "d90c9e99bf53a3ee07465c9a2e185f4273facc1420bd00097455a9dbce3ec4c5",
+  "scope": "actual subprocess exit 0, full Image/modules/dtbs, archived logs and source/artifact provenance; NOT ROM or device validation"
+}

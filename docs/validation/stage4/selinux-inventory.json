@@ -1,0 +1,915 @@
+{
+  "baseline": "v1.1.1 plus queue 0001..0008",
+  "old_grants": [
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_FILE",
+        "ALL",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "ALL",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allowxperm",
+      "arguments": [
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "\"blk_file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allowxperm",
+      "arguments": [
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "\"fifo_file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allowxperm",
+      "arguments": [
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "\"chr_file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allowxperm",
+      "arguments": [
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "\"file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"dir\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"apk_data_file\"",
+        "\"file\"",
+        "\"open\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"apk_data_file\"",
+        "\"dir\"",
+        "\"open\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"apk_data_file\"",
+        "\"dir\"",
+        "\"read\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"apk_data_file\"",
+        "\"dir\"",
+        "\"search\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"shell_data_file\"",
+        "\"file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"kernel\"",
+        "\"capability\"",
+        "\"dac_override\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"packages_list_file\"",
+        "\"file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"packages_list_file\"",
+        "\"dir\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"system_data_file\"",
+        "\"file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"system_data_file\"",
+        "\"dir\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"init\"",
+        "\"adb_data_file\"",
+        "\"file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"init\"",
+        "\"adb_data_file\"",
+        "\"dir\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"init\"",
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"zygote\"",
+        "\"adb_data_file\"",
+        "\"dir\"",
+        "\"search\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"servicemanager\"",
+        "KERNEL_SU_DOMAIN",
+        "\"dir\"",
+        "\"search\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"servicemanager\"",
+        "KERNEL_SU_DOMAIN",
+        "\"dir\"",
+        "\"read\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"servicemanager\"",
+        "KERNEL_SU_DOMAIN",
+        "\"file\"",
+        "\"open\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"servicemanager\"",
+        "KERNEL_SU_DOMAIN",
+        "\"file\"",
+        "\"read\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"servicemanager\"",
+        "KERNEL_SU_DOMAIN",
+        "\"process\"",
+        "\"getattr\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_DOMAIN",
+        "\"process\"",
+        "\"sigchld\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"logd\"",
+        "KERNEL_SU_DOMAIN",
+        "\"dir\"",
+        "\"search\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"logd\"",
+        "KERNEL_SU_DOMAIN",
+        "\"file\"",
+        "\"read\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"logd\"",
+        "KERNEL_SU_DOMAIN",
+        "\"file\"",
+        "\"open\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"logd\"",
+        "KERNEL_SU_DOMAIN",
+        "\"file\"",
+        "\"getattr\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_DOMAIN",
+        "\"fd\"",
+        "\"use\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_DOMAIN",
+        "\"fifo_file\"",
+        "\"write\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_DOMAIN",
+        "\"fifo_file\"",
+        "\"read\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_DOMAIN",
+        "\"fifo_file\"",
+        "\"open\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_DOMAIN",
+        "\"fifo_file\"",
+        "\"getattr\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"hwservicemanager\"",
+        "KERNEL_SU_DOMAIN",
+        "\"dir\"",
+        "\"search\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"hwservicemanager\"",
+        "KERNEL_SU_DOMAIN",
+        "\"file\"",
+        "\"read\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"hwservicemanager\"",
+        "KERNEL_SU_DOMAIN",
+        "\"file\"",
+        "\"open\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"hwservicemanager\"",
+        "KERNEL_SU_DOMAIN",
+        "\"process\"",
+        "\"getattr\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "ALL",
+        "\"file\"",
+        "\"read\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "ALL",
+        "\"file\"",
+        "\"write\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_DOMAIN",
+        "\"binder\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"system_server\"",
+        "KERNEL_SU_DOMAIN",
+        "\"process\"",
+        "\"getpgid\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"system_server\"",
+        "KERNEL_SU_DOMAIN",
+        "\"process\"",
+        "\"sigkill\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "s",
+        "t",
+        "c",
+        "p"
+      ]
+    },
+    {
+      "api": "ksu_allowxperm",
+      "arguments": [
+        "s",
+        "t",
+        "c",
+        "perm_set"
+      ]
+    }
+  ],
+  "old_wildcards": [
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_FILE",
+        "ALL",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "ALL",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allowxperm",
+      "arguments": [
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "\"blk_file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allowxperm",
+      "arguments": [
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "\"fifo_file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allowxperm",
+      "arguments": [
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "\"chr_file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allowxperm",
+      "arguments": [
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "\"file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"dir\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"shell_data_file\"",
+        "\"file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"packages_list_file\"",
+        "\"file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"packages_list_file\"",
+        "\"dir\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"system_data_file\"",
+        "\"file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"system_data_file\"",
+        "\"dir\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"init\"",
+        "\"adb_data_file\"",
+        "\"file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"init\"",
+        "\"adb_data_file\"",
+        "\"dir\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"init\"",
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_DOMAIN",
+        "\"process\"",
+        "\"sigchld\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_DOMAIN",
+        "\"fd\"",
+        "\"use\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_DOMAIN",
+        "\"fifo_file\"",
+        "\"write\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_DOMAIN",
+        "\"fifo_file\"",
+        "\"read\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_DOMAIN",
+        "\"fifo_file\"",
+        "\"open\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_DOMAIN",
+        "\"fifo_file\"",
+        "\"getattr\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "ALL",
+        "\"file\"",
+        "\"read\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "ALL",
+        "\"file\"",
+        "\"write\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "ALL",
+        "KERNEL_SU_DOMAIN",
+        "\"binder\"",
+        "ALL"
+      ]
+    }
+  ],
+  "old_ioctl_xperms": [
+    {
+      "api": "ksu_allowxperm",
+      "arguments": [
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "\"blk_file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allowxperm",
+      "arguments": [
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "\"fifo_file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allowxperm",
+      "arguments": [
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "\"chr_file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allowxperm",
+      "arguments": [
+        "KERNEL_SU_DOMAIN",
+        "ALL",
+        "\"file\"",
+        "ALL"
+      ]
+    },
+    {
+      "api": "ksu_allowxperm",
+      "arguments": [
+        "s",
+        "t",
+        "c",
+        "perm_set"
+      ]
+    }
+  ],
+  "reviewed_kernel_metadata_grants": [
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"dir\"",
+        "\"open\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"dir\"",
+        "\"read\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"dir\"",
+        "\"search\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"dir\"",
+        "\"write\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"dir\"",
+        "\"add_name\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"file\"",
+        "\"open\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"file\"",
+        "\"read\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"file\"",
+        "\"write\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"file\"",
+        "\"create\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"file\"",
+        "\"getattr\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"adb_data_file\"",
+        "\"file\"",
+        "\"setattr\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"apk_data_file\"",
+        "\"dir\"",
+        "\"open\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"apk_data_file\"",
+        "\"dir\"",
+        "\"read\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"apk_data_file\"",
+        "\"dir\"",
+        "\"search\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"apk_data_file\"",
+        "\"file\"",
+        "\"open\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"apk_data_file\"",
+        "\"file\"",
+        "\"read\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"apk_data_file\"",
+        "\"file\"",
+        "\"getattr\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"packages_list_file\"",
+        "\"file\"",
+        "\"open\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"packages_list_file\"",
+        "\"file\"",
+        "\"read\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"packages_list_file\"",
+        "\"file\"",
+        "\"getattr\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"system_data_file\"",
+        "\"dir\"",
+        "\"search\""
+      ]
+    },
+    {
+      "api": "ksu_allow",
+      "arguments": [
+        "\"kernel\"",
+        "\"kernel\"",
+        "\"capability\"",
+        "\"dac_override\""
+      ]
+    }
+  ],
+  "target_rom_policy": "BLOCKED",
+  "target_policy_compile": "BLOCKED",
+  "neverallow": "BLOCKED",
+  "note": "Finite source-reviewed operations only. No claim of functional Root or complete policy least privilege."
+}

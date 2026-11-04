@@ -1,0 +1,17 @@
+{
+  "repository": "C:/android_kernel_xiaomi_sm8250_ksu",
+  "branch": "lineage-24.0-ksu",
+  "head_before": "7ed4c8426759601636d108679b6df3e60c1db94f",
+  "head_after": "7ed4c8426759601636d108679b6df3e60c1db94f",
+  "status_porcelain_before": "",
+  "status_porcelain_after": "",
+  "tracked_diff_exit": 0,
+  "index_diff_exit": 0,
+  "output_outside_repository": true,
+  "generated_flashable_images": false,
+  "installed_apks": false,
+  "flashed_device": false,
+  "device_connected_by_agent": false,
+  "verification_scope": "git status, HEAD, unstaged and staged diffs; report evidence hashes",
+  "original_evidence_files_unchanged": true
+}

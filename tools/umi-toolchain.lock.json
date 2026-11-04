@@ -1,0 +1,118 @@
+{
+  "revision": "29182889399818f97baa65ea238c80e8117981eb",
+  "toolchain": "clang-r596125",
+  "files": [
+    {
+      "path": "bin/clang++",
+      "blob": "f7f58e29c7c1e891d69f7507b9c3502b642867dd",
+      "sha256": "b50deb7c48633d03c02b15b6508d79768027e80422265d7a4a7f2f13d2f01d97"
+    },
+    {
+      "path": "bin/clang",
+      "blob": "f7f58e29c7c1e891d69f7507b9c3502b642867dd",
+      "sha256": "b50deb7c48633d03c02b15b6508d79768027e80422265d7a4a7f2f13d2f01d97"
+    },
+    {
+      "path": "bin/lld",
+      "blob": "7dd03780ff8e2e068f2913fec29c712654ec2593",
+      "sha256": "36eb18dc6acdd4eca1f63e9ac73708cfef84cdd1c1db47b3ca686a5d1fcdcd81"
+    },
+    {
+      "path": "bin/ld.lld",
+      "blob": "02416ace5e341379e1693f750b6bee574be7f22a",
+      "sha256": "390e91d3e245dfdf3ba30b2633d6e0cfc2e4e5a6e246cdd20f6e27ca69b53c40"
+    },
+    {
+      "path": "bin/llvm-ar",
+      "blob": "fc0461806cca735d8530c597e53955f7645c1351",
+      "sha256": "dd1f02d8cc96d3c15cad47bb3c43033c702d7058c35cea168e317d1659d60713"
+    },
+    {
+      "path": "bin/llvm-nm",
+      "blob": "01553854724314dc112860563255d4bc4dcf337a",
+      "sha256": "f6a320e52485d46f2043a08807ef15fa5c07c8a43753ced93880cb3983e6807c"
+    },
+    {
+      "path": "bin/llvm-objcopy",
+      "blob": "dad3d83ed21077602212c1b201fde49c81e3e81f",
+      "sha256": "6e4db490930a65bf95b677527f15aaec1eb89f3ff826b86ca5ab42c4af43bc4d"
+    },
+    {
+      "path": "bin/clang-22",
+      "blob": "2229bf19967f636a422e959c7d7b989edda748bf",
+      "sha256": "28774967e08984bbe8a54a07a4b40af0160881a2f777fa780fe3afa33c0775c8"
+    },
+    {
+      "path": "bin/clang-real",
+      "blob": "ea0136f8fcdf93730dd472999a27fa91fd4bec40",
+      "sha256": "4fc980b2e8ca46d1bc8224d3cdb1b0b5e0f64fba66cfba8e18ddb3b44770d66e"
+    },
+    {
+      "path": "bin/llvm-objdump",
+      "blob": "ad7f29f87ce1e1f5eb20fcfd378b461bd343df21",
+      "sha256": "6c195d0131971f382aa71df1528bd10770d1b38f387d92ae0bc9b6e678f41389"
+    },
+    {
+      "path": "bin/llvm-readobj",
+      "blob": "c184d99f844fa519acf6518e391046079a64a2e9",
+      "sha256": "99ffe78c4493f848f656e8c3b12691384c7cbd6ac0cbaf02056c79bc853d9c03"
+    },
+    {
+      "path": "bin/llvm-readelf",
+      "blob": "a39a9213133b7caefbc005c5356d8e07944c118a",
+      "sha256": "300c7d1bd7e55d1292e4b4da0ff234b59ba020ac5b5b8f77d384918b830eddef"
+    },
+    {
+      "path": "bin/llvm-size",
+      "blob": "42261dede5d4690ad78c4f45712e498870d83f08",
+      "sha256": "97160b5cdffc489e77818b21ab0955580198fd7bb7cd1a3364348d20ae40770b"
+    },
+    {
+      "path": "bin/llvm-strings",
+      "blob": "f912b7c45685b55994b65b7565c5f002b940ca24",
+      "sha256": "066080516bef9e026ec06b2ad6842709c0c592db05a1b0442f0b8785ed83ba24"
+    },
+    {
+      "path": "bin/llvm-strip",
+      "blob": "caea5a718f0a6764657322db061ba7f1d9914bd8",
+      "sha256": "be26604cd7208b10a47908f09c1d8b533686cbe619573052f2e132bd552b2155"
+    },
+    {
+      "path": "bin/llvm-ranlib",
+      "blob": "3b94d1a606be1fd6b246af6e1771730cd24a2df7",
+      "sha256": "9e1caa457dc7de6b0b0d6432441e0609595141c57d4e2bf103342fa0960a6933"
+    },
+    {
+      "path": "bin/clang++-real",
+      "blob": "ad649ff1fcc87a2432ed55915bf62207e935f595",
+      "sha256": "5628f9000834836a6d9ce8af612ad9cbb4df1e2aa3c9037d2fc7cf688db594ae"
+    },
+    {
+      "path": "lib/libxml2.so.16",
+      "blob": "b1cf3beb2dc0e098a4291ff3aac1005fc932f35f",
+      "sha256": "a889cb9f430614678c9c02e68248e00317b7b75be3646bd099ed7e209e291c87"
+    },
+    {
+      "path": "AndroidVersion.txt",
+      "blob": "3f82b3a8fe90fc7ba560e5377505b0ae18ede02d",
+      "sha256": "89bcb5bf8a40a319c95d2a8a3adaf405b7ea584c2ae2a31be37b1b14ea38094f"
+    },
+    {
+      "path": "clang_source_info.md",
+      "blob": "9a2cf7305db6c71cdc7ce23c9466a368910855ec",
+      "sha256": "9a5877aee3c8321469e56cd20577264a8a42fe99993474848c6e59608b9a22e3"
+    }
+  ],
+  "lineage_sources": {
+    "android": "e4b71068f6ee045ff30e4865a8d82f4047eb78ea",
+    "android_vendor_lineage": "528681ef98b8dee25ff9d8ca76cd9e2c4f4ba4ec",
+    "android_build": "90d006387398ae6899145e6531a304500cfa0f70",
+    "android_build_soong": "a528a88bd553d2a449ad9338a3e944b89a164971",
+    "android_device_xiaomi_sm8250-common": "b84fe80a52e7407c53119d2dd6507285da8090d4",
+    "android_device_xiaomi_umi": "8e115b1ed63caa3ee5c3d52df0a7bce7c27512cd"
+  },
+  "aosp_release": "refs/tags/android-17.0.0_r1",
+  "target_release": "cp2a",
+  "kernel_base": "6b34d24765327d746074c8e53b5ad0d24a51acc7",
+  "version": "22.0.2\nbased on r596125\nfor additional information on LLVM revision and cherry-picks, see clang_source_info.md\n"
+}

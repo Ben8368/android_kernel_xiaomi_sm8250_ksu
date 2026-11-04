@@ -1,0 +1,853 @@
+Subject: [PATCH 9/10] Publish immutable RCU profiles and copy authorization snapshots
+
+--- a/kernel/allowlist.c
++++ b/kernel/allowlist.c
+@@ -4,6 +4,11 @@
+ #include <linux/gfp.h>
+ #include <linux/kernel.h>
+ #include <linux/list.h>
++#include <linux/rculist.h>
++#include <linux/rcupdate.h>
++#include <linux/seqlock.h>
++#include <linux/spinlock.h>
++#include <linux/vmalloc.h>
+ #include <linux/printk.h>
+ #include <linux/slab.h>
+ #include <linux/types.h>
+@@ -25,43 +30,20 @@
+ #define KSU_APP_PROFILE_PRESERVE_UID 9999 // NOBODY_UID
+ #define KSU_DEFAULT_SELINUX_DOMAIN "u:r:su:s0"
+ 
+-static DEFINE_MUTEX(allowlist_mutex);
+-
+-// default profiles, these may be used frequently, so we cache it
++/* Immutable RCU records; only publication is serialized. No I/O or allocation
++ * under the writer lock. Readers may run in exec/devpts kprobes (not NMI).
++ * Never return a record pointer outside rcu_read_lock().
++ */
++static DEFINE_SPINLOCK(allowlist_lock);
++static seqcount_t allowlist_seq = SEQCNT_ZERO(allowlist_seq);
++static bool allowlist_stopping;
++static bool userspace_updated;
++static unsigned int allowlist_count;
++#define KSU_MAX_PROFILES 1024
++
++/* Initialized before hooks can use them, then immutable. Overrides are records. */
+ static struct root_profile default_root_profile;
+ static struct non_root_profile default_non_root_profile;
+-
+-static int allow_list_arr[PAGE_SIZE / sizeof(int)] __read_mostly __aligned(PAGE_SIZE);
+-static int allow_list_pointer __read_mostly = 0;
+-
+-static void remove_uid_from_arr(uid_t uid)
+-{
+-	int *temp_arr;
+-	int i, j;
+-
+-	if (allow_list_pointer == 0)
+-		return;
+-
+-	temp_arr = kmalloc(sizeof(allow_list_arr), GFP_KERNEL);
+-	if (temp_arr == NULL) {
+-		pr_err("%s: unable to allocate memory\n", __func__);
+-		return;
+-	}
+-
+-	for (i = j = 0; i < allow_list_pointer; i++) {
+-		if (allow_list_arr[i] == uid)
+-			continue;
+-		temp_arr[j++] = allow_list_arr[i];
+-	}
+-
+-	allow_list_pointer = j;
+-
+-	for (; j < ARRAY_SIZE(allow_list_arr); j++)
+-		temp_arr[j] = -1;
+-
+-	memcpy(&allow_list_arr, temp_arr, PAGE_SIZE);
+-	kfree(temp_arr);
+-}
+ 
+ static void init_default_profiles()
+ {
+@@ -82,13 +64,27 @@
+ 
+ struct perm_data {
+ 	struct list_head list;
++	struct rcu_head rcu;
++	bool retired; /* writer lock only; profile never changes */
+ 	struct app_profile profile;
+ };
+ 
+-static struct list_head allow_list;
+-
+-static uint8_t allow_list_bitmap[PAGE_SIZE] __read_mostly __aligned(PAGE_SIZE);
+-#define BITMAP_UID_MAX ((sizeof(allow_list_bitmap) * BITS_PER_BYTE) - 1)
++static LIST_HEAD(allow_list);
++
++static void free_profile_rcu(struct rcu_head *rcu)
++{
++	kfree(container_of(rcu, struct perm_data, rcu));
++}
++
++/* '#' and '$' are defaults, never UID grants. Each ordinary UID has one record,
++ * so replacing its package also replaces its old authorization. Shared UIDs
++ * remain a single security principal, as in the public ABI.
++ */
++static bool is_default(const struct app_profile *p)
++{
++	return p->current_uid == KSU_APP_PROFILE_PRESERVE_UID &&
++	       (!strcmp(p->key, "#") || !strcmp(p->key, "$"));
++}
+ 
+ #define KERNEL_SU_ALLOWLIST "/data/adb/ksu/.allowlist"
+ 
+@@ -99,14 +95,8 @@
+ 
+ void ksu_show_allow_list(void)
+ {
+-	struct perm_data *p = NULL;
+-	struct list_head *pos = NULL;
+-	pr_info("ksu_show_allow_list\n");
+-	list_for_each (pos, &allow_list) {
+-		p = list_entry(pos, struct perm_data, list);
+-		pr_info("uid :%d, allow: %d\n", p->profile.current_uid,
+-			p->profile.allow_su);
+-	}
++	/* Do not printk or perform I/O during RCU traversal. */
++	pr_info("allowlist records: %u\n", READ_ONCE(allowlist_count));
+ }
+ 
+ #ifdef CONFIG_KSU_DEBUG
+@@ -125,22 +115,19 @@
+ 
+ bool ksu_get_app_profile(struct app_profile *profile)
+ {
+-	struct perm_data *p = NULL;
+-	struct list_head *pos = NULL;
++	struct perm_data *p;
+ 	bool found = false;
+-
+-	list_for_each (pos, &allow_list) {
+-		p = list_entry(pos, struct perm_data, list);
+-		bool uid_match = profile->current_uid == p->profile.current_uid;
+-		if (uid_match) {
+-			// found it, override it with ours
+-			memcpy(profile, &p->profile, sizeof(*profile));
++	rcu_read_lock();
++	list_for_each_entry_rcu(p, &allow_list, list) {
++		if (profile->current_uid == p->profile.current_uid &&
++		    (!is_default(&p->profile) ||
++		     !strncmp(profile->key, p->profile.key, sizeof(profile->key)))) {
++			*profile = p->profile;
+ 			found = true;
+-			goto exit;
+-		}
+-	}
+-
+-exit:
++			break;
++		}
++	}
++	rcu_read_unlock();
+ 	return found;
+ }
+ 
+@@ -165,7 +152,17 @@
+ 	    !memchr(profile->key, '\0', sizeof(profile->key)))
+ 		return false;
+ 
++	if ((!strcmp(profile->key, "#") || !strcmp(profile->key, "$")) &&
++	    (profile->current_uid != KSU_APP_PROFILE_PRESERVE_UID ||
++	     profile->allow_su != !strcmp(profile->key, "#")))
++		return false;
++
++	if (profile->current_uid == KSU_APP_PROFILE_PRESERVE_UID &&
++	    strcmp(profile->key, "#") && strcmp(profile->key, "$"))
++		return false;
++
+ 	if (profile->allow_su) {
++		int i;
+ 		if (profile->rp_config.profile.uid < 0 ||
+ 		    profile->rp_config.profile.gid < 0 ||
+ 		    profile->rp_config.profile.groups_count < 0 ||
+@@ -173,6 +170,10 @@
+ 			return false;
+ 		}
+ 
++		for (i = 0; i < profile->rp_config.profile.groups_count; i++)
++			if (profile->rp_config.profile.groups[i] < 0)
++				return false;
++
+ 		if (!profile->rp_config.profile.selinux_domain[0] ||
+ 		    !memchr(profile->rp_config.profile.selinux_domain, '\0',
+ 			    sizeof(profile->rp_config.profile.selinux_domain))) {
+@@ -183,227 +184,239 @@
+ 	return true;
+ }
+ 
++/* Called by prctl/LSM and the boot loader worker. Allocation must also be
++ * safe if this interface is wired through a kprobe in another configuration.
++ * Failed allocation/capacity checks leave the previous grant untouched.
++ */
++static bool set_profile(struct app_profile *profile, bool persist, bool loading)
++{
++	struct perm_data *p, *new;
++	unsigned long flags;
++	bool result = false;
++	if (!profile_valid(profile))
++		return false;
++	new = kmalloc(sizeof(*new), GFP_ATOMIC);
++	if (!new)
++		return false;
++	new->profile = *profile;
++	new->retired = false;
++	spin_lock_irqsave(&allowlist_lock, flags);
++	if (allowlist_stopping || (loading && userspace_updated))
++		goto unlock;
++	list_for_each_entry(p, &allow_list, list) {
++		if (p->profile.current_uid != profile->current_uid)
++			continue;
++		if ((is_default(profile) || is_default(&p->profile)) &&
++		    strcmp(profile->key, p->profile.key))
++			continue;
++		write_seqcount_begin(&allowlist_seq);
++		list_replace_rcu(&p->list, &new->list);
++		p->retired = true;
++		if (!loading)
++			userspace_updated = true;
++		write_seqcount_end(&allowlist_seq);
++		call_rcu(&p->rcu, free_profile_rcu);
++		result = true;
++		goto unlock;
++	}
++	if (allowlist_count == KSU_MAX_PROFILES)
++		goto unlock;
++	write_seqcount_begin(&allowlist_seq);
++	list_add_tail_rcu(&new->list, &allow_list);
++	allowlist_count++;
++	if (!loading)
++		userspace_updated = true;
++	write_seqcount_end(&allowlist_seq);
++	result = true;
++unlock:
++	spin_unlock_irqrestore(&allowlist_lock, flags);
++	if (!result)
++		kfree(new);
++	else if (persist)
++		persistent_allow_list();
++	return result;
++}
++
+ bool ksu_set_app_profile(struct app_profile *profile, bool persist)
+ {
+-	struct perm_data *p = NULL;
+-	struct list_head *pos = NULL;
+-	bool result = false;
+-
+-	if (!profile_valid(profile)) {
+-		pr_err("Failed to set app profile: invalid profile!\n");
+-		return false;
+-	}
+-
+-	list_for_each (pos, &allow_list) {
+-		p = list_entry(pos, struct perm_data, list);
+-		// both uid and package must match, otherwise it will break multiple package with different user id
+-		if (profile->current_uid == p->profile.current_uid &&
+-		    !strcmp(profile->key, p->profile.key)) {
+-			// found it, just override it all!
+-			memcpy(&p->profile, profile, sizeof(*profile));
+-			result = true;
+-			goto out;
+-		}
+-	}
+-
+-	// not found, alloc a new node!
+-	p = (struct perm_data *)kmalloc(sizeof(struct perm_data), GFP_KERNEL);
+-	if (!p) {
+-		pr_err("ksu_set_app_profile alloc failed\n");
+-		return false;
+-	}
+-
+-	memcpy(&p->profile, profile, sizeof(*profile));
+-	if (profile->allow_su) {
+-		pr_info("set root profile, key: %s, uid: %d, gid: %d, context: %s\n",
+-			profile->key, profile->current_uid,
+-			profile->rp_config.profile.gid,
+-			profile->rp_config.profile.selinux_domain);
+-	} else {
+-		pr_info("set app profile, key: %s, uid: %d, umount modules: %d\n",
+-			profile->key, profile->current_uid,
+-			profile->nrp_config.profile.umount_modules);
+-	}
+-	list_add_tail(&p->list, &allow_list);
+-
+-out:
+-	if (profile->current_uid <= BITMAP_UID_MAX) {
+-		if (profile->allow_su)
+-			allow_list_bitmap[profile->current_uid / BITS_PER_BYTE] |= 1 << (profile->current_uid % BITS_PER_BYTE);
+-		else
+-			allow_list_bitmap[profile->current_uid / BITS_PER_BYTE] &= ~(1 << (profile->current_uid % BITS_PER_BYTE));
+-	} else {
+-		if (profile->allow_su) {
+-			/*
+-			 * 1024 apps with uid higher than BITMAP_UID_MAX
+-			 * registered to request superuser?
+-			 */
+-			if (allow_list_pointer >= ARRAY_SIZE(allow_list_arr)) {
+-				pr_err("too many apps registered\n");
+-				WARN_ON(1);
+-				return false;
++	return set_profile(profile, persist, false);
++}
++
++bool __ksu_is_allow_uid(uid_t uid)
++{
++	struct perm_data *p;
++	bool allowed = false;
++	if (uid == 0)
++		return is_ksu_domain();
++	if (forbid_system_uid(uid) || uid == KSU_APP_PROFILE_PRESERVE_UID)
++		return false;
++	if (ksu_is_manager_uid_valid() && ksu_get_manager_uid() == uid)
++		return true;
++	rcu_read_lock();
++	list_for_each_entry_rcu(p, &allow_list, list) {
++		if (p->profile.current_uid == uid) {
++			allowed = p->profile.allow_su;
++			break;
++		}
++	}
++	rcu_read_unlock();
++	return allowed;
++}
++
++bool ksu_uid_should_umount(uid_t uid)
++{
++	struct perm_data *p;
++	bool result = default_non_root_profile.umount_modules;
++	bool custom = false;
++	if (ksu_is_manager_uid_valid() && ksu_get_manager_uid() == uid)
++		return false;
++	rcu_read_lock();
++	list_for_each_entry_rcu(p, &allow_list, list) {
++		if (!strcmp(p->profile.key, "$") && is_default(&p->profile) && !custom)
++			result = p->profile.nrp_config.profile.umount_modules;
++		if (p->profile.current_uid != uid || is_default(&p->profile))
++			continue;
++		if (p->profile.allow_su) {
++			result = false;
++			custom = true;
++		} else if (!p->profile.nrp_config.use_default) {
++			result = p->profile.nrp_config.profile.umount_modules;
++			custom = true;
++		}
++	}
++	rcu_read_unlock();
++	return result;
++}
++
++bool ksu_get_root_profile(uid_t uid, struct root_profile *out)
++{
++	struct perm_data *p;
++	bool allowed, custom;
++	unsigned int seq;
++	int attempt;
++	/* Recheck authorization and copy the selected profile together. A revoke
++	 * overlapping this snapshot may precede or follow it; it cannot select an
++	 * obsolete custom profile after reading a newer deny record.
++	 */
++	for (attempt = 0; attempt < 3; attempt++) {
++		seq = read_seqcount_begin(&allowlist_seq);
++		allowed = ksu_is_manager_uid_valid() && ksu_get_manager_uid() == uid;
++		custom = false;
++		*out = default_root_profile;
++		rcu_read_lock();
++		list_for_each_entry_rcu(p, &allow_list, list) {
++			if (is_default(&p->profile)) {
++				if (!strcmp(p->profile.key, "#") && !custom)
++					*out = p->profile.rp_config.profile;
++				continue;
+ 			}
+-			allow_list_arr[allow_list_pointer++] = profile->current_uid;
+-		} else {
+-			remove_uid_from_arr(profile->current_uid);
+-		}
+-	}
+-	result = true;
+-
+-	// check if the default profiles is changed, cache it to a single struct to accelerate access.
+-	if (unlikely(!strcmp(profile->key, "$"))) {
+-		// set default non root profile
+-		memcpy(&default_non_root_profile, &profile->nrp_config.profile,
+-		       sizeof(default_non_root_profile));
+-	}
+-
+-	if (unlikely(!strcmp(profile->key, "#"))) {
+-		// set default root profile
+-		memcpy(&default_root_profile, &profile->rp_config.profile,
+-		       sizeof(default_root_profile));
+-	}
+-
+-	if (persist)
+-		persistent_allow_list();
+-
+-	return result;
+-}
+-
+-bool __ksu_is_allow_uid(uid_t uid)
+-{
+-	int i;
+-
+-	if (unlikely(uid == 0)) {
+-		// already root, but only allow our domain.
+-		return is_ksu_domain();
+-	}
+-
+-	if (forbid_system_uid(uid)) {
+-		// do not bother going through the list if it's system
+-		return false;
+-	}
+-
+-	if (likely(ksu_is_manager_uid_valid()) && unlikely(ksu_get_manager_uid() == uid)) {
+-		// manager is always allowed!
+-		return true;
+-	}
+-
+-	if (likely(uid <= BITMAP_UID_MAX)) {
+-		return !!(allow_list_bitmap[uid / BITS_PER_BYTE] & (1 << (uid % BITS_PER_BYTE)));
+-	} else {
+-		for (i = 0; i < allow_list_pointer; i++) {
+-			if (allow_list_arr[i] == uid)
+-				return true;
+-		}
+-	}
+-
+-	return false;
+-}
+-
+-bool ksu_uid_should_umount(uid_t uid)
+-{
+-	struct app_profile profile = { .current_uid = uid };
+-	if (likely(ksu_is_manager_uid_valid()) && unlikely(ksu_get_manager_uid() == uid)) {
+-		// we should not umount on manager!
+-		return false;
+-	}
+-	bool found = ksu_get_app_profile(&profile);
+-	if (!found) {
+-		// no app profile found, it must be non root app
+-		return default_non_root_profile.umount_modules;
+-	}
+-	if (profile.allow_su) {
+-		// if found and it is granted to su, we shouldn't umount for it
+-		return false;
+-	} else {
+-		// found an app profile
+-		if (profile.nrp_config.use_default) {
+-			return default_non_root_profile.umount_modules;
+-		} else {
+-			return profile.nrp_config.profile.umount_modules;
+-		}
+-	}
+-}
+-
+-struct root_profile *ksu_get_root_profile(uid_t uid)
+-{
+-	struct perm_data *p = NULL;
+-	struct list_head *pos = NULL;
+-
+-	list_for_each (pos, &allow_list) {
+-		p = list_entry(pos, struct perm_data, list);
+-		if (uid == p->profile.current_uid && p->profile.allow_su) {
+-			if (!p->profile.rp_config.use_default) {
+-				return &p->profile.rp_config.profile;
++			if (p->profile.current_uid != uid)
++				continue;
++			allowed |= p->profile.allow_su;
++			if (p->profile.allow_su && !p->profile.rp_config.use_default) {
++				*out = p->profile.rp_config.profile;
++				custom = true;
+ 			}
+ 		}
+-	}
+-
+-	// use default profile
+-	return &default_root_profile;
++		rcu_read_unlock();
++		if (!read_seqcount_retry(&allowlist_seq, seq))
++			return allowed && !forbid_system_uid(uid) &&
++			       uid != KSU_APP_PROFILE_PRESERVE_UID;
++	}
++	return false; /* continuous mutations: fail closed */
+ }
+ 
+ bool ksu_get_allow_list(int *array, int *length, int capacity, bool allow)
+ {
+-	struct perm_data *p = NULL;
+-	struct list_head *pos = NULL;
+-	int i = 0;
+-	list_for_each (pos, &allow_list) {
+-		p = list_entry(pos, struct perm_data, list);
+-		// pr_info("get_allow_list uid: %d allow: %d\n", p->uid, p->allow);
+-		if (p->profile.allow_su == allow) {
++	struct perm_data *p;
++	unsigned int seq;
++	int i, attempt;
++	if (!length)
++		return false;
++	*length = 0;
++	if (capacity < 0 || (capacity && !array))
++		return false;
++	for (attempt = 0; attempt < 3; attempt++) {
++		i = 0;
++		seq = read_seqcount_begin(&allowlist_seq);
++		rcu_read_lock();
++		list_for_each_entry_rcu(p, &allow_list, list) {
++			if (p->profile.allow_su != allow)
++				continue;
+ 			if (i >= capacity) {
+-				*length = 0;
++				rcu_read_unlock();
+ 				return false;
+ 			}
+ 			array[i++] = p->profile.current_uid;
+ 		}
+-	}
+-	*length = i;
+-
+-	return true;
++		rcu_read_unlock();
++		if (!read_seqcount_retry(&allowlist_seq, seq)) {
++			*length = i;
++			return true;
++		}
++	}
++	return false;
+ }
+ 
+ void do_save_allow_list(struct work_struct *work)
+ {
+-	u32 magic = FILE_MAGIC;
+-	u32 version = FILE_FORMAT_VERSION;
+-	struct perm_data *p = NULL;
+-	struct list_head *pos = NULL;
++	u32 magic = FILE_MAGIC, version = FILE_FORMAT_VERSION;
++	struct app_profile *snapshot;
++	struct perm_data *p;
++	struct file *fp;
+ 	loff_t off = 0;
+-
+-	struct file *fp =
+-		ksu_filp_open_compat(KERNEL_SU_ALLOWLIST, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+-	if (IS_ERR(fp)) {
+-		pr_err("save_allow_list create file failed: %ld\n", PTR_ERR(fp));
++	unsigned int seq;
++	int i, count = 0, attempt;
++	bool stable = false;
++	/* Worker only: no filesystem I/O, printk or sleeping in RCU sections.
++	 * A bounded private snapshot is discarded if publication changed.
++	 */
++	snapshot = vzalloc(sizeof(*snapshot) * KSU_MAX_PROFILES);
++	if (!snapshot)
+ 		return;
+-	}
+-
+-	// store magic and version
+-	if (ksu_kernel_write_compat(fp, &magic, sizeof(magic), &off) !=
+-	    sizeof(magic)) {
+-		pr_err("save_allow_list write magic failed.\n");
+-		goto exit;
+-	}
+-
+-	if (ksu_kernel_write_compat(fp, &version, sizeof(version), &off) !=
+-	    sizeof(version)) {
+-		pr_err("save_allow_list write version failed.\n");
+-		goto exit;
+-	}
+-
+-	list_for_each (pos, &allow_list) {
+-		p = list_entry(pos, struct perm_data, list);
+-		pr_info("save allow list, name: %s uid :%d, allow: %d\n",
+-			p->profile.key, p->profile.current_uid,
+-			p->profile.allow_su);
+-
+-		ksu_kernel_write_compat(fp, &p->profile, sizeof(p->profile),
+-					&off);
+-	}
+-
+-exit:
++	for (attempt = 0; attempt < 3; attempt++) {
++		count = 0;
++		seq = read_seqcount_begin(&allowlist_seq);
++		rcu_read_lock();
++		list_for_each_entry_rcu(p, &allow_list, list) {
++			if (count == KSU_MAX_PROFILES)
++				break;
++			snapshot[count++] = p->profile;
++		}
++		rcu_read_unlock();
++		if (!read_seqcount_retry(&allowlist_seq, seq)) {
++			stable = true;
++			break;
++		}
++	}
++	if (!stable) {
++		if (!READ_ONCE(allowlist_stopping))
++			persistent_allow_list();
++		goto free;
++	}
++	fp = ksu_filp_open_compat(KERNEL_SU_ALLOWLIST,
++		O_WRONLY | O_CREAT | O_TRUNC, 0600);
++	if (IS_ERR(fp))
++		goto free;
++	if (ksu_kernel_write_compat(fp, &magic, sizeof(magic), &off) != sizeof(magic) ||
++	    ksu_kernel_write_compat(fp, &version, sizeof(version), &off) != sizeof(version))
++		goto close;
++	for (i = 0; i < count; i++) {
++		if (ksu_kernel_write_compat(fp, &snapshot[i], sizeof(*snapshot), &off) !=
++		    sizeof(*snapshot)) {
++			pr_err("allowlist snapshot write failed; durable state unverified\n");
++			break;
++		}
++	}
++close:
+ 	filp_close(fp, 0);
++free:
++	vfree(snapshot);
++	/* A mutation during I/O must not leave the older snapshot as final state.
++	 * This does NOT promise crash-atomic persistence or fsync durability.
++	 */
++	if (!READ_ONCE(allowlist_stopping) && read_seqcount_retry(&allowlist_seq, seq))
++		persistent_allow_list();
+ }
+ 
+ void do_load_allow_list(struct work_struct *work)
+@@ -464,7 +477,7 @@
+ 
+ 		pr_info("load_allow_uid, name: %s, uid: %d, allow: %d\n",
+ 			profile.key, profile.current_uid, profile.allow_su);
+-		ksu_set_app_profile(&profile, false);
++		set_profile(&profile, false, true);
+ 	}
+ 
+ exit:
+@@ -474,77 +487,78 @@
+ 
+ void ksu_prune_allowlist(bool (*is_uid_valid)(uid_t, char *, void *), void *data)
+ {
+-	struct perm_data *np = NULL;
+-	struct perm_data *n = NULL;
+-
++	struct perm_data *p;
++	unsigned long flags;
+ 	bool modified = false;
+-	// TODO: use RCU!
+-	mutex_lock(&allowlist_mutex);
+-	list_for_each_entry_safe (np, n, &allow_list, list) {
+-		uid_t uid = np->profile.current_uid;
+-		char *package = np->profile.key;
+-		// we use this uid for special cases, don't prune it!
+-		bool is_preserved_uid = uid == KSU_APP_PROFILE_PRESERVE_UID;
+-		if (!is_preserved_uid && !is_uid_valid(uid, package, data)) {
++	/* Predicate must be non-sleeping, side-effect free and must not retain
++	 * package/data pointers. Current caller compares an owned packages list.
++	 */
++	rcu_read_lock();
++	list_for_each_entry_rcu(p, &allow_list, list) {
++		if (is_default(&p->profile) ||
++		    is_uid_valid(p->profile.current_uid, p->profile.key, data))
++			continue;
++		spin_lock_irqsave(&allowlist_lock, flags);
++		/* A concurrent replacement may already have retired this exact record.
++		 * Do not unlink its successor, even when its UID/key are identical.
++		 */
++		if (!p->retired) {
++			write_seqcount_begin(&allowlist_seq);
++			list_del_rcu(&p->list);
++			p->retired = true;
++			allowlist_count--;
++			userspace_updated = true;
++			write_seqcount_end(&allowlist_seq);
++			call_rcu(&p->rcu, free_profile_rcu);
+ 			modified = true;
+-			pr_info("prune uid: %d, package: %s\n", uid, package);
+-			list_del(&np->list);
+-			if (likely(uid <= BITMAP_UID_MAX)) {
+-				allow_list_bitmap[uid / BITS_PER_BYTE] &= ~(1 << (uid % BITS_PER_BYTE));
+-			}
+-			remove_uid_from_arr(uid);
+-			smp_mb();
+-			kfree(np);
+-		}
+-	}
+-	mutex_unlock(&allowlist_mutex);
+-
+-	if (modified) {
++		}
++		spin_unlock_irqrestore(&allowlist_lock, flags);
++	}
++	rcu_read_unlock();
++	if (modified)
+ 		persistent_allow_list();
+-	}
+ }
+ 
+ // make sure allow list works cross boot
+ bool persistent_allow_list(void)
+ {
+-	return ksu_queue_work(&ksu_save_work);
++	return !READ_ONCE(allowlist_stopping) && ksu_queue_work(&ksu_save_work);
+ }
+ 
+ bool ksu_load_allow_list(void)
+ {
+-	return ksu_queue_work(&ksu_load_work);
++	return !READ_ONCE(allowlist_stopping) && ksu_queue_work(&ksu_load_work);
+ }
+ 
+ void ksu_allowlist_init(void)
+ {
+-	int i;
+-
+-	BUILD_BUG_ON(sizeof(allow_list_bitmap) != PAGE_SIZE);
+-	BUILD_BUG_ON(sizeof(allow_list_arr) != PAGE_SIZE);
+-
+-	for (i = 0; i < ARRAY_SIZE(allow_list_arr); i++)
+-		allow_list_arr[i] = -1;
+-
+-	INIT_LIST_HEAD(&allow_list);
+-
+ 	INIT_WORK(&ksu_save_work, do_save_allow_list);
+ 	INIT_WORK(&ksu_load_work, do_load_allow_list);
+-
+ 	init_default_profiles();
+ }
+ 
+ void ksu_allowlist_exit(void)
+ {
+-	struct perm_data *np = NULL;
+-	struct perm_data *n = NULL;
+-
++	struct perm_data *p, *n;
++	unsigned long flags;
++	/* Caller must quiesce all producers/hooks before unload. Built-in target
++	 * has no unload path. LSM hook removal in upstream is NOT made safe here.
++	 */
++	spin_lock_irqsave(&allowlist_lock, flags);
++	allowlist_stopping = true;
++	spin_unlock_irqrestore(&allowlist_lock, flags);
++	cancel_work_sync(&ksu_load_work);
++	cancel_work_sync(&ksu_save_work);
+ 	do_save_allow_list(NULL);
+-
+-	// free allowlist
+-	mutex_lock(&allowlist_mutex);
+-	list_for_each_entry_safe (np, n, &allow_list, list) {
+-		list_del(&np->list);
+-		kfree(np);
+-	}
+-	mutex_unlock(&allowlist_mutex);
+-}
++	spin_lock_irqsave(&allowlist_lock, flags);
++	write_seqcount_begin(&allowlist_seq);
++	list_for_each_entry_safe(p, n, &allow_list, list) {
++		list_del_rcu(&p->list);
++		p->retired = true;
++		call_rcu(&p->rcu, free_profile_rcu);
++	}
++	allowlist_count = 0;
++	write_seqcount_end(&allowlist_seq);
++	spin_unlock_irqrestore(&allowlist_lock, flags);
++	rcu_barrier();
++}
+--- a/kernel/allowlist.h
++++ b/kernel/allowlist.h
+@@ -17,11 +17,13 @@
+ 
+ bool ksu_get_allow_list(int *array, int *length, int capacity, bool allow);
+ 
++/* Predicate executes under RCU: must not sleep or retain its arguments. */
+ void ksu_prune_allowlist(bool (*is_uid_exist)(uid_t, char *, void *), void *data);
+ 
+ bool ksu_get_app_profile(struct app_profile *);
+ bool ksu_set_app_profile(struct app_profile *, bool persist);
+ 
+ bool ksu_uid_should_umount(uid_t uid);
+-struct root_profile *ksu_get_root_profile(uid_t uid);
++/* Caller-owned snapshot, false on denial or unstable publication. */
++bool ksu_get_root_profile(uid_t uid, struct root_profile *out);
+ #endif
+--- a/kernel/core_hook.c
++++ b/kernel/core_hook.c
+@@ -119,7 +119,11 @@
+ void escape_to_root(void)
+ {
+ 	struct cred *cred;
+-
++	struct root_profile snapshot;
++	struct root_profile *profile = &snapshot;
++
++	if (!ksu_get_root_profile(current_uid().val, profile))
++		return;
+ 	cred = prepare_creds();
+ 	if (!cred) {
+ 		pr_warn("prepare_creds failed!\n");
+@@ -132,7 +136,7 @@
+ 		return;
+ 	}
+ 
+-	struct root_profile *profile = ksu_get_root_profile(cred->uid.val);
++	/* profile is a caller-owned snapshot; pruning cannot free it. */
+ 
+ 	cred->uid.val = profile->uid;
+ 	cred->suid.val = profile->uid;
+@@ -256,13 +260,7 @@
+ 		return 0;
+ 	}
+ 
+-	// TODO: find it in throne tracker!
+-	uid_t current_uid_val = current_uid().val;
+-	uid_t manager_uid = ksu_get_manager_uid();
+-	if (current_uid_val != manager_uid &&
+-	    current_uid_val % 100000 == manager_uid) {
+-		ksu_set_manager_uid(current_uid_val);
+-	}
++	/* Only certificate discovery may establish Manager identity. */
+ 
+ 	bool from_root = 0 == current_uid().val;
+ 	bool from_manager = is_manager();
+--- a/kernel/manager.h
++++ b/kernel/manager.h
+@@ -10,27 +10,27 @@
+ 
+ static inline bool ksu_is_manager_uid_valid()
+ {
+-	return ksu_manager_uid != KSU_INVALID_UID;
++	return READ_ONCE(ksu_manager_uid) != KSU_INVALID_UID;
+ }
+ 
+ static inline bool is_manager()
+ {
+-	return unlikely(ksu_manager_uid == current_uid().val);
++	return unlikely(READ_ONCE(ksu_manager_uid) == current_uid().val);
+ }
+ 
+ static inline uid_t ksu_get_manager_uid()
+ {
+-	return ksu_manager_uid;
++	return READ_ONCE(ksu_manager_uid);
+ }
+ 
+ static inline void ksu_set_manager_uid(uid_t uid)
+ {
+-	ksu_manager_uid = uid;
++	WRITE_ONCE(ksu_manager_uid, uid);
+ }
+ 
+ static inline void ksu_invalidate_manager_uid()
+ {
+-	ksu_manager_uid = KSU_INVALID_UID;
++	WRITE_ONCE(ksu_manager_uid, KSU_INVALID_UID);
+ }
+ 
+ #endif

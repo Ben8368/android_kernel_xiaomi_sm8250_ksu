@@ -1,0 +1,121 @@
+[
+  {
+    "file": "umi-BoardConfig.mk",
+    "repository": "LineageOS/android_device_xiaomi_umi",
+    "commit": "8e115b1ed63caa3ee5c3d52df0a7bce7c27512cd",
+    "path": "BoardConfig.mk",
+    "sha256": "455738931f75b6ac229b38ec6f9ccca05e556dd664a9f7bdb149e8b7bf26af02"
+  },
+  {
+    "file": "umi-device.mk",
+    "repository": "LineageOS/android_device_xiaomi_umi",
+    "commit": "8e115b1ed63caa3ee5c3d52df0a7bce7c27512cd",
+    "path": "device.mk",
+    "sha256": "b7d82730c5bd4b5283022d332356bd468a9e2bcc5d95109eab0d55eea155e5c2"
+  },
+  {
+    "file": "common-BoardConfigCommon.mk",
+    "repository": "LineageOS/android_device_xiaomi_sm8250-common",
+    "commit": "b84fe80a52e7407c53119d2dd6507285da8090d4",
+    "path": "BoardConfigCommon.mk",
+    "sha256": "5c149dffd9e5c80a8fa415d84469037c93cde0cba6fca0172d3e68a6cf5d0e7d"
+  },
+  {
+    "file": "common-kona.mk",
+    "repository": "LineageOS/android_device_xiaomi_sm8250-common",
+    "commit": "b84fe80a52e7407c53119d2dd6507285da8090d4",
+    "path": "kona.mk",
+    "sha256": "a18ae0c57a2af84517b738a27bcaa60203494b41b533c0acb486c73295899448"
+  },
+  {
+    "file": "fstab.qcom",
+    "repository": "LineageOS/android_device_xiaomi_sm8250-common",
+    "commit": "b84fe80a52e7407c53119d2dd6507285da8090d4",
+    "path": "rootdir/etc/fstab.qcom",
+    "sha256": "7c7fc8616b5968f2912dd49d9616e5108dfaa928023d15cb2e466ee4c0f6f46b"
+  },
+  {
+    "file": "rustix-prctl.rs",
+    "repository": "KernelSU-Next/rustix",
+    "commit": "4a53fbc7cb7a07cabe87125cc21dbc27db316259",
+    "path": "src/process/prctl.rs",
+    "sha256": "cb344569470eafb54f07039c2c6d21695c64961c080a480ff439abec5cc29555"
+  },
+  {
+    "file": "mkbootimg.py",
+    "commit": "808ecd09666ffe0ff5800f02af693abce56eb395",
+    "path": "mkbootimg.py",
+    "repository": "LineageOS/android_system_tools_mkbootimg",
+    "sha256": "37d84b3d162e0bc62e36c1f4e1c63c85ea0caa9f29be023eb2f8efe006ad948c"
+  },
+  {
+    "file": "unpack_bootimg.py",
+    "commit": "808ecd09666ffe0ff5800f02af693abce56eb395",
+    "path": "unpack_bootimg.py",
+    "repository": "LineageOS/android_system_tools_mkbootimg",
+    "sha256": "a9d260978a63bd06a24b6347e7dee8a28ff96639793caea15dff6aa491316308"
+  },
+  {
+    "file": "generate_gki_certificate.py",
+    "commit": "808ecd09666ffe0ff5800f02af693abce56eb395",
+    "path": "gki/generate_gki_certificate.py",
+    "repository": "LineageOS/android_system_tools_mkbootimg",
+    "sha256": "1bb1feec68a13da18d581aa2c631798f86f6bc10b55d587b2dd31446a0f8a203"
+  },
+  {
+    "file": "bootimg.h",
+    "commit": "808ecd09666ffe0ff5800f02af693abce56eb395",
+    "path": "include/bootimg/bootimg.h",
+    "repository": "LineageOS/android_system_tools_mkbootimg",
+    "sha256": "9adba595989e15b3343969cdc508df666e0c05d3b8a38aa362bd9945302c814e"
+  },
+  {
+    "file": "bionic-SYSCALLS.TXT",
+    "commit": "ff3bb041547924ac1a7504e4b3bd3ea18169ca2f",
+    "path": "libc/SYSCALLS.TXT",
+    "repository": "LineageOS/android_bionic",
+    "sha256": "c00e3c8d61e83e4c1a1f206474edca23483ba845967fb936dea1d49e62311adf"
+  },
+  {
+    "file": "bionic-seccomp_policy.cpp",
+    "commit": "ff3bb041547924ac1a7504e4b3bd3ea18169ca2f",
+    "path": "libc/seccomp/seccomp_policy.cpp",
+    "repository": "LineageOS/android_bionic",
+    "sha256": "ca8b2270bc0f1ab4f108ee13185ae81b22245bbf9036c33628d97e857363a35b"
+  },
+  {
+    "file": "bionic-genseccomp.py",
+    "commit": "ff3bb041547924ac1a7504e4b3bd3ea18169ca2f",
+    "path": "libc/tools/genseccomp.py",
+    "repository": "LineageOS/android_bionic",
+    "sha256": "f3b525b82e0ae13b58f17f401238d55c16d913da88f32b536e16456df3f8abaa"
+  },
+  {
+    "sha256": "8bc68ba9dbe187bcc9f98b5fcb5126c533c2be4d3bbd482a2b09fd09e4d81be0",
+    "path": "libc/SECCOMP_ALLOWLIST_APP.TXT",
+    "file": "bionic-SECCOMP_ALLOWLIST_APP.TXT",
+    "repository": "LineageOS/android_bionic",
+    "commit": "ff3bb041547924ac1a7504e4b3bd3ea18169ca2f"
+  },
+  {
+    "sha256": "ff5f568282194d72f3bf94ff293fb35a8712926391b9c62f173bdb78d009cd92",
+    "path": "libc/SECCOMP_ALLOWLIST_COMMON.TXT",
+    "file": "bionic-SECCOMP_ALLOWLIST_COMMON.TXT",
+    "repository": "LineageOS/android_bionic",
+    "commit": "ff3bb041547924ac1a7504e4b3bd3ea18169ca2f"
+  },
+  {
+    "sha256": "a907336b094d978a609fe155762e1cd055c6a3e861424cd1faafb0200045142c",
+    "path": "libc/SECCOMP_BLOCKLIST_APP.TXT",
+    "file": "bionic-SECCOMP_BLOCKLIST_APP.TXT",
+    "repository": "LineageOS/android_bionic",
+    "commit": "ff3bb041547924ac1a7504e4b3bd3ea18169ca2f"
+  },
+  {
+    "sha256": "aedf47d745ad3bfc6fc9646a46264569268a047e6e5762501450feb47b3988e4",
+    "path": "libc/SECCOMP_BLOCKLIST_COMMON.TXT",
+    "file": "bionic-SECCOMP_BLOCKLIST_COMMON.TXT",
+    "repository": "LineageOS/android_bionic",
+    "commit": "ff3bb041547924ac1a7504e4b3bd3ea18169ca2f"
+  }
+]

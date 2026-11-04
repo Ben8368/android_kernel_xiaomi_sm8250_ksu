@@ -1,0 +1,9 @@
+PASS missing evidence and unverified PASS booleans cannot promote any category
+PASS host-result records cannot certify static security, ROM policy, Boot inputs or device results
+PASS rejects stale/different source and patch fingerprint
+PASS rejects tampered test log
+PASS rejects failed test presented as passed
+PASS rejects missing required regression
+PASS rejects duplicate test identities
+PASS rejects evidence path traversal
+SCOPE: evidence validators only, no device success asserted

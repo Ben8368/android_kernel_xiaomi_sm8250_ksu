@@ -1,0 +1,14 @@
+0e8573365eef6d29b4eb3bd22609c2f22b880ad6 ksu: pin prctl-based 4.19 candidate and preserve caller seccomp
+82c93c2f43b52fb7e0afba05bb2bfde10beb6726 build: pin LineageOS cp2a Clang and track deterministic compatibility patches
+113df8910afe3fe24dd8bc6a2d4524a87a65f9a7 build: verify pinned Clang binary hashes before configuring umi
+f55b25a960974e1069294e7a695f6b1d30c64709 ksu: handle integer digest errors and reject short certificate reads
+ff1fec1e81e7c84ecd9809d241756ffffb314596 ksu: use real declarations and typed syscall arguments without sysfs hiding
+2785125d0f6dd0c601bb30374234b8f310899b2a ksu: correct boot-hook fd, argv and read-count parameter contracts
+5fb8269291f144878c101e59fed668c85c60ba0e ksu: include native AVC API and decode SELinux user addresses
+c02e23a0e409ddb8b2e2614191e5782a8863d57e build: verify linked arm64 kernel, security flags and device tree formats
+787cf109b09a1bc2033cdbe40430cb45d04910ea build: recognize linked relocatable arm64 kernel ELF output
+7f852feda851e9d32a8189a4bdc527305741a0fa build: assemble and verify DTB and DTBO images using official AOSP tool
+19ab6712c1d1494a3ed4ba27cc4f9d280ff38cb5 build: validate official DTBO image page padding
+b7cffef98a7bfed9ebde55a4e8a20ab8ec9a7e7e build: distinguish compile invocation revision from verification revision
+eca4a0cb32577cde1517c565029660962c2a999c ksu: keep the su SELinux domain enforcing during rule installation
+72230f2635c13b913846112099ccbc640ac3c326 build: audit enforcing source and replay complete upstream patch queue

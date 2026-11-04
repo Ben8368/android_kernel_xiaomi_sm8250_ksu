@@ -1,0 +1,23 @@
+{
+  "exit_status": 0,
+  "start_utc": "2026-11-04T03:43:59Z",
+  "success_utc": "2026-11-04T03:53:24Z",
+  "clean_output_directory_at_start": "/home/xiaoluo/umi-ksu-stage2/build-final",
+  "build_invocation_head": "72230f2635c13b913846112099ccbc640ac3c326",
+  "final_log_sha256": "b1081d5bc07163657986b8cee26fb93ea8593c10b68ce182f6e3b8628bd3487d",
+  "generated_selinux_headers": [
+    "security/selinux/flask.h",
+    "security/selinux/av_permissions.h"
+  ],
+  "compiler_warning_count": 0,
+  "compiler_error_count": 0,
+  "modules": [
+    "drivers/media/usb/gspca/gspca_main.ko",
+    "techpack/data/drivers/rmnet/perf/rmnet_perf.ko",
+    "techpack/data/drivers/rmnet/shs/rmnet_shs.ko"
+  ],
+  "notes": [
+    "Submodule expected dirty from tracked patch queue",
+    "No device boot or userspace validation"
+  ]
+}

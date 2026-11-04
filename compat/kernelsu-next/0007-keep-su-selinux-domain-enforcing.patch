@@ -1,0 +1,11 @@
+--- a/kernel/selinux/rules.c
++++ b/kernel/selinux/rules.c
+@@ -52,7 +52,7 @@
+ 
+ 	db = get_policydb();
+ 
+-	ksu_permissive(db, KERNEL_SU_DOMAIN);
++	/* Keep the su domain enforcing; do not relax SELinux for compatibility. */
+ 	ksu_typeattribute(db, KERNEL_SU_DOMAIN, "mlstrustedsubject");
+ 	ksu_typeattribute(db, KERNEL_SU_DOMAIN, "netdomain");
+ 	ksu_typeattribute(db, KERNEL_SU_DOMAIN, "bluetoothdomain");

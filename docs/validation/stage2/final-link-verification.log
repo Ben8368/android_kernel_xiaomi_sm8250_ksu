@@ -1,0 +1,22 @@
+{
+  "build_invocation_head": "72230f2635c13b913846112099ccbc640ac3c326",
+  "source_head_at_verification": "72230f2635c13b913846112099ccbc640ac3c326",
+  "kernel_release": "4.19.325-cip136-st20-perf-g72230f2635c1-dirty",
+  "ksu_base": "0d6bdc6364cbfc73517dcfdf7ab23b0ba8045553",
+  "config_sha256": "cd083b1ff199fa679236ba82edd9ce9b270e2a1d39ce5379da5ce44b9e00889c",
+  "cfi_flags_verified": true,
+  "elf": "ELF64 AArch64 DYN (relocatable kernel)",
+  "unresolved_strong_symbols": 0,
+  "vmlinux_size": 685507168,
+  "vmlinux_sha256": "61883b4ff297f1c7568948f1125fe806022dc9cc4e548813331279d03963b939",
+  "dtb_count": 3,
+  "dtbo_count": 12,
+  "dtbo_img_exists": true,
+  "module_count": 3,
+  "limitations": [
+    "No device boot or runtime security verification",
+    "Seccomp remains active for su; app root commands may be restricted",
+    "Modern namespace profile and optional old path_umount features unavailable",
+    "Upstream embed_ksud.c is an empty stub; matching userspace not integrated"
+  ]
+}

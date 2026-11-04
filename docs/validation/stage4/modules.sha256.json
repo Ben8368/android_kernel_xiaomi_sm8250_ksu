@@ -1,0 +1,5 @@
+{
+  "drivers/media/usb/gspca/gspca_main.ko": "bff36cfa42e7d981c7576d121dad162cd61e7afb5a0d85bf4f299f2a9a969e93",
+  "techpack/data/drivers/rmnet/perf/rmnet_perf.ko": "faae22ab4ec6b896fc741bf47ca2731ecf13bfec5ed236876d62df7062c2bda3",
+  "techpack/data/drivers/rmnet/shs/rmnet_shs.ko": "147943be7c3e7c7dee95003411304e8ba6a21d0c9a2ee74a34a5866f1bd85bc4"
+}
