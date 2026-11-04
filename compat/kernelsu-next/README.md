@@ -70,3 +70,15 @@ permissive marking for the su domain. Standard KSU explicit allow rules still
 change Android policy; neither their adequacy nor runtime confinement has been
 validated. This experiment does not silently exchange enforced domains for
 permissive ones to gain compatibility.
+
+0008-bound-authorization-inputs.patch bounds the 128-entry prctl list copy,
+validates exact profile ABI, signed UID/group bounds and NUL termination,
+rejects short/wrong-version persistent records and corrects the temporary
+CAP_DAC_READ_SEARCH bit mask. New allowlist files use mode 0600. It does not
+fix concurrency/lifetime, atomic persistence or SELinux wildcard policy.
+See docs/ROOT-SECURITY.md for blockers and host-only test limitations.
+
+Preparation now validates the entire final tree, so overlapping patches do
+not break repeat invocation. Only pristine base or complete verified queue
+are accepted; partial/unknown changes are refused without a reset. Expected
+-dirty is retained and explained in provenance, not suppressed.

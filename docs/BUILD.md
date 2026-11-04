@@ -187,3 +187,13 @@ contain unified-diff context prefixes and are not standalone C source.
 - https://github.com/LineageOS/android_kernel_xiaomi_sm8250/blob/6b34d24765327d746074c8e53b5ad0d24a51acc7/kernel/seccomp.c
 - https://github.com/LineageOS/android_kernel_xiaomi_sm8250/blob/6b34d24765327d746074c8e53b5ad0d24a51acc7/fs/namespace.c
 - https://github.com/LineageOS/android_kernel_xiaomi_sm8250/blob/6b34d24765327d746074c8e53b5ad0d24a51acc7/arch/arm64/kernel/ptrace.c
+
+## Stage 3 source/provenance changes
+
+The historical build above predates patch 0008. New builds require committed
+parent sources, a fresh output directory, exact whole-queue source proof and
+pre/post source identity. tools/build-umi.sh now invokes linked verification
+and creates provenance.json with upstream/custom/KSU SHAs, queue/toolchain
+hashes and final Image SHA-256. See STAGE3-VALIDATION.md for new evidence.
+Expected patch-induced -dirty is not hidden. Official matching v1.1.1 assets
+are now pinned and verified offline; no device userland deployment occurred.

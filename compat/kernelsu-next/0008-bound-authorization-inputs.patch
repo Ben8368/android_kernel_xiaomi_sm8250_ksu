@@ -1,0 +1,117 @@
+--- a/kernel/allowlist.c
++++ b/kernel/allowlist.c
+@@ -156,17 +156,26 @@
+ 		return false;
+ 	}
+ 
+-	if (profile->version < KSU_APP_PROFILE_VER) {
++	if (profile->version != KSU_APP_PROFILE_VER) {
+ 		pr_info("Unsupported profile version: %d\n", profile->version);
+ 		return false;
+ 	}
+ 
++	if (profile->current_uid < 0 || !profile->key[0] ||
++	    !memchr(profile->key, '\0', sizeof(profile->key)))
++		return false;
++
+ 	if (profile->allow_su) {
+-		if (profile->rp_config.profile.groups_count > KSU_MAX_GROUPS) {
++		if (profile->rp_config.profile.uid < 0 ||
++		    profile->rp_config.profile.gid < 0 ||
++		    profile->rp_config.profile.groups_count < 0 ||
++		    profile->rp_config.profile.groups_count > KSU_MAX_GROUPS) {
+ 			return false;
+ 		}
+ 
+-		if (strlen(profile->rp_config.profile.selinux_domain) == 0) {
++		if (!profile->rp_config.profile.selinux_domain[0] ||
++		    !memchr(profile->rp_config.profile.selinux_domain, '\0',
++			    sizeof(profile->rp_config.profile.selinux_domain))) {
+ 			return false;
+ 		}
+ 	}
+@@ -334,7 +343,7 @@
+ 	return &default_root_profile;
+ }
+ 
+-bool ksu_get_allow_list(int *array, int *length, bool allow)
++bool ksu_get_allow_list(int *array, int *length, int capacity, bool allow)
+ {
+ 	struct perm_data *p = NULL;
+ 	struct list_head *pos = NULL;
+@@ -343,6 +352,10 @@
+ 		p = list_entry(pos, struct perm_data, list);
+ 		// pr_info("get_allow_list uid: %d allow: %d\n", p->uid, p->allow);
+ 		if (p->profile.allow_su == allow) {
++			if (i >= capacity) {
++				*length = 0;
++				return false;
++			}
+ 			array[i++] = p->profile.current_uid;
+ 		}
+ 	}
+@@ -360,7 +373,7 @@
+ 	loff_t off = 0;
+ 
+ 	struct file *fp =
+-		ksu_filp_open_compat(KERNEL_SU_ALLOWLIST, O_WRONLY | O_CREAT | O_TRUNC, 0644);
++		ksu_filp_open_compat(KERNEL_SU_ALLOWLIST, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+ 	if (IS_ERR(fp)) {
+ 		pr_err("save_allow_list create file failed: %ld\n", PTR_ERR(fp));
+ 		return;
+@@ -427,6 +440,10 @@
+ 		goto exit;
+ 	}
+ 
++	if (version != FILE_FORMAT_VERSION) {
++		pr_err("unsupported allowlist format: %u\n", version);
++		goto exit;
++	}
+ 	pr_info("allowlist version: %d\n", version);
+ 
+ 	while (true) {
+@@ -435,8 +452,13 @@
+ 		ret = ksu_kernel_read_compat(fp, &profile, sizeof(profile),
+ 					     &off);
+ 
+-		if (ret <= 0) {
++		if (ret != sizeof(profile)) {
+ 			pr_info("load_allow_list read err: %zd\n", ret);
++			break;
++		}
++
++		if (!profile_valid(&profile)) {
++			pr_err("invalid allowlist record\n");
+ 			break;
+ 		}
+ 
+--- a/kernel/allowlist.h
++++ b/kernel/allowlist.h
+@@ -15,7 +15,7 @@
+ bool __ksu_is_allow_uid(uid_t uid);
+ #define ksu_is_allow_uid(uid) unlikely(__ksu_is_allow_uid(uid))
+ 
+-bool ksu_get_allow_list(int *array, int *length, bool allow);
++bool ksu_get_allow_list(int *array, int *length, int capacity, bool allow);
+ 
+ void ksu_prune_allowlist(bool (*is_uid_exist)(uid_t, char *, void *), void *data);
+ 
+--- a/kernel/core_hook.c
++++ b/kernel/core_hook.c
+@@ -152,7 +152,7 @@
+ 	// we need CAP_DAC_READ_SEARCH becuase `/data/adb/ksud` is not accessible for non root process
+ 	// we add it here but don't add it to cap_inhertiable, it would be dropped automaticly after exec!
+ 	u64 cap_for_ksud =
+-		profile->capabilities.effective | CAP_DAC_READ_SEARCH;
++		profile->capabilities.effective | (1ULL << CAP_DAC_READ_SEARCH);
+ 	memcpy(&cred->cap_effective, &cap_for_ksud,
+ 	       sizeof(cred->cap_effective));
+ 	memcpy(&cred->cap_permitted, &profile->capabilities.effective,
+@@ -405,6 +405,7 @@
+ 		u32 array[128];
+ 		u32 array_length;
+ 		bool success = ksu_get_allow_list(array, &array_length,
++						  ARRAY_SIZE(array),
+ 						  arg2 == CMD_GET_ALLOW_LIST);
+ 		if (success) {
+ 			if (!copy_to_user(user_arg4, &array_length,

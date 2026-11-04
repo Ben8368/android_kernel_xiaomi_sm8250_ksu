@@ -34,9 +34,20 @@ tracked compatibility patches locally to the fixed upstream submodule;
 that expected local submodule diff does not require an unpublished commit.
 The old tools/check-umi-config.sh is only a GCC configuration diagnostic.
 
-Remaining limitations include an empty upstream embedded-daemon stub,
-unvalidated matching userspace, old prctl ABI, unverified execveat coverage,
-unavailable modern namespace profile modes and optional per-app unmount,
-and no boot or runtime validation. See [maintenance](docs/MAINTENANCE.md) for
+Stage 3 pins and cryptographically verifies the official non-spoofed v1.1.1
+Manager (12851) and arm64 daemons, and adds protocol, bounds, provenance and
+read-only boot format tests. The empty embed_ksud.c is not a daemon installer.
+**Ordinary app su with the official daemon is unsupported under the retained
+Android app Seccomp filter** (unconditional setgroups/setresgid). Manager's
+prctl bootstrap remains an untested candidate, not working Root evidence.
+SELinux wildcard grants and allowlist concurrency remain deployment blockers.
+
+See [stage 3 results](docs/STAGE3-VALIDATION.md),
+[userland audit](docs/KERNELSU-USERLAND.md),
+[Root security](docs/ROOT-SECURITY.md), [boot format](docs/BOOT-FORMAT.md) and
+[manual device test plan](docs/DEVICE-TEST-PLAN.md). No matching ROM Boot image
+has been supplied; no phone operation is performed. Compilation, offline
+protocol/cryptography, static security regressions and real-device results
+are distinct: **device boot and device Root remain UNVERIFIED**. See [maintenance](docs/MAINTENANCE.md) for
 manual maintenance constraints. PR #1 remains a draft; no CI, automatic sync,
 release or flashing workflow is added.

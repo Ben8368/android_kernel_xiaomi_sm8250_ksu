@@ -1,2 +1,6 @@
 *.c   diff=cpp
 *.h   diff=cpp
+
+# Patch context intentionally begins with a space before C tabs.
+# test-ksu-patch-replay.py checks whitespace in the effective C diff.
+compat/kernelsu-next/*.patch -whitespace

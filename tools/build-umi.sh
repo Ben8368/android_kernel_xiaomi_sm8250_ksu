@@ -23,6 +23,7 @@ export KBUILD_BUILD_USER=ksu-validation KBUILD_BUILD_HOST=wsl-ubuntu
 export KBUILD_BUILD_TIMESTAMP='2026-11-04 00:00:00 UTC'
 export KBUILD_BUILD_VERSION=1
 mkdir -p "$out"
+python3 "$root/tools/record-umi-provenance.py" --out "$out" --clang "$CLANG_DIR" --phase before
 exec > >(tee -a "$out/build.log") 2>&1
 printf 'START %s\n' "$(date -u +%FT%TZ)"
 git -C "$root" rev-parse HEAD
@@ -51,4 +52,6 @@ find "$out/arch/arm64/boot" -type f \( -name Image -o -name '*.dtb' -o -name '*.
 test -s "$out/vmlinux" && test -s "$out/System.map" && test -s "$out/arch/arm64/boot/Image"
 llvm-readelf -h "$out/vmlinux" > "$out/vmlinux-elf.txt"
 llvm-nm "$out/vmlinux" > "$out/vmlinux-symbols.txt"
+python3 "$root/tools/verify-umi-build.py" --out "$out" --clang "$CLANG_DIR"
+python3 "$root/tools/record-umi-provenance.py" --out "$out" --clang "$CLANG_DIR" --phase after
 printf 'SUCCESS %s\n' "$(date -u +%FT%TZ)"
