@@ -1,0 +1,55 @@
+--- a/kernel/core_hook.c
++++ b/kernel/core_hook.c
+@@ -114,25 +114,6 @@
+ 	groups_sort(group_info);
+ 	set_groups(cred, group_info);
+ 	put_group_info(group_info);
+-}
+-
+-static void disable_seccomp(void)
+-{
+-	assert_spin_locked(&current->sighand->siglock);
+-	// disable seccomp
+-#if defined(CONFIG_GENERIC_ENTRY) &&                                           \
+-	LINUX_VERSION_CODE >= KERNEL_VERSION(5, 11, 0)
+-	current_thread_info()->syscall_work &= ~SYSCALL_WORK_SECCOMP;
+-#else
+-	current_thread_info()->flags &= ~(TIF_SECCOMP | _TIF_SECCOMP);
+-#endif
+-
+-#ifdef CONFIG_SECCOMP
+-	current->seccomp.mode = 0;
+-	current->seccomp.filter = NULL;
+-	atomic_set(&current->seccomp.filter_count, 0);
+-#else
+-#endif
+ }
+ 
+ void escape_to_root(void)
+@@ -187,11 +168,9 @@
+ 
+ 	commit_creds(cred);
+ 
+-	// Refer to kernel/seccomp.c: seccomp_set_mode_strict
+-	// When disabling Seccomp, ensure that current->sighand->siglock is held during the operation.
+-	spin_lock_irq(&current->sighand->siglock);
+-	disable_seccomp();
+-	spin_unlock_irq(&current->sighand->siglock);
++	/* Keep the caller's seccomp filters, including for an authorized su
++	 * session. Root credentials must not bypass the app sandbox here.
++	 */
+ 
+ 	setup_selinux(profile->selinux_domain);
+ }
+@@ -624,8 +603,9 @@
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 9, 0) || defined(KSU_UMOUNT)
+ 	return path_umount(path, flags);
+ #else
+-	// TODO: umount for non GKI kernel
+-	return -ENOSYS;
++	// No path_umount API on this target; release the lookup reference.
++	path_put(path);
++	return -EOPNOTSUPP;
+ #endif
+ }
+ 
