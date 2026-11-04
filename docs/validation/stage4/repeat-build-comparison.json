@@ -1,0 +1,7 @@
+{
+  "first_image_sha256": "18da21f0e3a6834bcc0119ae019f3fbd4f07cae3245b7b611d6b9b466485a5f6",
+  "final_image_sha256": "f2b60e45ca862ef001e9afcc78b8c7e6b568f65852feea36c6cbbf1a2946872d",
+  "identical_image": false,
+  "identical_config": true,
+  "scope": "two fresh native checkouts on this host; no cross-host reproducibility claim"
+}

@@ -1,0 +1,23 @@
+{
+  "build_invocation_head": "1a8fe03c7a70e9d559a14aaebbc8acde615a4ea2",
+  "source_head_at_verification": "c1c47a26c4ac8a45c45c65e7948024cc5a70fb17",
+  "kernel_release": "4.19.325-cip136-st20-perf-g1a8fe03c7a70-dirty",
+  "ksu_base": "0d6bdc6364cbfc73517dcfdf7ab23b0ba8045553",
+  "config_sha256": "cd083b1ff199fa679236ba82edd9ce9b270e2a1d39ce5379da5ce44b9e00889c",
+  "cfi_flags_verified": true,
+  "elf": "ELF64 AArch64 DYN (relocatable kernel)",
+  "unresolved_strong_symbols": 0,
+  "vmlinux_size": 685555464,
+  "vmlinux_sha256": "494f0eb87804685afc0fefa32e5687c62b221842ebb83ae6e314d0f0852b7a5c",
+  "dtb_count": 3,
+  "dtbo_count": 12,
+  "dtbo_img_exists": true,
+  "module_count": 3,
+  "limitations": [
+    "No device boot or runtime security verification",
+    "Official ordinary-app su remains incompatible with retained App Seccomp; no general Root claim",
+    "Modern namespace profile and optional old path_umount features unavailable",
+    "Matching official v1.1.1 assets are pinned and verified offline, NOT installed or executed",
+    "RCU memory regressions do not certify package identity, durable revocation or hook context; target policy compile/neverallow remains BLOCKED"
+  ]
+}

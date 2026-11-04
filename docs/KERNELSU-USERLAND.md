@@ -65,3 +65,5 @@ kernel/apk_sign.c 检查 APK v2 signing block 的证书长度与 SHA-256，要�
 6. 32-bit compat exec/probe 未覆盖验证；本轮只支持源级分析 arm64 execve。execveat/fexecve 虚拟 su 不支持，不能通过权限绕过补齐。
 
 后续安全方向是：基于固定源码设计不执行冗余身份 syscall 的受限 daemon、显式最小权限策略并完成独立审核；若需要自编 daemon，必须独立锁定来源/工具链/哈希，不能重签 Manager 或伪装为原官方字节。本轮没有交付该新 daemon。
+
+第四阶段更新：上述受限 daemon 方向不能满足本项目的通用应用 Root 目标，未实施，也不作为成功替代。当前直接 su 架构结论 NO-GO；独立受控服务需要另行完整实现与审查，见 [Seccomp 可行性和威胁模型](SECCOMP-FEASIBILITY.md)。0009/0010 不改变官方 Manager/APK/daemon 字节或 ABI 编号，但收紧了内核表和策略：CMD_SET_SEPOLICY 仍须经过 root-only 门禁，随后明确返回不支持，不注入未审 policy。没有安装或执行设备端 daemon。

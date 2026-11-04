@@ -47,4 +47,4 @@ Host 测试编译的是实际完整 allowlist.c，Linux API 由明确的 pthread
 
 安全回归的 PASS 只证明所测约束没有回退。整体静态安全审查、目标 policy、精确 Boot 输入、真机启动和普通应用 Root 均不通过。`check-ksu-readiness.py` 分七项报告；缺证据为 BLOCKED，不能填 PASS JSON 升级真机状态。
 
-本轮新增的可用性风险是 GFP_ATOMIC 分配失败/1024 条上限拒绝更新、密集写入导致快照拒绝、策略收紧导致已有功能失败；RCU/seqcount 改造仍需真实内核压力验证。没有新增无认证服务或放宽 Manager 身份验证；仍不能证明“没有新增安全风险”或“完全最小权限”。当前不适合人工真机 Root 验收。
+本轮新增的可用性风险是 GFP_ATOMIC 分配失败/1024 条上限拒绝更新、密集写入导致快照拒绝、策略收紧导致已有功能失败；旧 bitmap 删除后，授权读取变为至多 1024 条的 O(n) RCU 扫描，频繁 stat/access/exec 的开销尚未在 Android 测量。RCU/seqcount 改造仍需真实内核压力验证。没有新增无认证服务或放宽 Manager 身份验证；仍不能证明“没有新增安全风险”或“完全最小权限”。当前不适合人工真机 Root 验收。

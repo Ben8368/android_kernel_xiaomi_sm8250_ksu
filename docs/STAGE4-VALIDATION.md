@@ -37,7 +37,23 @@ suite 保留原第三阶段补丁重放、源污染拒绝、签名错误、协�
 
 ## 真实构建和离线结果
 
-本节在最终归档时补齐实际构建 SHA、Image/队列 hash、完整命令/日志和 suite 提交。历史第三阶段 Image 不用于第四阶段验收。
+完整构建使用全新 WSL checkout 和全新输出目录，源码提交 `1a8fe03c7a70e9d559a14aaebbc8acde615a4ea2`，完整补丁队列首次重放并经 pre/post 整树证明。最终构建进程由 Python subprocess 直接捕获 **exit=0**；2026-11-04 05:32:41–05:40:49 UTC（上海 13:32:41–13:40:49）。
+
+- Android Clang r596125 / 22.0.2，工具链逐文件锁校验通过；原 LTO/ThinLTO/CFI/Seccomp/SELinux 配置未改，`.config` SHA-256 `cd083b1ff199fa679236ba82edd9ce9b270e2a1d39ce5379da5ce44b9e00889c`。
+- Image/modules/dtbs、最终 AArch64 链接和 CFI 编译参数通过；3 个模块、3 个 DTB、12 个 DTBO；没有未解析强符号。
+- Image SHA-256：`f2b60e45ca862ef001e9afcc78b8c7e6b568f65852feea36c6cbbf1a2946872d`。
+- vmlinux SHA-256：`494f0eb87804685afc0fefa32e5687c62b221842ebb83ae6e314d0f0852b7a5c`。
+- 补丁队列 SHA-256：`b714e84b3ea4bb27e49845d95bcc553469757f6903d69239b05ad825ef75da40`；每个补丁和每个有效 KSU kernel 文件的 hash 在 provenance.json/source-before.json。
+- release：`4.19.325-cip136-st20-perf-g1a8fe03c7a70-dirty`。保留事实上的 `-dirty`，expected_patch_dirty=true / unexplained_dirty=false；没有隐藏补丁工作树。
+- 真正编译的 Manager 证书和 CFI flags 已再次检查，见 build-contract.json；没有改签 Manager 或替换官方资产。
+
+首轮同源码构建也到 SUCCESS，但 shell 启动器的退出码变量未正确保存，未把空文件当作 exit=0。最终从新 checkout 重建并直接捕获退出码；首轮原始日志/provenance 和 launcher-note.txt 一并保存。两次 `.config` 相同、Image hash 不同，源码绝对目录也不同；没有完成差异归因，**不承诺按字节可复现**，比较见 repeat-build-comparison.json。验收采用上述最终产物。
+
+后续提交只改离线验证工具/文档/证据，不把它们的 SHA 冒充已构建 SHA。门禁比较当前全部有效 KSU hash、补丁队列和原生树/构建输入 blob；与构建输入不一致就 BLOCKED。
+
+完整产物目录：`/home/xiaoluo/umi-ksu-stage4/build-final`；干净源码：`/home/xiaoluo/umi-ksu-stage4/build-final-source`；维护源码：`/home/xiaoluo/umi-ksu-stage4/source`。官方资产仍在 `/home/xiaoluo/umi-ksu-stage3/assets`。
+
+完整 suite 的真实提交、各命令退出码、日志哈希和输入 fingerprint 由 offline-results.json 记录。最终七类结果由 readiness-result.json 记录；日志中“正确报告 BLOCKED”的 PASS 不能解释为 Root 安全通过。
 
 ## 阻止人工真机测试的条件
 

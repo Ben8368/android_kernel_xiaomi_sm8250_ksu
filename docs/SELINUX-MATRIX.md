@@ -41,6 +41,8 @@
 
 [reviewed-kernel-metadata.te](validation/stage4/reviewed-kernel-metadata.te) 仅是上述规则的可检查导出，并非完整 ROM policy。没有用 audit2allow；没有替换为全部设备/文件类型的枚举。
 
+函数运行在内核中不代表其 SELinux 主体必然是 `kernel`。workqueue 与 rename/LSM 调用方可能具有不同 current credentials；还必须核实每条实际 I/O 的主体和有效对象标签。此表约束的是保留下来的有限授权集合，不证明这些授权足以让所有路径工作。
+
 ## 尚缺的 su/ksud 权限
 
 | 能力 | 必须获得的真实材料 | 本轮决定 |

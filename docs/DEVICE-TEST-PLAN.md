@@ -4,7 +4,7 @@
 
 ## 进入测试前必须满足
 
-1. 解决 ROOT-SECURITY.md 中 SELinux wildcard 授权、allowlist 同步/生命周期以及官方普通 su 的 Seccomp 冲突；无法安全兼容的功能维持不支持。完成非设备验证和独立审查。
+1. 第四阶段结论为当前直接 su 架构 NO-GO。必须先解决普通应用通用 Root 的架构、UID/Manager 身份代次、持久撤销及 credential hook 上下文问题，并通过完整目标 policy 编译/neverallow。0009 的内存修复、0010 删除通配和 Manager 检测成功均不能替代这些条件；见 ROOT-SECURITY.md、SECCOMP-FEASIBILITY.md、SELINUX-MATRIX.md。
 2. 取得精确 LineageOS 24.0 umi ROM 的官方来源/发行哈希、构建 fingerprint/日期/安全补丁级别、repo manifest（含 kernel/device/vendor revision）、同次 boot/dtbo/vbmeta/recovery/target-files。核对运行 ROM 与所有 payload 一致，不仅“都是 24.0”。
 3. 通过 BOOT-FORMAT.md 真实镜像门禁、离线打包往返、AVB/分区/ramdisk/hash 校验，保存最终测试镜像清单和命令记录。
 4. 用户**另行明确确认实际刷机操作**。在此之前任何脚本均不得自动调用刷写/重启；确认不能由本轮请求代替。

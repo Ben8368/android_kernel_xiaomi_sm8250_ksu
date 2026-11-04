@@ -197,3 +197,16 @@ and creates provenance.json with upstream/custom/KSU SHAs, queue/toolchain
 hashes and final Image SHA-256. See STAGE3-VALIDATION.md for new evidence.
 Expected patch-induced -dirty is not hidden. Official matching v1.1.1 assets
 are now pinned and verified offline; no device userland deployment occurred.
+
+## Stage 4 regression build
+
+The final fresh checkout at 1a8fe03c7a70e9d559a14aaebbc8acde615a4ea2 builds Image/modules/dtbs
+with pinned Clang r596125/22.0.2, unchanged ThinLTO/CFI/Seccomp/SELinux, exit 0.
+Image SHA-256: f2b60e45ca862ef001e9afcc78b8c7e6b568f65852feea36c6cbbf1a2946872d.
+The native tree, including charging/touch/fingerprint/Wi-Fi drivers, matches
+stage-3 HEAD exactly. See [stage 4](STAGE4-VALIDATION.md) for both raw build
+consoles, source/queue/artifact hashes, the launcher's initial missing-exit
+record, final direct exit capture and offline regressions. Two fresh builds
+have different Image hashes; no byte-for-byte reproducibility claim is made.
+Current direct-su architecture remains NO-GO for ordinary-app general Root
+under retained App Seccomp. Compile success is not a policy or device result.

@@ -1,0 +1,1 @@
+First full build reached SUCCESS and produced verified artifacts, but a shell launcher did not capture its exit-code variable (blank file). No exit status is asserted for that invocation. The final fresh checkout/build was run through Python subprocess.run and its actual returncode is retained in build.exit. Both raw build consoles and source provenance are preserved.
