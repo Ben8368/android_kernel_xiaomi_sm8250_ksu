@@ -1,0 +1,162 @@
+make[1]: Entering directory '/tmp/umi-ksu-config'
+  GEN     ./Makefile
+  WRAP    arch/arm64/include/generated/uapi/asm/errno.h
+  WRAP    arch/arm64/include/generated/uapi/asm/ioctl.h
+  WRAP    arch/arm64/include/generated/uapi/asm/ioctls.h
+  WRAP    arch/arm64/include/generated/uapi/asm/ipcbuf.h
+  WRAP    arch/arm64/include/generated/uapi/asm/kvm_para.h
+  WRAP    arch/arm64/include/generated/uapi/asm/mman.h
+  WRAP    arch/arm64/include/generated/uapi/asm/msgbuf.h
+  WRAP    arch/arm64/include/generated/uapi/asm/poll.h
+  WRAP    arch/arm64/include/generated/uapi/asm/resource.h
+  WRAP    arch/arm64/include/generated/uapi/asm/sembuf.h
+  UPD     include/generated/uapi/linux/version.h
+  WRAP    arch/arm64/include/generated/uapi/asm/shmbuf.h
+  WRAP    arch/arm64/include/generated/uapi/asm/socket.h
+  WRAP    arch/arm64/include/generated/uapi/asm/sockios.h
+  WRAP    arch/arm64/include/generated/uapi/asm/swab.h
+  WRAP    arch/arm64/include/generated/uapi/asm/termbits.h
+  WRAP    arch/arm64/include/generated/uapi/asm/termios.h
+  WRAP    arch/arm64/include/generated/uapi/asm/types.h
+  WRAP    arch/arm64/include/generated/asm/bugs.h
+  WRAP    arch/arm64/include/generated/asm/div64.h
+  WRAP    arch/arm64/include/generated/asm/delay.h
+  WRAP    arch/arm64/include/generated/asm/dma.h
+  WRAP    arch/arm64/include/generated/asm/dma-contiguous.h
+  WRAP    arch/arm64/include/generated/asm/early_ioremap.h
+  WRAP    arch/arm64/include/generated/asm/emergency-restart.h
+  WRAP    arch/arm64/include/generated/asm/hw_irq.h
+  WRAP    arch/arm64/include/generated/asm/irq_regs.h
+  WRAP    arch/arm64/include/generated/asm/kdebug.h
+  WRAP    arch/arm64/include/generated/asm/kmap_types.h
+  WRAP    arch/arm64/include/generated/asm/local64.h
+  WRAP    arch/arm64/include/generated/asm/local.h
+  WRAP    arch/arm64/include/generated/asm/mcs_spinlock.h
+  WRAP    arch/arm64/include/generated/asm/msi.h
+  WRAP    arch/arm64/include/generated/asm/mm-arch-hooks.h
+  WRAP    arch/arm64/include/generated/asm/preempt.h
+  WRAP    arch/arm64/include/generated/asm/qrwlock.h
+  WRAP    arch/arm64/include/generated/asm/qspinlock.h
+  WRAP    arch/arm64/include/generated/asm/rwsem.h
+  WRAP    arch/arm64/include/generated/asm/serial.h
+  WRAP    arch/arm64/include/generated/asm/segment.h
+  WRAP    arch/arm64/include/generated/asm/set_memory.h
+  WRAP    arch/arm64/include/generated/asm/switch_to.h
+  WRAP    arch/arm64/include/generated/asm/sizes.h
+  WRAP    arch/arm64/include/generated/asm/unaligned.h
+  WRAP    arch/arm64/include/generated/asm/trace_clock.h
+  WRAP    arch/arm64/include/generated/asm/user.h
+  WRAP    arch/arm64/include/generated/asm/vga.h
+  WRAP    arch/arm64/include/generated/asm/xor.h
+  HOSTCC  scripts/dtc/dtc.o
+  HOSTCC  scripts/genksyms/genksyms.o
+  CC      scripts/mod/empty.o
+  HOSTCC  scripts/mod/mk_elfconfig
+  UPD     include/config/kernel.release
+  CC      scripts/mod/devicetable-offsets.s
+  YACC    scripts/genksyms/parse.tab.c
+  HOSTCC  scripts/dtc/flattree.o
+  HOSTCC  scripts/dtc/fstree.o
+  UPD     scripts/mod/devicetable-offsets.h
+  LEX     scripts/genksyms/lex.lex.c
+  HOSTCC  scripts/dtc/data.o
+  YACC    scripts/genksyms/parse.tab.h
+  MKELF   scripts/mod/elfconfig.h
+  HOSTCC  scripts/mod/modpost.o
+  HOSTCC  scripts/genksyms/parse.tab.o
+  HOSTCC  scripts/mod/file2alias.o
+  HOSTCC  scripts/dtc/livetree.o
+  HOSTCC  scripts/genksyms/lex.lex.o
+  HOSTCC  scripts/dtc/treesource.o
+  HOSTCC  scripts/mod/sumversion.o
+  HOSTCC  scripts/selinux/genheaders/genheaders
+  HOSTCC  scripts/dtc/srcpos.o
+  HOSTCC  scripts/dtc/checks.o
+  HOSTLD  scripts/mod/modpost
+  HOSTLD  scripts/genksyms/genksyms
+  HOSTCC  scripts/selinux/mdp/mdp
+  HOSTCC  scripts/dtc/util.o
+  LEX     scripts/dtc/dtc-lexer.lex.c
+  YACC    scripts/dtc/dtc-parser.tab.h
+  HOSTCC  scripts/bin2c
+  HOSTCC  scripts/kallsyms
+  YACC    scripts/dtc/dtc-parser.tab.c
+  HOSTCC  scripts/sortextable
+  HOSTCC  scripts/dtc/dtc-lexer.lex.o
+  HOSTCC  scripts/asn1_compiler
+  HOSTCC  scripts/extract-cert
+  HOSTCC  scripts/dtc/dtc-parser.tab.o
+  Using /home/xiaoluo/umi-ksu-work-20261104 as source for kernel
+  UPD     include/generated/utsrelease.h
+  CC      kernel/bounds.s
+  UPD     include/generated/timeconst.h
+  UPD     include/generated/bounds.h
+  CC      arch/arm64/kernel/asm-offsets.s
+  HOSTLD  scripts/dtc/dtc
+  UPD     include/generated/asm-offsets.h
+  CALL    /home/xiaoluo/umi-ksu-work-20261104/scripts/checksyscalls.sh
+  LDS     arch/arm64/kernel/vdso/vdso.lds
+  CC      arch/arm64/kernel/vdso/vgettimeofday.o
+  AS      arch/arm64/kernel/vdso/note.o
+  AS      arch/arm64/kernel/vdso/sigreturn.o
+  LD      arch/arm64/kernel/vdso/vdso.so.dbg
+  VDSOSYM include/generated/vdso-offsets.h
+-- KernelSU-Next Git repo detected at: /home/xiaoluo/umi-ksu-work-20261104/KernelSU-Next
+-- KernelSU-Next version: 33355
+-- KernelSU-Next tag: v3.4.2
+-- KernelSU-Next new DCACHE flush: 0
+-- KernelSU-Next Manager signature size: 0x3e6
+-- KernelSU-Next Manager signature hash: 79e590113c4c4c0c222978e413a5faa801666957b1212a328e46c00c69821bf7
+  CC      drivers/kernelsu/core/init.o
+  CC      drivers/kernelsu/feature/kernel_umount.o
+  CC      drivers/kernelsu/feature/module_blacklist.o
+  CC      drivers/kernelsu/feature/sulog.o
+  CC      drivers/kernelsu/feature/sucompat.o
+  CC      drivers/kernelsu/hook/lsm_hook.o
+  CC      drivers/kernelsu/hook/setuid_hook.o
+  CC      drivers/kernelsu/hook/syscall_event_bridge.o
+  CC      drivers/kernelsu/hook/syscall_hook_manager.o
+  CC      drivers/kernelsu/hook/tp_marker.o
+  CC      drivers/kernelsu/hook/arm64/patch_memory.o
+  CC      drivers/kernelsu/hook/arm64/syscall_hook.o
+  CC      drivers/kernelsu/extras.o
+  CC      drivers/kernelsu/infra/file_wrapper.o
+  CC      drivers/kernelsu/infra/event_queue.o
+  CC      drivers/kernelsu/infra/seccomp_cache.o
+  CC      drivers/kernelsu/infra/su_mount_ns.o
+In file included from /home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/infra/file_wrapper.c:16:
+/home/xiaoluo/umi-ksu-work-20261104/security/selinux/include/objsec.h:31:10: fatal error: flask.h: No such file or directory
+   31 | #include "flask.h"
+      |          ^~~~~~~~~
+compilation terminated.
+make[2]: *** [/home/xiaoluo/umi-ksu-work-20261104/scripts/Makefile.build:338: drivers/kernelsu/infra/file_wrapper.o] Error 1
+make[2]: *** Waiting for unfinished jobs....
+In file included from /home/xiaoluo/umi-ksu-work-20261104/include/vdso/const.h:5,
+                 from /home/xiaoluo/umi-ksu-work-20261104/include/linux/const.h:4,
+                 from /home/xiaoluo/umi-ksu-work-20261104/include/linux/list.h:8,
+                 from /home/xiaoluo/umi-ksu-work-20261104/include/linux/wait.h:7,
+                 from /home/xiaoluo/umi-ksu-work-20261104/include/linux/wait_bit.h:8,
+                 from /home/xiaoluo/umi-ksu-work-20261104/include/linux/fs.h:6,
+                 from /home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/infra/seccomp_cache.c:2:
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/infra/seccomp_cache.c:12:38: error: ‘SECCOMP_ARCH_NATIVE_NR’ undeclared here (not in a function)
+   12 |         DECLARE_BITMAP(allow_native, SECCOMP_ARCH_NATIVE_NR);
+      |                                      ^~~~~~~~~~~~~~~~~~~~~~
+/home/xiaoluo/umi-ksu-work-20261104/include/uapi/linux/const.h:34:40: note: in definition of macro ‘__KERNEL_DIV_ROUND_UP’
+   34 | #define __KERNEL_DIV_ROUND_UP(n, d) (((n) + (d) - 1) / (d))
+      |                                        ^
+/home/xiaoluo/umi-ksu-work-20261104/include/linux/types.h:11:28: note: in expansion of macro ‘BITS_TO_LONGS’
+   11 |         unsigned long name[BITS_TO_LONGS(bits)]
+      |                            ^~~~~~~~~~~~~
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/infra/seccomp_cache.c:12:9: note: in expansion of macro ‘DECLARE_BITMAP’
+   12 |         DECLARE_BITMAP(allow_native, SECCOMP_ARCH_NATIVE_NR);
+      |         ^~~~~~~~~~~~~~
+cc1: note: unrecognized command-line option ‘-Wno-gcc-compat’ may have been intended to silence earlier diagnostics
+make[2]: *** [/home/xiaoluo/umi-ksu-work-20261104/scripts/Makefile.build:338: drivers/kernelsu/infra/seccomp_cache.o] Error 1
+/home/xiaoluo/umi-ksu-work-20261104/drivers/kernelsu/infra/su_mount_ns.c:16:10: fatal error: uapi/linux/mount.h: No such file or directory
+   16 | #include <uapi/linux/mount.h>
+      |          ^~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[2]: *** [/home/xiaoluo/umi-ksu-work-20261104/scripts/Makefile.build:338: drivers/kernelsu/infra/su_mount_ns.o] Error 1
+make[1]: *** [/home/xiaoluo/umi-ksu-work-20261104/Makefile:1883: drivers/kernelsu/] Error 2
+make[1]: Leaving directory '/tmp/umi-ksu-config'
+make: *** [Makefile:153: sub-make] Error 2
