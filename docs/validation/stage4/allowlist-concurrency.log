@@ -1,0 +1,5 @@
+PASS deterministic prune/replacement race preserves successor; held snapshot survives RCU free
+PASS 8 threads: 40000 replacements, 160000 reader iterations, 10000 prunes, 100 persistence snapshots (liburcu / ASan / UBSan)
+PASS deny visibility, stale load refusal, high/multiuser UID, package replacement, invalid Manager sentinel, reserved defaults, negative groups and capacity rollback
+PASS quiesced shutdown drains callbacks; every allocated record freed exactly once; stopped table rejects writes
+SCOPE: host adapters and userspace RCU; target lockdep/KASAN/KCSAN, package identity and crash persistence remain BLOCKED

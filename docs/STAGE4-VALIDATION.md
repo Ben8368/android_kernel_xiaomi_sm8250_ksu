@@ -64,3 +64,11 @@ suite 保留原第三阶段补丁重放、源污染拒绝、签名错误、协�
 5. 无真机 kprobe 注册、启动、充电、触摸、指纹、Wi-Fi、授权/未授权/撤销 Root 的日志。
 
 完整软件阻断解除、Boot 输入匹配和人工操作授权是不同条件；本轮不自动刷机、不发布 Boot、不合并默认分支、不 force push。
+
+## 最终套件与就绪状态
+
+完整 suite 在 `41229786ab624210a9465773a7ebfab3bab0b9eb` 的已提交父仓库上运行，7/7 组退出码均为 0。具体命令、输入指纹和日志 hash 见 offline-results.json；PASS 输出行数为 `{"stage3-suite": 82, "allowlist-concurrency": 4, "seccomp-policy": 4, "selinux-surface": 2, "readiness-negative": 8, "protected-native-tree": 2, "build-evidence-negative": 6}`，这些行包含正确拒绝坏输入和正确识别 BLOCKED，不能等同于设备功能数量。
+
+最终门禁在实际产物重新计算 SHA-256 后：编译 PASS、离线兼容 PASS；整体静态安全、目标 ROM policy、精确 Boot 输入、真机启动、真机 Root 均 BLOCKED；manual_device_test_ready=false / NO-GO。readiness-result.json 和全部原始日志在 docs/validation/stage4。
+
+最后的证据提交只补文档/日志/摘要，不改内核、补丁、工具或测试输入；门禁的当前代码/快照 fingerprint 仍须匹配 suite。

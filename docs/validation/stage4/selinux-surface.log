@@ -1,0 +1,3 @@
+PASS all 22 bootstrap grants are finite kernel metadata/store operations; no ioctl xperms or attribute exemptions
+PASS inherited su permissive state explicitly cleared; root-only runtime policy mutation fails closed
+BLOCKED target ROM: no complete platform/vendor/product/system_ext policy or compiled sepolicy; no target compile/neverallow/PTY/Root claim

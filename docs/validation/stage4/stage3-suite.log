@@ -1,0 +1,185 @@
+Already applied: complete verified queue b714e84b3ea4bb27e49845d95bcc553469757f6903d69239b05ad825ef75da40
+PASS clean replay: 0001-deterministic-kbuild.patch
+PASS clean replay: 0002-preserve-seccomp-and-path-references.patch
+PASS clean replay: 0003-check-signature-errors-as-integers.patch
+PASS clean replay: 0004-fix-declarations-and-syscall-argument-types.patch
+PASS clean replay: 0005-fix-boot-hook-argument-contracts.patch
+PASS clean replay: 0006-use-native-selinux-avc-declaration.patch
+PASS clean replay: 0007-keep-su-selinux-domain-enforcing.patch
+PASS clean replay: 0008-bound-authorization-inputs.patch
+PASS clean replay: 0009-publish-rcu-authorization-snapshots.patch
+PASS clean replay: 0010-restrict-selinux-policy-surface.patch
+PASS effective source matches clean replay: 10 files
+PASS effective source whitespace check
+PASS exact queue accepted in isolated clean parent checkout
+PASS source proof rejects extra tracked source edit
+PASS source proof rejects extra untracked kernel file
+PASS source proof rejects staged submodule changes
+PASS source proof rejects uncommitted parent source
+PASS source proof restored after all negative cases
+SCOPE: disposable host Git clones only; no phone access
+PASS valid signature
+PASS wrong signature
+PASS crypto ENOMEM
+PASS crypto EINVAL
+PASS short certificate read
+PASS certificate read EIO
+PASS oversized certificate
+PASS extracted profile validation and 201 allowlist capacity cases (ASan/UBSan)
+PASS actual Manager wrapper accepts output sentinel despite prctl EINVAL; mock denial rejected
+PASS all KSU kernel files equal clean upstream + exact patch queue
+PASS Manager command KERNEL_SU_OPTION
+PASS Manager command CMD_GRANT_ROOT
+PASS Manager command CMD_BECOME_MANAGER
+PASS Manager command CMD_GET_VERSION
+PASS Manager command CMD_ALLOW_SU
+PASS Manager command CMD_DENY_SU
+PASS Manager command CMD_GET_SU_LIST
+PASS Manager command CMD_GET_DENY_LIST
+PASS Manager command CMD_CHECK_SAFEMODE
+PASS Manager command CMD_GET_APP_PROFILE
+PASS Manager command CMD_SET_APP_PROFILE
+PASS Manager command CMD_IS_UID_GRANTED_ROOT
+PASS Manager command CMD_IS_UID_SHOULD_UMOUNT
+PASS Manager command CMD_IS_SU_ENABLED
+PASS Manager command CMD_ENABLE_SU
+PASS Manager command CMD_GET_MANAGER_UID
+PASS Manager command CMD_HOOK_MODE
+PASS ksud rustix command KERNEL_SU_OPTION
+PASS ksud rustix command CMD_GRANT_ROOT
+PASS ksud rustix command CMD_GET_VERSION
+PASS ksud rustix command CMD_REPORT_EVENT
+PASS ksud rustix command CMD_SET_SEPOLICY
+PASS ksud rustix command CMD_CHECK_SAFEMODE
+PASS kernel release version code 12851
+PASS profile ABI v2
+PASS profile ABI v2
+PASS profile mutation after manager-only gate
+PASS policy mutation root-only
+PASS both root-entry paths require authorization
+PASS credential and SELinux transition remain explicit
+PASS no caller seccomp removal
+PASS no automatic su permissive rule
+PASS certificate-based manager discovery retained
+PASS native arm64 execve probe wiring exists (registration NOT tested)
+PASS execveat-only virtual su explicitly unsupported by this queue
+PASS native seccomp/SELinux/VFS sources unchanged from LineageOS
+PASS LP64 profile sizeof/offset match: 776 240 260 264 272 144
+PASS pinned bionic source permits prctl syscall number; extra app filters still possible
+PASS detect known official ordinary-su vs preserved app Seccomp incompatibility
+SCOPE: static checks and host mocks only; no Android prctl, device boot or Root validation
+PASS all release hashes, APK v2 RSA signature/content digest, manifest and four AArch64 daemons
+PASS reject APK payload tampering
+PASS reject wrong signing certificate
+PASS reject truncated APK
+SCOPE: offline cryptography only, no Android install or kernel authentication
+PASS independent AOSP mkbootimg header-v2 synthetic fixture, section ranges and SHA-1 ID
+PASS reject short header
+PASS reject truncated DTB
+PASS reject v3 header
+PASS reject wrong page size
+PASS reject bad ARM64 magic
+PASS reject wrong AOSP boot ID
+PASS reject unknown trailer
+PASS reject missing DTB
+SCOPE: temporary synthetic fixture deleted; no matching ROM boot image was built
+PASS all pinned external source snapshots
+{
+  "status": "BLOCKED",
+  "conclusion": "NO-GO",
+  "manual_device_test_ready": false,
+  "gates": {
+    "compile": {
+      "status": "PASS",
+      "evidence": [
+        "artifacts.sha256",
+        "build-console.log",
+        "build-contract.json",
+        "build.config",
+        "build.exit",
+        "dt-package-verification.json",
+        "first-build-console.log",
+        "first-provenance.json",
+        "launcher-note.txt",
+        "linked-reverification.log",
+        "linked-verification.json",
+        "modules.sha256.json",
+        "provenance.json",
+        "source-before.json"
+      ],
+      "built_source_commit": "1a8fe03c7a70e9d559a14aaebbc8acde615a4ea2",
+      "image_sha256": "f2b60e45ca862ef001e9afcc78b8c7e6b568f65852feea36c6cbbf1a2946872d",
+      "artifact_rehash": false,
+      "scope": "Image/modules/dtbs compile/link; archived evidence",
+      "materials": {}
+    },
+    "offline_compatibility": {
+      "status": "BLOCKED",
+      "detail": "missing evidence: offline-results.json",
+      "evidence": [],
+      "materials": {}
+    },
+    "static_security": {
+      "status": "BLOCKED",
+      "detail": "UID/package/certificate lifecycle and durable revocation remain unresolved; exec kprobe credential allocation/SELinux credential mutation require context audit. No validated ordinary-app Root architecture.",
+      "evidence": [
+        "docs/ROOT-SECURITY.md",
+        "docs/SECCOMP-FEASIBILITY.md"
+      ],
+      "regression_tests": "BLOCKED",
+      "materials": {
+        "docs/ROOT-SECURITY.md": "fb616eb2c4003667b1115d57072dd926cd6c132e2ddc364224502f1f638deaca",
+        "docs/SECCOMP-FEASIBILITY.md": "4d25a5dc0e847954302456e8b28b1ae90489a2ef63357cbdf5eb7fded393d653"
+      }
+    },
+    "target_rom_sepolicy": {
+      "status": "BLOCKED",
+      "detail": "No exact full platform/vendor/product/system_ext policy or compiled policy; target compilation, neverallow and effective-domain checks not run.",
+      "evidence": [
+        "docs/SELINUX-MATRIX.md",
+        "docs/validation/stage4/selinux-inventory.json",
+        "docs/validation/stage4/sources.lock.json"
+      ],
+      "materials": {
+        "docs/SELINUX-MATRIX.md": "8c526a74fefe2838b9c23a1adb1eda170fedbc61412e4500b3e6b193e2d9a1bb",
+        "docs/validation/stage4/selinux-inventory.json": "0548c2bd38f5a1354b8d3ef0c2fe70c0b50e9f0644d949b7c2011cb989051636",
+        "docs/validation/stage4/sources.lock.json": "b104288557e5192f8931bf0665a061ce17ff5cb84d1351e0e6359df96dcd7230"
+      }
+    },
+    "boot_inputs": {
+      "status": "BLOCKED",
+      "detail": "No precisely matching umi ROM target-files/Boot/ramdisk/DTBO/vbmeta/recovery and verified rollback bundle.",
+      "evidence": [
+        "docs/BOOT-FORMAT.md"
+      ],
+      "materials": {
+        "docs/BOOT-FORMAT.md": "678f41b1447c4b2b5e12126aba0401744c8f057c3c78a00d3c98f01b3ed35a62"
+      }
+    },
+    "device_boot": {
+      "status": "BLOCKED",
+      "detail": "No device boot/hardware/log evidence for this Image and ROM.",
+      "evidence": [
+        "docs/DEVICE-TEST-PLAN.md"
+      ],
+      "materials": {
+        "docs/DEVICE-TEST-PLAN.md": "d195b39e6db2e67879b1b6c5522b6e2f92874ffab71cfd127680ab7b7c1e7b83"
+      }
+    },
+    "device_root": {
+      "status": "BLOCKED",
+      "detail": "Official ordinary-app su is incompatible with retained App Seccomp; no authorized/unauthorized/revoked Android Root tests. Manager detection or bootstrap is insufficient.",
+      "evidence": [
+        "docs/SECCOMP-FEASIBILITY.md",
+        "docs/DEVICE-TEST-PLAN.md"
+      ],
+      "materials": {
+        "docs/SECCOMP-FEASIBILITY.md": "4d25a5dc0e847954302456e8b28b1ae90489a2ef63357cbdf5eb7fded393d653",
+        "docs/DEVICE-TEST-PLAN.md": "d195b39e6db2e67879b1b6c5522b6e2f92874ffab71cfd127680ab7b7c1e7b83"
+      }
+    }
+  },
+  "evidence_directory": "/home/xiaoluo/umi-ksu-stage4/source/docs/validation/stage4",
+  "scope": "current v1.1.1 direct su architecture under unchanged app Seccomp; no runtime success is inferred"
+}
+PASS readiness gate correctly reports BLOCKED (not permission to flash)
