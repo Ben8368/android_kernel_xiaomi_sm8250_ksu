@@ -33,7 +33,7 @@ AVB footer/descriptor、vbmeta chain、rollback index、安全补丁日期、Boo
 
 只实现 tools/inspect-umi-boot.py 只读格式门禁，不提供打包/刷写入口：
 
-- 检查 Android magic、header-v2 size=1660、page size、各 payload 界限、ARM64 Image magic、ramdisk 编码、DTB header/范围与拼接、AOSP SHA-1 Boot ID、AVB footer 范围和不明尾数据。
+- 检查 Android magic、header-v2 size=1660、page size、各 payload 界限、ARM64 Image magic、ramdisk 编码、DTB header/范围与拼接、AOSP SHA-1 Boot ID、AVB footer 范围和不明尾数据。ARM64 magic 本身不能证明 kernel 没有附加其他数据；仍须与同次构建的原始 Image 哈希对照。
 - --target-files 要求一个 ZIP 同时包含 boot/dtbo/vbmeta/recovery 和 META/misc_info.txt，并检查 umi/Android 17/LineageOS 24.0 属性。**单 ZIP 只证明输入源单元，不证明可信发行或真实源码关系。** 仍要求人工核对官方来源和 manifest；工具显式 packaging_ready=false。
 - AVB footer 存在仅代表范围检查，报告始终 avb_signature_verified=false，不假装完成签名/信任校验。
 - 合成测试使用固定官方 mkbootimg 创建临时 v2 fixture，与独立 parser 对照，再验证 8 种错误输入被拒绝。fixture 用合成 kernel/ramdisk/DTB，只证明格式门禁，不是可启动 Boot。临时文件测试结束即删除。

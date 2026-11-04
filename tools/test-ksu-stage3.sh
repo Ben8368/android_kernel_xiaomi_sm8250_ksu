@@ -5,6 +5,7 @@ root=$(cd "$(dirname "$0")/.." && pwd)
 : "${KSU_ASSETS:?Set KSU_ASSETS to the pinned release download directory}"
 python3 "$root/tools/prepare-ksu.py"
 python3 "$root/tools/test-ksu-patch-replay.py"
+python3 "$root/tools/test-ksu-source-proof.py"
 python3 "$root/tools/test-ksu-signature-errors.py"
 python3 "$root/tools/test-ksu-runtime-contract.py"
 python3 "$root/tools/test-ksu-userland.py" --assets "$KSU_ASSETS"

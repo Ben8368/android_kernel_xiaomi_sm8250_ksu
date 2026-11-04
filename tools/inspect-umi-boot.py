@@ -40,7 +40,7 @@ def inspect(b):
         if name=='recovery_dtbo':require(recovery_offset==(pos if size else 0),'recovery DTBO offset mismatch')
         data=b[pos:pos+size];payload.append(data)
         sections[name]=dict(offset=pos,size=size,sha256=hashlib.sha256(data).hexdigest())
-        if name=='kernel':require(data[56:60]==b'ARMd','expected raw ARM64 Image, not Image.gz or Image-dtb')
+        if name=='kernel':require(data[56:60]==b'ARMd','expected ARM64 Image magic; exact raw Image provenance requires a build hash')
         if name=='ramdisk':require(data.startswith((b'\x1f\x8b',b'\x02\x21\x4c\x18',b'\x04\x22\x4d\x18',b'070701',b'070702')),'unknown ramdisk encoding')
         if name=='dtb':sections[name]['trees']=dtbs(data)
         pos=align(pos+size,page)
