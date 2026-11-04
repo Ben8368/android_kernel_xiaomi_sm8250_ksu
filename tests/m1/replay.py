@@ -25,7 +25,7 @@ for name in (queue / "series").read_text().splitlines():
         continue
     patch = queue / name
     for args in (["--check"], []):
-        subprocess.run(["git", "apply", *args, str(patch)], cwd=dest, check=True)
+        subprocess.run(["git", "apply", "--unidiff-zero", *args, str(patch)], cwd=dest, check=True)
 files = subprocess.check_output(["git", "ls-tree", "-r", "--name-only", base], cwd=sub, text=True).splitlines()
 files += ["kernel/infra/task_work_compat.h"]
 manifest = {}

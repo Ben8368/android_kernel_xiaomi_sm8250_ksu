@@ -12,8 +12,8 @@ From the kernel repository root, replay with:
 
 ```sh
 test "$(git -C KernelSU-Next rev-parse HEAD)" = 4c706b5938665866ebe16944a481a7b91e3396af
-git -C KernelSU-Next apply --check ../patches/kernelsu-next/0001-linux-4.19-compat.patch
-git -C KernelSU-Next apply ../patches/kernelsu-next/0001-linux-4.19-compat.patch
+git -C KernelSU-Next apply --unidiff-zero --check ../patches/kernelsu-next/0001-linux-4.19-compat.patch
+git -C KernelSU-Next apply --unidiff-zero ../patches/kernelsu-next/0001-linux-4.19-compat.patch
 ```
 
 The queue is compile compatibility work in progress. It does not claim a
