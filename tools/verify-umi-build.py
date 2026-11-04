@@ -34,7 +34,7 @@ boot=out/'arch/arm64/boot';image=boot/'Image'
 with image.open('rb') as f:header=f.read(64)
 assert header[56:60]==b'ARMd','arm64 Image header'
 artifacts=[]
-for p in [image,*sorted(boot.rglob('*.dtb')),*sorted(boot.rglob('*.dtbo'))]:
+for p in [image,*sorted(boot.rglob('*.dtb')),*sorted(boot.rglob('*.dtbo')),*[p for p in (boot/'dtb.img',boot/'dtbo.img') if p.exists()]]:
  with p.open('rb') as f:header=f.read(64)
  if p.suffix in ['.dtb','.dtbo']:
   magic,total=struct.unpack_from('>II',header)

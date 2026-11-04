@@ -45,11 +45,9 @@ for symbol in MACH_XIAOMI_UMI KPROBES KSU LTO_CLANG CFI_CLANG SECCOMP SECCOMP_FI
 done
 cp "$out/.config" "$out/config.before-build"
 run_make -j"${JOBS:-6}" Image modules dtbs
-if grep -RqE '^dtbo\.img[[:space:]]*:' "$root/arch/arm64" --include=Makefile; then
- run_make -j"${JOBS:-6}" dtbo.img
-fi
+python3 "$root/tools/package-umi-dt.py" --out "$out"
 cmp "$out/config.before-build" "$out/.config"
-find "$out/arch/arm64/boot" -type f \( -name Image -o -name '*.dtb' -o -name '*.dtbo' -o -name dtbo.img \) -print0 | sort -z | xargs -0 -r sha256sum > "$out/artifacts.sha256"
+find "$out/arch/arm64/boot" -type f \( -name Image -o -name '*.dtb' -o -name '*.dtbo' -o -name dtbo.img -o -name dtb.img \) -print0 | sort -z | xargs -0 -r sha256sum > "$out/artifacts.sha256"
 test -s "$out/vmlinux" && test -s "$out/System.map" && test -s "$out/arch/arm64/boot/Image"
 llvm-readelf -h "$out/vmlinux" > "$out/vmlinux-elf.txt"
 llvm-nm "$out/vmlinux" > "$out/vmlinux-symbols.txt"
