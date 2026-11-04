@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Check linked umi kernel, security flags and actual artifact formats."""
-import argparse,hashlib,json,os,pathlib,struct,subprocess
+import argparse,hashlib,json,os,pathlib,re,struct,subprocess
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--out',required=True,type=pathlib.Path)
 parser.add_argument('--clang',required=True,type=pathlib.Path)
@@ -46,6 +46,8 @@ ksu=root/'KernelSU-Next'
 changed=subprocess.check_output(['git','-C',str(ksu),'diff','--name-only'],text=True).splitlines()
 protected=['kernel/seccomp.c','include/linux/seccomp.h','fs/namespace.c','include/linux/mount.h','security/selinux']
 assert not subprocess.check_output(['git','-C',str(root),'diff','1708fc0888f13780183482dbeb31329202311889','--',*protected]),'protected native source changed'
-result=dict(source_head=subprocess.check_output(['git','-C',str(root),'rev-parse','HEAD'],text=True).strip(),kernel_release=(out/'include/config/kernel.release').read_text().strip(),ksu_base=subprocess.check_output(['git','-C',str(ksu),'rev-parse','HEAD'],text=True).strip(),effective_ksu_sha256={p:digest(ksu/p) for p in changed},config_sha256=digest(out/'.config'),required_configs=required,cfi_flags_verified=True,elf=elf_description,unresolved_strong_symbols=0,vmlinux_size=vmlinux.stat().st_size,vmlinux_sha256=digest(vmlinux),dtb_count=sum(x['path'].endswith('.dtb') for x in artifacts),dtbo_count=sum(x['path'].endswith('.dtbo') for x in artifacts),dtbo_img_exists=(boot/'dtbo.img').exists(),module_count=len(list(out.rglob('*.ko'))),artifacts=artifacts,limitations=['No device boot or runtime security verification','Seccomp remains active for su; app root commands may be restricted','Modern namespace profile and optional old path_umount features unavailable','Upstream embed_ksud.c is an empty stub; matching userspace not integrated'])
+build_heads=re.findall(r'^([0-9a-f]{40})$',(out/'build.log').read_text(),re.MULTILINE)
+assert build_heads,'missing build-time commit identity'
+result=dict(build_invocation_head=build_heads[-1],source_head_at_verification=subprocess.check_output(['git','-C',str(root),'rev-parse','HEAD'],text=True).strip(),kernel_release=(out/'include/config/kernel.release').read_text().strip(),ksu_base=subprocess.check_output(['git','-C',str(ksu),'rev-parse','HEAD'],text=True).strip(),effective_ksu_sha256={p:digest(ksu/p) for p in changed},config_sha256=digest(out/'.config'),required_configs=required,cfi_flags_verified=True,elf=elf_description,unresolved_strong_symbols=0,vmlinux_size=vmlinux.stat().st_size,vmlinux_sha256=digest(vmlinux),dtb_count=sum(x['path'].endswith('.dtb') for x in artifacts),dtbo_count=sum(x['path'].endswith('.dtbo') for x in artifacts),dtbo_img_exists=(boot/'dtbo.img').exists(),module_count=len(list(out.rglob('*.ko'))),artifacts=artifacts,limitations=['No device boot or runtime security verification','Seccomp remains active for su; app root commands may be restricted','Modern namespace profile and optional old path_umount features unavailable','Upstream embed_ksud.c is an empty stub; matching userspace not integrated'])
 (out/'verification.json').write_text(json.dumps(result,indent=2)+'\n')
 print(json.dumps({k:v for k,v in result.items() if k not in ['effective_ksu_sha256','artifacts','required_configs']},indent=2))
