@@ -7,6 +7,16 @@ root=$(cd "$(dirname "$0")/.." && pwd)
 CLANG_DIR=$(realpath "$CLANG_DIR")
 out=$(realpath -m "${OUT_DIR:-$root/out/umi-clang}")
 [[ "$out" != "$root" ]] || { echo 'Use a separate output directory' >&2; exit 1; }
+python3 - "$root/tools/umi-toolchain.lock.json" "$CLANG_DIR" <<'PYVERIFY'
+import hashlib,json,pathlib,sys,os
+lock=json.loads(pathlib.Path(sys.argv[1]).read_text())
+root=pathlib.Path(sys.argv[2])
+for entry in lock['files']:
+ p=root/entry['path']
+ data=os.readlink(p).encode() if p.is_symlink() else p.read_bytes()
+ if hashlib.sha256(data).hexdigest()!=entry['sha256']:
+  raise SystemExit('Toolchain hash mismatch: '+str(p))
+PYVERIFY
 export PATH="$CLANG_DIR/bin:$PATH"
 export LC_ALL=C
 export KBUILD_BUILD_USER=ksu-validation KBUILD_BUILD_HOST=wsl-ubuntu
