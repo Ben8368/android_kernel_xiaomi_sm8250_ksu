@@ -1,0 +1,178 @@
+{
+  "original_first_11": [
+    "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/infra/file_wrapper.c:109:24: error: no member named 'iopoll' in 'struct file_operations'",
+    "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/infra/file_wrapper.c:339:23: error: use of undeclared identifier 'REMAP_FILE_DEDUP'",
+    "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/infra/file_wrapper.c:342:28: error: no member named 'remap_file_range' in 'struct file_operations'",
+    "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/infra/file_wrapper.c:347:28: error: no member named 'remap_file_range' in 'struct file_operations'",
+    "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/infra/file_wrapper.c:393:12: error: no member named 'iopoll' in 'struct file_operations'",
+    "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/infra/file_wrapper.c:393:31: error: no member named 'iopoll' in 'struct file_operations'",
+    "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/infra/file_wrapper.c:430:12: error: no member named 'remap_file_range' in 'struct file_operations'",
+    "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/infra/file_wrapper.c:431:19: error: no member named 'remap_file_range' in 'struct file_operations'",
+    "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/infra/seccomp_cache.c:12:31: error: use of undeclared identifier 'SECCOMP_ARCH_NATIVE_NR'",
+    "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/infra/seccomp_cache.c:39:25: error: use of undeclared identifier 'SECCOMP_ARCH_NATIVE_NR'",
+    "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/infra/seccomp_cache.c:56:25: error: use of undeclared identifier 'SECCOMP_ARCH_NATIVE_NR'"
+  ],
+  "original_log_sha256": "a4c877defe54ddbd05af9dd3f649b2bf9b95e25c187ecc4128a45c0f3873a4ab",
+  "audited_full_build": [
+    {
+      "log_line": 20,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:180:16: error: assigning to 'struct avtab_node *' from incompatible type 'struct flex_array'"
+    },
+    {
+      "log_line": 23,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:187:40: error: assigning to 'struct flex_array' from incompatible type 'struct avtab_node *'"
+    },
+    {
+      "log_line": 26,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:200:31: error: assigning to 'struct flex_array' from incompatible type 'struct avtab_node *'"
+    },
+    {
+      "log_line": 29,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:593:31: error: variable has incomplete type 'struct filename_trans_key'"
+    },
+    {
+      "log_line": 35,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:600:42: error: implicit declaration of function 'policydb_filenametr_search' [-Werror,-Wimplicit-function-declaration]"
+    },
+    {
+      "log_line": 38,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:602:37: error: no member named 'stypes' in 'struct filename_trans_datum'"
+    },
+    {
+      "log_line": 41,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:610:24: error: no member named 'next' in 'struct filename_trans_datum'"
+    },
+    {
+      "log_line": 44,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:620:62: error: invalid application of 'sizeof' to an incomplete type 'struct filename_trans_key'"
+    },
+    {
+      "log_line": 50,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:626:16: error: incomplete definition of type 'struct filename_trans_key'"
+    },
+    {
+      "log_line": 56,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:627:21: error: incomplete definition of type 'struct filename_trans_key'"
+    },
+    {
+      "log_line": 62,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:631:16: error: no member named 'next' in 'struct filename_trans_datum'"
+    },
+    {
+      "log_line": 65,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:633:66: error: use of undeclared identifier 'filenametr_key_params'"
+    },
+    {
+      "log_line": 68,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:640:9: error: no member named 'compat_filename_trans_count' in 'struct policydb'"
+    },
+    {
+      "log_line": 71,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:641:36: error: no member named 'stypes' in 'struct filename_trans_datum'"
+    },
+    {
+      "log_line": 74,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:644:18: error: incomplete definition of type 'struct filename_trans_key'"
+    },
+    {
+      "log_line": 80,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:727:27: error: no member named 'type_val_to_struct' in 'struct policydb'"
+    },
+    {
+      "log_line": 83,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:729:35: error: no member named 'type_val_to_struct' in 'struct policydb'"
+    },
+    {
+      "log_line": 86,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:728:35: error: no member named 'type_val_to_struct' in 'struct policydb'"
+    },
+    {
+      "log_line": 89,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/sepolicy.c:744:29: error: incompatible pointer types assigning to 'struct flex_array *' from 'struct ebitmap *' [-Wincompatible-pointer-types]"
+    },
+    {
+      "log_line": 92,
+      "diagnostic": "fatal error: too many errors emitted, stopping now [-ferror-limit=]"
+    },
+    {
+      "log_line": 97,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:54:31: error: no member named 'policy_mutex' in 'struct selinux_state'"
+    },
+    {
+      "log_line": 100,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:56:55: error: no member named 'policy' in 'struct selinux_state'"
+    },
+    {
+      "log_line": 103,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:56:55: error: no member named 'policy' in 'struct selinux_state'"
+    },
+    {
+      "log_line": 106,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:59:37: error: no member named 'policy_mutex' in 'struct selinux_state'"
+    },
+    {
+      "log_line": 109,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:68:24: error: incomplete definition of type 'struct selinux_policy'"
+    },
+    {
+      "log_line": 115,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:68:66: error: incomplete definition of type 'struct selinux_policy'"
+    },
+    {
+      "log_line": 121,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:69:29: error: incomplete definition of type 'struct selinux_policy'"
+    },
+    {
+      "log_line": 127,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:74:59: error: incomplete definition of type 'struct selinux_policy'"
+    },
+    {
+      "log_line": 133,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:74:86: error: incomplete definition of type 'struct selinux_policy'"
+    },
+    {
+      "log_line": 139,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:77:38: error: incomplete definition of type 'struct selinux_policy'"
+    },
+    {
+      "log_line": 145,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:81:89: error: incomplete definition of type 'struct selinux_policy'"
+    },
+    {
+      "log_line": 151,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:91:14: error: incomplete definition of type 'struct selinux_policy'"
+    },
+    {
+      "log_line": 157,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:167:38: error: no member named 'policy' in 'struct selinux_state'"
+    },
+    {
+      "log_line": 160,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:167:38: error: no member named 'policy' in 'struct selinux_state'"
+    },
+    {
+      "log_line": 163,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:167:38: error: no member named 'policy' in 'struct selinux_state'"
+    },
+    {
+      "log_line": 166,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:167:38: error: no member named 'policy' in 'struct selinux_state'"
+    },
+    {
+      "log_line": 169,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:167:38: error: no member named 'policy' in 'struct selinux_state'"
+    },
+    {
+      "log_line": 172,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:167:38: error: no member named 'policy' in 'struct selinux_state'"
+    },
+    {
+      "log_line": 175,
+      "diagnostic": "/home/xiaoluo/umi-ksu-v3/drivers/../KernelSU-Next/kernel/selinux/rules.c:167:38: error: no member named 'policy' in 'struct selinux_state'"
+    },
+    {
+      "log_line": 178,
+      "diagnostic": "fatal error: too many errors emitted, stopping now [-ferror-limit=]"
+    }
+  ]
+}

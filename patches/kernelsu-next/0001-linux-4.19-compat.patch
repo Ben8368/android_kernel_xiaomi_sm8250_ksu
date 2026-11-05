@@ -1,0 +1,704 @@
+diff --git a/kernel/Kbuild b/kernel/Kbuild
+index c32fa7cd..d96b3664 100644
+--- a/kernel/Kbuild
++++ b/kernel/Kbuild
+@@ -92,0 +93,18 @@ ccflags-y += -I$(KSU_KERNEL_DIR) -I$(KSU_KERNEL_DIR)/include
++# Probe native fields: Android vendor trees backport APIs independently.
++ifneq ($(shell grep -E '[(][*]iopoll[)]' $(srctree)/include/linux/fs.h),)
++ccflags-y += -DKSU_HAVE_FOP_IOPOLL
++endif
++ifneq ($(shell grep -E '[(][*]remap_file_range[)]' $(srctree)/include/linux/fs.h),)
++ccflags-y += -DKSU_HAVE_FOP_REMAP
++endif
++ifneq ($(shell grep -q 'handle_inode_event' $(srctree)/include/linux/fsnotify_backend.h && echo y),)
++ccflags-y += -DKSU_HAVE_FSNOTIFY_HANDLE_INODE_EVENT
++endif
++ifneq ($(shell grep -Eq '[[:space:]]filter_count;' $(srctree)/include/linux/seccomp.h && echo y),)
++ccflags-y += -DKSU_HAVE_SECCOMP_FILTER_COUNT
++endif
++ifneq ($(shell grep -q 'TWA_RESUME' $(srctree)/include/linux/task_work.h && echo y),)
++ccflags-y += -DKSU_HAVE_TASK_WORK_NOTIFY_ENUM
++endif
++
++
+@@ -105 +123 @@ ifneq ($(GIT_ROOT),$(KERNEL_GIT_ROOT))
+-$(shell cd $(GIT_ROOT) && [ -f .git/shallow ] && $(LPATH) git fetch --unshallow 2>/dev/null || true)
++# Source acquisition is explicit; Kbuild must never fetch remote code.
+diff --git a/kernel/Kconfig b/kernel/Kconfig
+index 88e22811..a8a9d064 100644
+--- a/kernel/Kconfig
++++ b/kernel/Kconfig
+@@ -5 +5 @@ config KSU
+-	depends on KPROBES && EXT4_FS
++	depends on KPROBES && EXT4_FS && SECCOMP_FILTER
+@@ -10,0 +11 @@ config KSU
++	  Requires CONFIG_SECCOMP_FILTER for scoped seccomp state handling.
+diff --git a/kernel/hook/setuid_hook.c b/kernel/hook/setuid_hook.c
+index 3cccc780..be8b6a6b 100644
+--- a/kernel/hook/setuid_hook.c
++++ b/kernel/hook/setuid_hook.c
+@@ -25,0 +26,2 @@ int ksu_handle_setresuid(uid_t old_uid, uid_t new_uid)
++    int cache_ret;
++
+@@ -32 +34 @@ int ksu_handle_setresuid(uid_t old_uid, uid_t new_uid)
+-        ksu_seccomp_allow_cache(current->seccomp.filter, __NR_reboot);
++        cache_ret = ksu_seccomp_allow_cache(current->seccomp.filter, __NR_reboot);
+@@ -34,0 +37,2 @@ int ksu_handle_setresuid(uid_t old_uid, uid_t new_uid)
++        if (cache_ret)
++            pr_warn_once("seccomp reboot cache unavailable (%d); manager reboot handshake is not verified\n", cache_ret);
+@@ -45 +49 @@ int ksu_handle_setresuid(uid_t old_uid, uid_t new_uid)
+-            ksu_seccomp_allow_cache(current->seccomp.filter, __NR_reboot);
++            cache_ret = ksu_seccomp_allow_cache(current->seccomp.filter, __NR_reboot);
+@@ -46,0 +51,2 @@ int ksu_handle_setresuid(uid_t old_uid, uid_t new_uid)
++            if (cache_ret)
++                pr_warn_once("seccomp reboot cache unavailable (%d); su reboot handshake is blocked unless policy allows reboot\n", cache_ret);
+diff --git a/kernel/infra/file_wrapper.c b/kernel/infra/file_wrapper.c
+index 3d098d64..38bf0402 100644
+--- a/kernel/infra/file_wrapper.c
++++ b/kernel/infra/file_wrapper.c
+@@ -29,0 +30,9 @@ static struct ksu_file_wrapper *ksu_create_file_wrapper(struct file *fp);
++static int ksu_wrapper_release(struct inode *inode, struct file *filp);
++
++/* The live wrapper owns orig. Borrow it only for this synchronous callback. */
++static struct file *ksu_unwrap_file(struct file *file)
++{
++    while (file->f_op->release == ksu_wrapper_release)
++        file = ((struct ksu_file_wrapper *)file->private_data)->orig;
++    return file;
++}
+@@ -43,0 +53,2 @@ static int ksu_wrapper_open(struct inode *ino, struct file *fp)
++    /* The wrapper owns the reference acquired by ksu_create_file_wrapper(). */
++    fput(orig_file);
+@@ -93,0 +105 @@ static ssize_t ksu_wrapper_write_iter(struct kiocb *iocb, struct iov_iter *iovi)
++#ifdef KSU_HAVE_FOP_IOPOLL
+@@ -111,0 +124 @@ static int ksu_wrapper_iopoll(struct kiocb *kiocb, bool spin)
++#endif /* KSU_HAVE_FOP_IOPOLL */
+@@ -323,4 +336,6 @@ static ssize_t ksu_wrapper_copy_file_range(struct file *file_in, loff_t pos_in,
+-    struct ksu_file_wrapper *data = file_out->private_data;
+-    struct file *orig = data->orig;
+-    return orig->f_op->copy_file_range(file_in, pos_in, orig, pos_out, len,
+-                                       flags);
++    struct file *src = ksu_unwrap_file(file_in);
++    struct file *dst = ksu_unwrap_file(file_out);
++
++    if (!dst->f_op->copy_file_range)
++        return -EOPNOTSUPP;
++    return dst->f_op->copy_file_range(src, pos_in, dst, pos_out, len, flags);
+@@ -328,0 +344 @@ static ssize_t ksu_wrapper_copy_file_range(struct file *file_in, loff_t pos_in,
++#ifdef KSU_HAVE_FOP_REMAP
+@@ -351,0 +368,35 @@ static loff_t ksu_wrapper_remap_file_range(struct file *file_in, loff_t pos_in,
++#else
++/* 4.19 calls clone on the source and dedupe on the destination. The old
++ * callbacks return int status, not a byte count, and have no flags argument.
++ * Keep both ends as real filesystem files; never pass wrapper private_data
++ * to a filesystem callback. VFS retains the incoming file references.
++ */
++static int ksu_wrapper_clone_file_range(struct file *file_in, loff_t pos_in,
++                                        struct file *file_out, loff_t pos_out,
++                                        u64 len)
++{
++    struct file *src = ksu_unwrap_file(file_in);
++    struct file *dst = ksu_unwrap_file(file_out);
++
++    if (!src->f_op->clone_file_range)
++        return -EOPNOTSUPP;
++    if (file_inode(src)->i_sb != file_inode(dst)->i_sb)
++        return -EXDEV;
++    return src->f_op->clone_file_range(src, pos_in, dst, pos_out, len);
++}
++
++static int ksu_wrapper_dedupe_file_range(struct file *file_in, loff_t pos_in,
++                                         struct file *file_out, loff_t pos_out,
++                                         u64 len)
++{
++    struct file *src = ksu_unwrap_file(file_in);
++    struct file *dst = ksu_unwrap_file(file_out);
++
++    if (!dst->f_op->dedupe_file_range)
++        return -EOPNOTSUPP;
++    if (src->f_path.mnt != dst->f_path.mnt)
++        return -EXDEV;
++    return dst->f_op->dedupe_file_range(src, pos_in, dst, pos_out, len);
++}
++#endif
++
+@@ -392,0 +444 @@ static struct ksu_file_wrapper *ksu_create_file_wrapper(struct file *fp)
++#ifdef KSU_HAVE_FOP_IOPOLL
+@@ -393,0 +446 @@ static struct ksu_file_wrapper *ksu_create_file_wrapper(struct file *fp)
++#endif
+@@ -429,0 +483 @@ static struct ksu_file_wrapper *ksu_create_file_wrapper(struct file *fp)
++#ifdef KSU_HAVE_FOP_REMAP
+@@ -431,0 +486,6 @@ static struct ksu_file_wrapper *ksu_create_file_wrapper(struct file *fp)
++#else
++    p->ops.clone_file_range =
++        fp->f_op->clone_file_range ? ksu_wrapper_clone_file_range : NULL;
++    p->ops.dedupe_file_range =
++        fp->f_op->dedupe_file_range ? ksu_wrapper_dedupe_file_range : NULL;
++#endif
+diff --git a/kernel/infra/seccomp_cache.c b/kernel/infra/seccomp_cache.c
+index 6511066b..ada5fa53 100644
+--- a/kernel/infra/seccomp_cache.c
++++ b/kernel/infra/seccomp_cache.c
+@@ -1,0 +2 @@
++#include <linux/errno.h>
+@@ -10,0 +12,4 @@
++/* The filter cache is a private seccomp implementation detail. Only use the
++ * pinned layout on upstream 6.6+; older kernels must never be guessed here.
++ */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 6, 0)
+@@ -33 +38 @@ struct seccomp_filter {
+-void ksu_seccomp_clear_cache(struct seccomp_filter *filter, int nr)
++int ksu_seccomp_clear_cache(struct seccomp_filter *filter, int nr)
+@@ -35,3 +40,2 @@ void ksu_seccomp_clear_cache(struct seccomp_filter *filter, int nr)
+-    if (!filter) {
+-        return;
+-    }
++    if (!filter)
++        return -EINVAL;
+@@ -47,0 +52 @@ void ksu_seccomp_clear_cache(struct seccomp_filter *filter, int nr)
++    return 0;
+@@ -50 +55 @@ void ksu_seccomp_clear_cache(struct seccomp_filter *filter, int nr)
+-void ksu_seccomp_allow_cache(struct seccomp_filter *filter, int nr)
++int ksu_seccomp_allow_cache(struct seccomp_filter *filter, int nr)
+@@ -52,3 +57,2 @@ void ksu_seccomp_allow_cache(struct seccomp_filter *filter, int nr)
+-    if (!filter) {
+-        return;
+-    }
++    if (!filter)
++        return -EINVAL;
+@@ -65 +69,13 @@ void ksu_seccomp_allow_cache(struct seccomp_filter *filter, int nr)
+-}
+\ No newline at end of file
++    return 0;
++}
++#else
++int ksu_seccomp_clear_cache(struct seccomp_filter *filter, int nr)
++{
++    return -EOPNOTSUPP;
++}
++
++int ksu_seccomp_allow_cache(struct seccomp_filter *filter, int nr)
++{
++    return -EOPNOTSUPP;
++}
++#endif /* Linux >= 6.6 seccomp action cache */
+diff --git a/kernel/infra/seccomp_cache.h b/kernel/infra/seccomp_cache.h
+index 270381d9..77f5694a 100644
+--- a/kernel/infra/seccomp_cache.h
++++ b/kernel/infra/seccomp_cache.h
+@@ -1,2 +1,2 @@
+-#ifndef __KSU_H_KERNEL_COMPAT
+-#define __KSU_H_KERNEL_COMPAT
++#ifndef __KSU_H_SECCOMP_CACHE
++#define __KSU_H_SECCOMP_CACHE
+@@ -4,2 +4 @@
+-#include <linux/fs.h>
+-#include <linux/version.h>
++struct seccomp_filter;
+@@ -7,2 +6,4 @@
+-extern void ksu_seccomp_clear_cache(struct seccomp_filter *filter, int nr);
+-extern void ksu_seccomp_allow_cache(struct seccomp_filter *filter, int nr);
++/* Returns -EOPNOTSUPP if the native kernel has no supported action cache. */
++
++extern int ksu_seccomp_clear_cache(struct seccomp_filter *filter, int nr);
++extern int ksu_seccomp_allow_cache(struct seccomp_filter *filter, int nr);
+diff --git a/kernel/infra/su_mount_ns.c b/kernel/infra/su_mount_ns.c
+index 3d0631a9..a714902c 100644
+--- a/kernel/infra/su_mount_ns.c
++++ b/kernel/infra/su_mount_ns.c
+@@ -16 +15,0 @@
+-#include <uapi/linux/mount.h>
+diff --git a/kernel/infra/task_work_compat.h b/kernel/infra/task_work_compat.h
+new file mode 100644
+index 00000000..8a49ecab
+--- /dev/null
++++ b/kernel/infra/task_work_compat.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __KSU_TASK_WORK_COMPAT_H
++#define __KSU_TASK_WORK_COMPAT_H
++
++#include <linux/task_work.h>
++#include <linux/version.h>
++
++static inline int ksu_task_work_add(struct task_struct *task,
++				    struct callback_head *work)
++{
++#ifndef KSU_HAVE_TASK_WORK_NOTIFY_ENUM
++	return task_work_add(task, work, true);
++#else
++	return task_work_add(task, work, TWA_RESUME);
++#endif
++}
++
++#endif
+diff --git a/kernel/manager/pkg_observer.c b/kernel/manager/pkg_observer.c
+index 670918fa..5d1c4952 100644
+--- a/kernel/manager/pkg_observer.c
++++ b/kernel/manager/pkg_observer.c
+@@ -2,0 +3 @@
++#include <linux/mutex.h>
+@@ -8,0 +10 @@
++#include <linux/ratelimit.h>
+@@ -12,0 +15 @@
++#include "infra/task_work_compat.h"
+@@ -24,0 +28 @@ static struct fsnotify_group *g;
++static DEFINE_MUTEX(observer_lock);
+@@ -48 +52 @@ static void ksu_defer_track_throne(void)
+-            if (!task_work_add(current, cb, TWA_RESUME))
++            if (!ksu_task_work_add(current, cb))
+@@ -53,2 +57 @@ static void ksu_defer_track_throne(void)
+-    pr_warn("defer track_throne failed, run it inline\n");
+-    track_throne(false);
++    pr_warn_ratelimited("defer track_throne failed; manager identity refresh deferred\n");
+@@ -57,3 +60,2 @@ static void ksu_defer_track_throne(void)
+-static int ksu_handle_inode_event(struct fsnotify_mark *mark, u32 mask,
+-                                  struct inode *inode, struct inode *dir,
+-                                  const struct qstr *file_name, u32 cookie)
++static int ksu_handle_packages_list(u32 mask,
++				    const unsigned char *file_name)
+@@ -61,5 +63,3 @@ static int ksu_handle_inode_event(struct fsnotify_mark *mark, u32 mask,
+-    if (!file_name)
+-        return 0;
+-    if (mask & FS_ISDIR)
+-        return 0;
+-    if (file_name->len == 13 && !memcmp(file_name->name, "packages.list", 13)) {
++	if (!file_name || (mask & FS_ISDIR))
++		return 0;
++	if (!strcmp((const char *)file_name, "packages.list")) {
+@@ -71,0 +72,24 @@ static int ksu_handle_inode_event(struct fsnotify_mark *mark, u32 mask,
++#ifdef KSU_HAVE_FSNOTIFY_HANDLE_INODE_EVENT
++static int ksu_handle_inode_event(struct fsnotify_mark *mark, u32 mask,
++				  struct inode *inode, struct inode *dir,
++				  const struct qstr *file_name, u32 cookie)
++{
++	return ksu_handle_packages_list(mask,
++					 file_name ? file_name->name : NULL);
++}
++#define KSU_FSNOTIFY_EVENT_HANDLER .handle_inode_event = ksu_handle_inode_event
++#else
++static int ksu_handle_event(struct fsnotify_group *group, struct inode *inode,
++			    u32 mask, const void *data, int data_type,
++			    const unsigned char *file_name, u32 cookie,
++			    struct fsnotify_iter_info *iter_info)
++{
++	if (data_type != FSNOTIFY_EVENT_INODE)
++		return 0;
++	return ksu_handle_packages_list(mask, file_name);
++}
++#define KSU_FSNOTIFY_EVENT_HANDLER .handle_event = ksu_handle_event
++#endif
++
++static void ksu_free_mark(struct fsnotify_mark *mark);
++
+@@ -73 +97,2 @@ static const struct fsnotify_ops ksu_ops = {
+-	.handle_inode_event = ksu_handle_inode_event,
++	KSU_FSNOTIFY_EVENT_HANDLER,
++	.free_mark = ksu_free_mark,
+@@ -79,0 +105 @@ static int add_mark_on_inode(struct inode *inode, u32 mask,
++	int ret;
+@@ -88 +114,2 @@ static int add_mark_on_inode(struct inode *inode, u32 mask,
+-	if (fsnotify_add_inode_mark(m, inode, 0)) {
++	ret = fsnotify_add_inode_mark(m, inode, 0);
++	if (ret) {
+@@ -90 +117 @@ static int add_mark_on_inode(struct inode *inode, u32 mask,
+-		return -EINVAL;
++		return ret;
+@@ -95,0 +123,5 @@ static int add_mark_on_inode(struct inode *inode, u32 mask,
++static void ksu_free_mark(struct fsnotify_mark *mark)
++{
++	kfree(mark);
++}
++
+@@ -109,0 +142 @@ static int watch_one_dir(struct watch_dir *wd)
++		memset(&wd->kpath, 0, sizeof(wd->kpath));
+@@ -140 +173 @@ int ksu_observer_init(void)
+-	int ret = 0;
++	int ret;
+@@ -141,0 +175,5 @@ int ksu_observer_init(void)
++	mutex_lock(&observer_lock);
++	if (g) {
++		ret = -EALREADY;
++		goto out;
++	}
+@@ -147,3 +185,5 @@ int ksu_observer_init(void)
+-	if (IS_ERR(g))
+-		return PTR_ERR(g);
+-
++	if (IS_ERR(g)) {
++		ret = PTR_ERR(g);
++		g = NULL;
++		goto out;
++	}
+@@ -150,0 +191,5 @@ int ksu_observer_init(void)
++	if (ret) {
++		fsnotify_destroy_group(g);
++		g = NULL;
++		goto out;
++	}
+@@ -152 +197,3 @@ int ksu_observer_init(void)
+-	return 0;
++out:
++	mutex_unlock(&observer_lock);
++	return ret;
+@@ -157,2 +204,8 @@ void __exit ksu_observer_exit(void)
+-	unwatch_one_dir(&g_watch);
+-	fsnotify_put_group(g);
++	mutex_lock(&observer_lock);
++	if (g) {
++		unwatch_one_dir(&g_watch);
++		/* Native destroy drains delayed mark frees and fsnotify SRCU. */
++		fsnotify_destroy_group(g);
++		g = NULL;
++	}
++	mutex_unlock(&observer_lock);
+diff --git a/kernel/policy/allowlist.c b/kernel/policy/allowlist.c
+index fbb32376..87477d98 100644
+--- a/kernel/policy/allowlist.c
++++ b/kernel/policy/allowlist.c
+@@ -5,0 +6 @@
++#include <linux/sched/task.h>
+@@ -23,0 +25 @@
++#include "infra/task_work_compat.h"
+@@ -487 +489 @@ void ksu_persistent_allow_list()
+-	if (task_work_add(tsk, cb, TWA_RESUME)) {
++	if (ksu_task_work_add(tsk, cb)) {
+diff --git a/kernel/policy/app_profile.c b/kernel/policy/app_profile.c
+index 6336a222..699b781f 100644
+--- a/kernel/policy/app_profile.c
++++ b/kernel/policy/app_profile.c
+@@ -81,0 +82,4 @@ static void disable_seccomp(void)
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
++    /* Native 4.19 owns filter layout and refcounts; current is authorized. */
++    ksu_seccomp_disable_current();
++#else
+@@ -104,0 +109 @@ static void disable_seccomp(void)
++#ifdef KSU_HAVE_SECCOMP_FILTER_COUNT
+@@ -105,0 +111 @@ static void disable_seccomp(void)
++#endif
+@@ -123,0 +130 @@ static void disable_seccomp(void)
++#endif
+diff --git a/kernel/selinux/avtab_compat.h b/kernel/selinux/avtab_compat.h
+new file mode 100644
+index 00000000..15904df9
+--- /dev/null
++++ b/kernel/selinux/avtab_compat.h
+@@ -0,0 +1,64 @@
++#ifndef KSU_SELINUX_AVTAB_COMPAT_H
++#define KSU_SELINUX_AVTAB_COMPAT_H
++
++
++/* Linux 4.19 stores bucket heads in flex_array, not a C pointer array. */
++static inline struct avtab_node *ksu_avtab_bucket(struct avtab *table,
++							   unsigned int bucket)
++{
++	if (!table || !table->htable || bucket >= table->nslot)
++		return NULL;
++	return flex_array_get_ptr(table->htable, bucket);
++}
++
++static inline int ksu_avtab_set_bucket(struct avtab *table,
++					       unsigned int bucket,
++					       struct avtab_node *node)
++{
++	if (!table || !table->htable || bucket >= table->nslot)
++		return -EINVAL;
++	return flex_array_put_ptr(table->htable, bucket, node, GFP_KERNEL);
++}
++
++static inline bool ksu_avtab_move_node(struct avtab *table,
++					       struct avtab *removed,
++					       struct avtab_node *target)
++{
++	unsigned int bucket;
++
++	if (!table || !removed || !target || !removed->htable || !removed->nslot)
++		return false;
++
++	for (bucket = 0; bucket < table->nslot; bucket++) {
++		struct avtab_node *prev = NULL;
++		struct avtab_node *node = ksu_avtab_bucket(table, bucket);
++
++		while (node) {
++			if (node == target) {
++				if (ksu_avtab_set_bucket(removed, 0, node))
++					return false;
++				if (!prev && ksu_avtab_set_bucket(table, bucket, node->next)) {
++					ksu_avtab_set_bucket(removed, 0, NULL);
++					return false;
++				}
++				if (prev)
++					prev->next = node->next;
++				if (table->nel)
++					table->nel--;
++				node->next = NULL;
++				removed->nel = 1;
++				return true;
++			}
++			prev = node;
++			node = node->next;
++		}
++	}
++	return false;
++}
++
++#define ksu_avtab_for_each(table, node) \
++	for (unsigned int __bucket = 0; __bucket < (table).nslot; __bucket++) \
++		for ((node) = ksu_avtab_bucket(&(table), __bucket); (node); \
++		     (node) = (node)->next)
++
++#endif
+diff --git a/kernel/selinux/filename_trans_compat.h b/kernel/selinux/filename_trans_compat.h
+new file mode 100644
+index 00000000..e8c96548
+--- /dev/null
++++ b/kernel/selinux/filename_trans_compat.h
+@@ -0,0 +1,67 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Linux 4.19 filename transition layout. Caller must serialize policydb writes. */
++static bool add_filename_trans(struct policydb *db, const char *s,
++                               const char *t, const char *c, const char *d,
++                               const char *o)
++{
++    struct type_datum *src, *tgt, *def;
++    struct class_datum *cls;
++    struct filename_trans key, *new_key;
++    struct filename_trans_datum *trans;
++    bool had_bit;
++    int rc;
++
++    if (!s || !t || !c || !d || !o)
++        return false;
++    src = symtab_search(&db->p_types, s);
++    tgt = symtab_search(&db->p_types, t);
++    cls = symtab_search(&db->p_classes, c);
++    def = symtab_search(&db->p_types, d);
++    if (!src || !tgt || !cls || !def || !src->value || !tgt->value ||
++        !def->value || !cls->value || cls->value > 0xffff)
++        return false;
++
++    key.stype = src->value;
++    key.ttype = tgt->value;
++    key.tclass = cls->value;
++    key.name = o;
++    trans = hashtab_search(db->filename_trans, &key);
++    if (trans) {
++        /* A conflicting rule is rejected; an identical one is idempotent. */
++        if (trans->otype != def->value)
++            return false;
++        return ebitmap_set_bit(&db->filename_trans_ttypes, key.ttype, 1) == 0;
++    }
++
++    new_key = kzalloc(sizeof(*new_key), GFP_KERNEL);
++    if (!new_key)
++        return false;
++    *new_key = key;
++    new_key->name = kstrdup(o, GFP_KERNEL);
++    if (!new_key->name)
++        goto free_key;
++    trans = kzalloc(sizeof(*trans), GFP_KERNEL);
++    if (!trans)
++        goto free_name;
++    trans->otype = def->value;
++
++    had_bit = ebitmap_get_bit(&db->filename_trans_ttypes, key.ttype);
++    rc = ebitmap_set_bit(&db->filename_trans_ttypes, key.ttype, 1);
++    if (rc)
++        goto free_trans;
++    rc = hashtab_insert(db->filename_trans, new_key, trans);
++    if (rc) {
++        if (!had_bit)
++            ebitmap_set_bit(&db->filename_trans_ttypes, key.ttype, 0);
++        goto free_trans;
++    }
++    return true;
++
++free_trans:
++    kfree(trans);
++free_name:
++    kfree(new_key->name);
++free_key:
++    kfree(new_key);
++    return false;
++}
+diff --git a/kernel/selinux/sepolicy.c b/kernel/selinux/sepolicy.c
+index 1e8ebb39..26617aeb 100644
+--- a/kernel/selinux/sepolicy.c
++++ b/kernel/selinux/sepolicy.c
+@@ -12,0 +13,5 @@
++#include <linux/errno.h>
++#include "avtab_compat.h"
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
++#include "type_index_compat.h"
++#endif
+@@ -61 +66 @@ static bool set_type_state(struct policydb *db, const char *type_name,
+-static void add_typeattribute_raw(struct policydb *db, struct type_datum *type,
++static bool add_typeattribute_raw(struct policydb *db, struct type_datum *type,
+@@ -97 +102 @@ static bool add_typeattribute(struct policydb *db, const char *type,
+-#define avtab_for_each(avtab, cur) ksu_hash_for_each(avtab.htable, avtab.nslot, cur)
++#define avtab_for_each(avtab, cur) ksu_avtab_for_each(avtab, cur)
+@@ -165 +169,0 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
+-    int i;
+@@ -167,3 +171,2 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
+-    // https://github.com/torvalds/linux/blob/v6.1/security/selinux/ss/avtab.c#L619
+-    int shrink_size = sizeof(node->key.source_type) + sizeof(node->key.target_type) + sizeof(node->key.target_class) +
+-                      sizeof(node->key.specified);
++    int shrink_size = sizeof(node->key.source_type) + sizeof(node->key.target_type) +
++                      sizeof(node->key.target_class) + sizeof(node->key.specified);
+@@ -171,2 +173,0 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
+-    struct avtab_node *n;
+-    struct avtab_node *prev;
+@@ -178,29 +179,3 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
+-    for (i = 0; i < db->te_avtab.nslot; i++) {
+-        prev = NULL;
+-        for (n = db->te_avtab.htable[i]; n; prev = n, n = n->next) {
+-            if (n != node)
+-                continue;
+-
+-            if (prev)
+-                prev->next = n->next;
+-            else
+-                db->te_avtab.htable[i] = n->next;
+-
+-            if (db->te_avtab.nel > 0)
+-                db->te_avtab.nel--;
+-
+-            if (n->key.specified & AVTAB_XPERMS)
+-                // specified and driver are u8, perms.p holds 8 u32s
+-                shrink_size += sizeof(n->datum.u.xperms->specified) + sizeof(n->datum.u.xperms->driver) +
+-                               sizeof(n->datum.u.xperms->perms.p);
+-            else
+-                // data is u32
+-                shrink_size += sizeof(n->datum.u.data);
+-            n->next = NULL;
+-            removed.htable[0] = n;
+-            removed.nel = 1;
+-            avtab_destroy(&removed);
+-            if (db->len >= shrink_size)
+-                db->len -= shrink_size;
+-            return true;
+-        }
++    if (!ksu_avtab_move_node(&db->te_avtab, &removed, node)) {
++        avtab_destroy(&removed);
++        return false;
+@@ -208,0 +184,7 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
++    if (node->key.specified & AVTAB_XPERMS)
++        shrink_size += sizeof(node->datum.u.xperms->specified) +
++                       sizeof(node->datum.u.xperms->driver) +
++                       sizeof(node->datum.u.xperms->perms.p);
++    else
++        shrink_size += sizeof(node->datum.u.data);
++
+@@ -210 +192,3 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
+-    return false;
++    if (db->len >= shrink_size)
++        db->len -= shrink_size;
++    return true;
+@@ -562,0 +547,3 @@ static const struct hashtab_key_params filenametr_key_params = {
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 7, 0)
++#include "filename_trans_compat.h"
++#else
+@@ -651,0 +639 @@ out:
++#endif
+@@ -694,0 +683,5 @@ static bool add_type(struct policydb *db, const char *type_name, bool attr)
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
++    /* BLOCKED: adding a type requires an atomic index and role transaction. */
++    pr_err("add_type: Linux 4.19 type creation is blocked\n");
++    return false;
++#else
+@@ -759,0 +753 @@ static bool add_type(struct policydb *db, const char *type_name, bool attr)
++#endif
+@@ -788 +782 @@ static bool set_type_state(struct policydb *db, const char *type_name,
+-static void add_typeattribute_raw(struct policydb *db, struct type_datum *type,
++static bool add_typeattribute_raw(struct policydb *db, struct type_datum *type,
+@@ -790,0 +785,5 @@ static void add_typeattribute_raw(struct policydb *db, struct type_datum *type,
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
++    /* BLOCKED: map and constraint updates must commit or roll back together. */
++    pr_err("add_typeattribute: Linux 4.19 attribute update is blocked\n");
++    return false;
++#else
+@@ -808,0 +808,2 @@ static void add_typeattribute_raw(struct policydb *db, struct type_datum *type,
++    return true;
++#endif
+@@ -832,2 +833 @@ static bool add_typeattribute(struct policydb *db, const char *type,
+-    add_typeattribute_raw(db, type_d, attr_d);
+-    return true;
++    return add_typeattribute_raw(db, type_d, attr_d);
+diff --git a/kernel/selinux/type_index_compat.h b/kernel/selinux/type_index_compat.h
+new file mode 100644
+index 00000000..1f241071
+--- /dev/null
++++ b/kernel/selinux/type_index_compat.h
+@@ -0,0 +1,47 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef KSU_TYPE_INDEX_COMPAT_H
++#define KSU_TYPE_INDEX_COMPAT_H
++
++/* Callers must serialize access to an isolated policydb. Indexes are zero based. */
++static struct type_datum *ksu_type_index_get(struct policydb *db, u32 index)
++{
++    struct flex_array *array;
++
++    if (!db || index >= db->p_types.nprim)
++        return NULL;
++    array = db->type_val_to_struct_array;
++    if (!array || index >= array->total_nr_elements)
++        return NULL;
++    return flex_array_get_ptr(array, index);
++}
++
++static struct ebitmap *ksu_type_attr_index_get(struct policydb *db, u32 index)
++{
++    struct flex_array *array;
++
++    if (!db || index >= db->p_types.nprim)
++        return NULL;
++    array = db->type_attr_map_array;
++    if (!array || index >= array->total_nr_elements)
++        return NULL;
++    return flex_array_get(array, index);
++}
++
++static char *ksu_type_name_index_get(struct policydb *db, u32 index)
++{
++    struct flex_array *array;
++
++    if (!db || index >= db->p_types.nprim)
++        return NULL;
++    array = db->sym_val_to_name[SYM_TYPES];
++    if (!array || index >= array->total_nr_elements)
++        return NULL;
++    return flex_array_get_ptr(array, index);
++}
++
++static struct type_datum *ksu_type_value_get(struct policydb *db, u32 value)
++{
++    return value ? ksu_type_index_get(db, value - 1) : NULL;
++}
++
++#endif
+diff --git a/kernel/sulog/event.c b/kernel/sulog/event.c
+index 17375e1c..6f3b50e2 100644
+--- a/kernel/sulog/event.c
++++ b/kernel/sulog/event.c
+@@ -5 +5 @@
+-#include <linux/minmax.h>
++#include <linux/kernel.h>
+diff --git a/kernel/supercall/supercall.c b/kernel/supercall/supercall.c
+index f0dd427b..2fc33c54 100644
+--- a/kernel/supercall/supercall.c
++++ b/kernel/supercall/supercall.c
+@@ -16,0 +17 @@
++#include "infra/task_work_compat.h"
+@@ -142 +143 @@ static int reboot_handler_pre(struct kprobe *p, struct pt_regs *regs)
+-        if (task_work_add(current, &tw->cb, TWA_RESUME)) {
++        if (ksu_task_work_add(current, &tw->cb)) {
+diff --git a/kernel/susfs/susfs_supercall.c b/kernel/susfs/susfs_supercall.c
+index 4d0793ff..193d8d07 100644
+--- a/kernel/susfs/susfs_supercall.c
++++ b/kernel/susfs/susfs_supercall.c
+@@ -27,0 +28 @@
++#include "infra/task_work_compat.h"
+@@ -278 +279 @@ static int reboot_pre(struct kprobe *kp, struct pt_regs *regs)
+-	if (task_work_add(current, &tw->cb, TWA_RESUME)) {
++	if (ksu_task_work_add(current, &tw->cb)) {
