@@ -522,27 +522,33 @@ index 00000000..e8c96548
 +    return false;
 +}
 diff --git a/kernel/selinux/sepolicy.c b/kernel/selinux/sepolicy.c
-index 1e8ebb39..84a4b099 100644
+index 1e8ebb39..26617aeb 100644
 --- a/kernel/selinux/sepolicy.c
 +++ b/kernel/selinux/sepolicy.c
-@@ -12,0 +13,2 @@
+@@ -12,0 +13,5 @@
 +#include <linux/errno.h>
 +#include "avtab_compat.h"
-@@ -97 +99 @@ static bool add_typeattribute(struct policydb *db, const char *type,
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
++#include "type_index_compat.h"
++#endif
+@@ -61 +66 @@ static bool set_type_state(struct policydb *db, const char *type_name,
+-static void add_typeattribute_raw(struct policydb *db, struct type_datum *type,
++static bool add_typeattribute_raw(struct policydb *db, struct type_datum *type,
+@@ -97 +102 @@ static bool add_typeattribute(struct policydb *db, const char *type,
 -#define avtab_for_each(avtab, cur) ksu_hash_for_each(avtab.htable, avtab.nslot, cur)
 +#define avtab_for_each(avtab, cur) ksu_avtab_for_each(avtab, cur)
-@@ -165 +166,0 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
+@@ -165 +169,0 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
 -    int i;
-@@ -167,3 +168,2 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
+@@ -167,3 +171,2 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
 -    // https://github.com/torvalds/linux/blob/v6.1/security/selinux/ss/avtab.c#L619
 -    int shrink_size = sizeof(node->key.source_type) + sizeof(node->key.target_type) + sizeof(node->key.target_class) +
 -                      sizeof(node->key.specified);
 +    int shrink_size = sizeof(node->key.source_type) + sizeof(node->key.target_type) +
 +                      sizeof(node->key.target_class) + sizeof(node->key.specified);
-@@ -171,2 +170,0 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
+@@ -171,2 +173,0 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
 -    struct avtab_node *n;
 -    struct avtab_node *prev;
-@@ -178,29 +176,3 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
+@@ -178,29 +179,3 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
 -    for (i = 0; i < db->te_avtab.nslot; i++) {
 -        prev = NULL;
 -        for (n = db->te_avtab.htable[i]; n; prev = n, n = n->next) {
@@ -575,7 +581,7 @@ index 1e8ebb39..84a4b099 100644
 +    if (!ksu_avtab_move_node(&db->te_avtab, &removed, node)) {
 +        avtab_destroy(&removed);
 +        return false;
-@@ -208,0 +181,7 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
+@@ -208,0 +184,7 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
 +    if (node->key.specified & AVTAB_XPERMS)
 +        shrink_size += sizeof(node->datum.u.xperms->specified) +
 +                       sizeof(node->datum.u.xperms->driver) +
@@ -583,16 +589,93 @@ index 1e8ebb39..84a4b099 100644
 +    else
 +        shrink_size += sizeof(node->datum.u.data);
 +
-@@ -210 +189,3 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
+@@ -210 +192,3 @@ static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
 -    return false;
 +    if (db->len >= shrink_size)
 +        db->len -= shrink_size;
 +    return true;
-@@ -562,0 +544,3 @@ static const struct hashtab_key_params filenametr_key_params = {
+@@ -562,0 +547,3 @@ static const struct hashtab_key_params filenametr_key_params = {
 +#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 7, 0)
 +#include "filename_trans_compat.h"
 +#else
-@@ -651,0 +636 @@ out:
+@@ -651,0 +639 @@ out:
++#endif
+@@ -694,0 +683,5 @@ static bool add_type(struct policydb *db, const char *type_name, bool attr)
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
++    /* BLOCKED: adding a type requires an atomic index and role transaction. */
++    pr_err("add_type: Linux 4.19 type creation is blocked\n");
++    return false;
++#else
+@@ -759,0 +753 @@ static bool add_type(struct policydb *db, const char *type_name, bool attr)
++#endif
+@@ -788 +782 @@ static bool set_type_state(struct policydb *db, const char *type_name,
+-static void add_typeattribute_raw(struct policydb *db, struct type_datum *type,
++static bool add_typeattribute_raw(struct policydb *db, struct type_datum *type,
+@@ -790,0 +785,5 @@ static void add_typeattribute_raw(struct policydb *db, struct type_datum *type,
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
++    /* BLOCKED: map and constraint updates must commit or roll back together. */
++    pr_err("add_typeattribute: Linux 4.19 attribute update is blocked\n");
++    return false;
++#else
+@@ -808,0 +808,2 @@ static void add_typeattribute_raw(struct policydb *db, struct type_datum *type,
++    return true;
++#endif
+@@ -832,2 +833 @@ static bool add_typeattribute(struct policydb *db, const char *type,
+-    add_typeattribute_raw(db, type_d, attr_d);
+-    return true;
++    return add_typeattribute_raw(db, type_d, attr_d);
+diff --git a/kernel/selinux/type_index_compat.h b/kernel/selinux/type_index_compat.h
+new file mode 100644
+index 00000000..1f241071
+--- /dev/null
++++ b/kernel/selinux/type_index_compat.h
+@@ -0,0 +1,47 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef KSU_TYPE_INDEX_COMPAT_H
++#define KSU_TYPE_INDEX_COMPAT_H
++
++/* Callers must serialize access to an isolated policydb. Indexes are zero based. */
++static struct type_datum *ksu_type_index_get(struct policydb *db, u32 index)
++{
++    struct flex_array *array;
++
++    if (!db || index >= db->p_types.nprim)
++        return NULL;
++    array = db->type_val_to_struct_array;
++    if (!array || index >= array->total_nr_elements)
++        return NULL;
++    return flex_array_get_ptr(array, index);
++}
++
++static struct ebitmap *ksu_type_attr_index_get(struct policydb *db, u32 index)
++{
++    struct flex_array *array;
++
++    if (!db || index >= db->p_types.nprim)
++        return NULL;
++    array = db->type_attr_map_array;
++    if (!array || index >= array->total_nr_elements)
++        return NULL;
++    return flex_array_get(array, index);
++}
++
++static char *ksu_type_name_index_get(struct policydb *db, u32 index)
++{
++    struct flex_array *array;
++
++    if (!db || index >= db->p_types.nprim)
++        return NULL;
++    array = db->sym_val_to_name[SYM_TYPES];
++    if (!array || index >= array->total_nr_elements)
++        return NULL;
++    return flex_array_get_ptr(array, index);
++}
++
++static struct type_datum *ksu_type_value_get(struct policydb *db, u32 value)
++{
++    return value ? ksu_type_index_get(db, value - 1) : NULL;
++}
++
 +#endif
 diff --git a/kernel/sulog/event.c b/kernel/sulog/event.c
 index 17375e1c..6f3b50e2 100644
