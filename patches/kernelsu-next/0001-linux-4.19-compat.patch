@@ -448,8 +448,81 @@ index 00000000..15904df9
 +		     (node) = (node)->next)
 +
 +#endif
+diff --git a/kernel/selinux/filename_trans_compat.h b/kernel/selinux/filename_trans_compat.h
+new file mode 100644
+index 00000000..e8c96548
+--- /dev/null
++++ b/kernel/selinux/filename_trans_compat.h
+@@ -0,0 +1,67 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Linux 4.19 filename transition layout. Caller must serialize policydb writes. */
++static bool add_filename_trans(struct policydb *db, const char *s,
++                               const char *t, const char *c, const char *d,
++                               const char *o)
++{
++    struct type_datum *src, *tgt, *def;
++    struct class_datum *cls;
++    struct filename_trans key, *new_key;
++    struct filename_trans_datum *trans;
++    bool had_bit;
++    int rc;
++
++    if (!s || !t || !c || !d || !o)
++        return false;
++    src = symtab_search(&db->p_types, s);
++    tgt = symtab_search(&db->p_types, t);
++    cls = symtab_search(&db->p_classes, c);
++    def = symtab_search(&db->p_types, d);
++    if (!src || !tgt || !cls || !def || !src->value || !tgt->value ||
++        !def->value || !cls->value || cls->value > 0xffff)
++        return false;
++
++    key.stype = src->value;
++    key.ttype = tgt->value;
++    key.tclass = cls->value;
++    key.name = o;
++    trans = hashtab_search(db->filename_trans, &key);
++    if (trans) {
++        /* A conflicting rule is rejected; an identical one is idempotent. */
++        if (trans->otype != def->value)
++            return false;
++        return ebitmap_set_bit(&db->filename_trans_ttypes, key.ttype, 1) == 0;
++    }
++
++    new_key = kzalloc(sizeof(*new_key), GFP_KERNEL);
++    if (!new_key)
++        return false;
++    *new_key = key;
++    new_key->name = kstrdup(o, GFP_KERNEL);
++    if (!new_key->name)
++        goto free_key;
++    trans = kzalloc(sizeof(*trans), GFP_KERNEL);
++    if (!trans)
++        goto free_name;
++    trans->otype = def->value;
++
++    had_bit = ebitmap_get_bit(&db->filename_trans_ttypes, key.ttype);
++    rc = ebitmap_set_bit(&db->filename_trans_ttypes, key.ttype, 1);
++    if (rc)
++        goto free_trans;
++    rc = hashtab_insert(db->filename_trans, new_key, trans);
++    if (rc) {
++        if (!had_bit)
++            ebitmap_set_bit(&db->filename_trans_ttypes, key.ttype, 0);
++        goto free_trans;
++    }
++    return true;
++
++free_trans:
++    kfree(trans);
++free_name:
++    kfree(new_key->name);
++free_key:
++    kfree(new_key);
++    return false;
++}
 diff --git a/kernel/selinux/sepolicy.c b/kernel/selinux/sepolicy.c
-index 1e8ebb39..6c72a303 100644
+index 1e8ebb39..84a4b099 100644
 --- a/kernel/selinux/sepolicy.c
 +++ b/kernel/selinux/sepolicy.c
 @@ -12,0 +13,2 @@
@@ -515,6 +588,12 @@ index 1e8ebb39..6c72a303 100644
 +    if (db->len >= shrink_size)
 +        db->len -= shrink_size;
 +    return true;
+@@ -562,0 +544,3 @@ static const struct hashtab_key_params filenametr_key_params = {
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 7, 0)
++#include "filename_trans_compat.h"
++#else
+@@ -651,0 +636 @@ out:
++#endif
 diff --git a/kernel/sulog/event.c b/kernel/sulog/event.c
 index 17375e1c..6f3b50e2 100644
 --- a/kernel/sulog/event.c

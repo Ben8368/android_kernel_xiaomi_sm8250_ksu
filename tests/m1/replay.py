@@ -27,12 +27,14 @@ for name in (queue / "series").read_text().splitlines():
     for args in (["--check"], []):
         subprocess.run(["git", "apply", "--unidiff-zero", *args, str(patch)], cwd=dest, check=True)
 files = subprocess.check_output(["git", "ls-tree", "-r", "--name-only", base], cwd=sub, text=True).splitlines()
-files += ["kernel/infra/task_work_compat.h"]
+files += subprocess.check_output(["git", "diff", "--name-only", "HEAD"], cwd=sub, text=True).splitlines()
+files += subprocess.check_output(["git", "ls-files", "--others", "--exclude-standard"], cwd=sub, text=True).splitlines()
 manifest = {}
 for name in sorted(set(files)):
     source, replay = sub / name, dest / name
-    if not replay.is_file() or replay.is_symlink():
+    if not source.is_file() or source.is_symlink():
         continue
+    assert replay.is_file() and not replay.is_symlink(), f"missing replay file: {name}"
     expected, actual = source.read_bytes(), replay.read_bytes()
     assert expected == actual, f"replay differs: {name}"
     manifest[name] = hashlib.sha256(actual).hexdigest()

@@ -16,8 +16,10 @@ git -C KernelSU-Next apply --unidiff-zero --check ../patches/kernelsu-next/0001-
 git -C KernelSU-Next apply --unidiff-zero ../patches/kernelsu-next/0001-linux-4.19-compat.patch
 ```
 
-The queue is compile compatibility work in progress. It does not claim a
-working Seccomp reboot handshake or a Linux 4.19 SELinux policy adapter.
+The queue is compile compatibility work in progress. The Linux 4.19 filename
+transition helper is tested on isolated fixtures, not on an active policy.
+It does not claim a working Seccomp reboot handshake or a complete SELinux
+policy adapter; publication and transaction safety remain blocked.
 
 For a non-destructive, clean-source replay test without changing the live
 submodule, use `python3 tests/m1/replay.py /absolute/new/empty-test-directory`.
